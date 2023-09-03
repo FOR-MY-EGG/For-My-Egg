@@ -4,11 +4,12 @@ import lombok.*;
 
 import javax.persistence.*;
 
+import com.shinhan.formyegg.domain.member.entity.Member;
+
 @Entity(name = "account")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-@Setter
 @Builder
 public class Account {
 
