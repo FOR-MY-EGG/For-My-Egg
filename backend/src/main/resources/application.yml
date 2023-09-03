@@ -2,11 +2,11 @@ server:
   port: 8080
 
 spring:
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://i9a605.p.ssafy.io:3306/MFC
-#    username: ssafy
-#    password: a605_ssafy_db
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/egg?serverTimezone=Asia/Seoul&useUnicode=true&characterEncoding=utf8
+    username: root
+    password: root
   jpa:
     hibernate:
       ddl-auto: none
