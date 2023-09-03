@@ -1,6 +1,8 @@
 package com.shinhan.formyegg.domain.chat.entity;
 
 import com.shinhan.formyegg.domain.BaseTimeEntity;
+import com.shinhan.formyegg.domain.member.entity.Member;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,9 +20,10 @@ public class Chat extends BaseTimeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private long chatId;
-//    @ManyToOne
-//    @JoinColumn(name="memberId")
-//    private Member member;
+
+    @ManyToOne
+    @JoinColumn(name="memberId")
+    private Member member;
     private String content;
     private int affiliation;
     private int type;
