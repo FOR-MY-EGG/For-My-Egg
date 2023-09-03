@@ -267,4 +267,10 @@ gradle-app.setting
 # Java heap dump
 *.hprof
 
+# localstack
+loaclstack/mariadb
+
+### ENV
+.env
+
 # End of https://www.toptal.com/developers/gitignore/api/java,intellij+all,eclipse,gradle,macos,windows
