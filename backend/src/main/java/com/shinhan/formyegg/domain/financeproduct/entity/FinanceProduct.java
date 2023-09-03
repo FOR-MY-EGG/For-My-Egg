@@ -17,13 +17,13 @@ public class FinanceProduct {
     @Id
     @Column(name = "product_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int productId;
+    private Long productId;
 
-    @Column(name = "product_name", nullable=false)
-    private String productName;
+    @Column(name = "name", nullable=false, length=45)
+    private String name;
 
-    @Column(name = "product_intro", nullable=false)
-    private String productIntro;
+    @Column(name = "intro", nullable=false, length=128)
+    private String intro;
 
     @Column(name = "target_start", nullable=false)
     private int targetStart;
@@ -31,7 +31,7 @@ public class FinanceProduct {
     @Column(name = "target_end", nullable=false)
     private int targetEnd;
 
-    @Column(name = "product_type", nullable=false)
-    private String productType;
+    @Column(name = "type", nullable=false, length=45)
+    private String type;
 
 }
