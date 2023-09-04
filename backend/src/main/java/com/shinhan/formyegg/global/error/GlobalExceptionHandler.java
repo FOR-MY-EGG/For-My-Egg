@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import com.shinhan.formyegg.global.error.exception.BusinessException;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -37,5 +39,13 @@ public class GlobalExceptionHandler {
 		log.error("handleHttpRequestMethodNotSupportedException", e);
 		ErrorResponse errorResponse = ErrorResponse.of(HttpStatus.METHOD_NOT_ALLOWED.toString(), e.getMessage());
 		return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED).body(errorResponse);
+	}
+
+	@ExceptionHandler(value = {BusinessException.class})
+	protected ResponseEntity<ErrorResponse> handleConflict(BusinessException e) {
+		log.error("BusinessException", e);
+		ErrorResponse errorResponse = ErrorResponse.of(e.getErrorCode().getErrorCode(), e.getMessage());
+		return ResponseEntity.status(e.getErrorCode().getHttpStatus())
+			.body(errorResponse);
 	}
 }
