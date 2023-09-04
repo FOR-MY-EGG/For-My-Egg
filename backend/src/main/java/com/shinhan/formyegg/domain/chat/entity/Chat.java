@@ -18,13 +18,14 @@ import javax.persistence.*;
 public class Chat extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column
     private long chatId;
 
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.ALL)
     @JoinColumn(name="memberId")
     private Member member;
+    @Column(nullable = false, length = 255)
     private String content;
     private int affiliation;
+    @Column(columnDefinition = "TINYINT", length = 4)
     private int type;
 }
