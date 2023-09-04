@@ -21,11 +21,12 @@ public class Chat extends BaseTimeEntity {
     private long chatId;
 
     @ManyToOne(cascade=CascadeType.ALL)
-    @JoinColumn(name="memberId")
+    @JoinColumn(nullable = false, name="writer")
     private Member member;
     @Column(nullable = false, length = 255)
     private String content;
+    @Column(nullable = false)
     private int affiliation;
-    @Column(columnDefinition = "TINYINT", length = 4)
+    @Column(nullable = false, columnDefinition = "TINYINT", length = 4)
     private int type;
 }

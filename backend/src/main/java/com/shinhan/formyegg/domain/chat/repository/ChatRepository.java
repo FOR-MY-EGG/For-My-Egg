@@ -10,5 +10,5 @@
 
  @Repository
  public interface ChatRepository extends JpaRepository<Chat, Long> {
-     List<ChatListRes> findChatByAffiliationAndOrderByCreateDate(@Param("affiliation") int affiliation);
+     List<Chat> findChatByAffiliationOrderByCreateDate(@Param("affiliation") int affiliation);
  }
