@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name="finance_product")
+@Table(name="policy")
 @Getter
 @Setter
 @Builder
