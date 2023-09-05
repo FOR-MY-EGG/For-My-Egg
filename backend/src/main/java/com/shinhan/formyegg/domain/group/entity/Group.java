@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity(name = "family_group")
 @AllArgsConstructor
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Setter
 @Builder

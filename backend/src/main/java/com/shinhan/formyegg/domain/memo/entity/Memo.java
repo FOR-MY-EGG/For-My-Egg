@@ -1,10 +1,9 @@
-package com.shinhan.formyegg.domain.chat.entity;
+package com.shinhan.formyegg.domain.memo.entity;
 
 import com.shinhan.formyegg.domain.BaseTimeEntity;
+import com.shinhan.formyegg.domain.child.entity.Child;
 import com.shinhan.formyegg.domain.member.entity.Member;
-
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -13,23 +12,28 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class Chat extends BaseTimeEntity {
+public class Memo extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long chatId;
+    private long memoId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id")
     private Member memberId;
 
-    @Column(nullable = false)
-    @ColumnDefault("0")
-    private int affiliation;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="child_id")
+    private Child childId;
 
     @Column(nullable = false)
-    @ColumnDefault("0")
-    private int type;
+    private int amount;
 
+    @Column(nullable = false, length = 50)
+    private String title;
+
+    @Column(nullable = false)
     private String content;
+
+    private String image;
 }

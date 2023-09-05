@@ -252,7 +252,6 @@ CREATE TABLE `member` (
   `income_rank` int(11) DEFAULT NULL,
   `name` varchar(10) NOT NULL,
   `nickname` varchar(20) DEFAULT NULL,
-  `age` int(11) DEFAULT NULL,
   `kakao_id` varchar(45) NOT NULL,
   `kakao_token` varchar(255) NOT NULL,
   PRIMARY KEY (`member_id`)

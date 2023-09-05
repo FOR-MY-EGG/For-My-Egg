@@ -7,21 +7,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import com.shinhan.formyegg.domain.BaseTimeEntity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 @Entity
 @Getter
 @Builder
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@EntityListeners(AuditingEntityListener.class)
 public class Member extends BaseTimeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +30,7 @@ public class Member extends BaseTimeEntity {
 	@Column(nullable = false, length = 10)
 	private String name;
 
-	@Column(nullable = false, length = 10)
+	@Column(nullable = false, length = 20)
 	private String nickname;
 
 	@Column(nullable = false, unique = true)

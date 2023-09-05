@@ -22,11 +22,11 @@ public class Child {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private Group family;
+    private Group groupId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private Account account;
+    private Account accountId;
 
     @Column(name = "name", nullable = false, length = 20)
     private String name;
