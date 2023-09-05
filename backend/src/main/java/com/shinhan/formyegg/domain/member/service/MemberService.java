@@ -11,5 +11,7 @@ public interface MemberService {
 
 	Optional<MemberDto> getMemberByMemberId(Long memberId);
 
+	MemberDto updateNickname(MemberDto memberDto);
+
 	MemberDto updateProfile(MemberDto memberDto);
 }
