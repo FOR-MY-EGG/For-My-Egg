@@ -1,5 +1,6 @@
 package com.shinhan.formyegg.domain.account.dto;
 
+import com.shinhan.formyegg.domain.account.entity.Account;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -17,4 +18,14 @@ public class AccountDto {
     private String number;
 
     private Long balance;
+
+    public static AccountDto from(Account account){
+        return AccountDto.builder()
+                .accountId(account.getAccountId())
+                .memberId(account.getMemberId().getMemberId())
+                .balance(account.getBalance())
+                .nickname(account.getNickname())
+                .number(account.getNumber())
+                .build();
+    }
 }
