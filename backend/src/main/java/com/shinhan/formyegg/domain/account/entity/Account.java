@@ -1,5 +1,6 @@
 package com.shinhan.formyegg.domain.account.entity;
 
+import com.shinhan.formyegg.domain.account.dto.AccountDto;
 import lombok.*;
 
 import javax.persistence.*;
@@ -31,5 +32,16 @@ public class Account {
     @Column(name = "balance", nullable = false)
     private Long balance;
 
+    public static Account from(AccountDto accountDto){
+        return Account.builder()
+                .accountId(accountDto.getAccountId())
+                .memberId(Member.from(accountDto.getMemberId()))
+                .nickname(accountDto.getNickname())
+                .balance(accountDto.getBalance())
+                .number(accountDto.getNumber())
+                .build();
+    }
 
+    public void updateNickname(String nickname) {
+    }
 }
