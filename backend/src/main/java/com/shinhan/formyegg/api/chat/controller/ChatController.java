@@ -22,8 +22,7 @@
 
      @ApiOperation(value = "채팅 내역 조회", notes = "커뮤니티 타입으로 채팅 내역 조회")
      @GetMapping("/{affiliation}")
-     public ResponseEntity<List<ChatRes>> getChatRoomsByMemberNo(@PathVariable int affiliation) {
-
+     public ResponseEntity<List<ChatRes>> getChatsByAffiliation(@PathVariable int affiliation) {
          return ResponseEntity.ok().body(ChatRes.from(chatService.findChatsByAffiliation(affiliation)));
      }
  }
