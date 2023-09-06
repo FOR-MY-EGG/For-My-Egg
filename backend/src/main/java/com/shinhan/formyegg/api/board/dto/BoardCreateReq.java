@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Builder
 @Data
-public class BoardReq {
+public class BoardCreateReq {
     private long writer;
     private int affiliation;
     private String title;

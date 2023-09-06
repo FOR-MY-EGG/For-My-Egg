@@ -1,8 +1,6 @@
 package com.shinhan.formyegg.api.board.dto;
 
-import com.shinhan.formyegg.api.chat.dto.ChatRes;
 import com.shinhan.formyegg.domain.board.dto.BoardDto;
-import com.shinhan.formyegg.domain.chat.dto.ChatDto;
 import lombok.Builder;
 import lombok.Data;
 
@@ -10,7 +8,7 @@ import java.time.LocalDateTime;
 
 @Builder
 @Data
-public class BoardRes {
+public class BoardCreateRes {
     private long boardId;
     private long writer;
     private int affiliation;
@@ -20,8 +18,8 @@ public class BoardRes {
     private LocalDateTime createdDate;
     private String image;
 
-    public static BoardRes from(BoardDto boardDto) {
-        return BoardRes.builder()
+    public static BoardCreateRes from(BoardDto boardDto) {
+        return BoardCreateRes.builder()
                 .boardId(boardDto.getBoardId())
                 .writer(boardDto.getWriter())
                 .affiliation(boardDto.getAffiliation())

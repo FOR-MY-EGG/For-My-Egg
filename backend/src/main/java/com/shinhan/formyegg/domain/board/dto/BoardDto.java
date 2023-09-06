@@ -1,19 +1,11 @@
 package com.shinhan.formyegg.domain.board.dto;
 
-import com.shinhan.formyegg.api.board.dto.BoardReq;
-import com.shinhan.formyegg.api.chat.dto.ChatReq;
+import com.shinhan.formyegg.api.board.dto.BoardCreateReq;
 import com.shinhan.formyegg.domain.board.entity.Board;
-import com.shinhan.formyegg.domain.chat.entity.Chat;
-import com.shinhan.formyegg.domain.member.entity.Member;
 import lombok.Builder;
 import lombok.Getter;
-import org.hibernate.annotations.ColumnDefault;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
 @Getter
@@ -29,7 +21,7 @@ public class BoardDto {
     private LocalDateTime createDate;
     private MultipartFile imageFile;
 
-    public static BoardDto from(BoardReq boardReq, MultipartFile image){
+    public static BoardDto from(BoardCreateReq boardReq, MultipartFile image){
         return BoardDto.builder()
                 .writer(boardReq.getWriter())
                 .affiliation(boardReq.getAffiliation())

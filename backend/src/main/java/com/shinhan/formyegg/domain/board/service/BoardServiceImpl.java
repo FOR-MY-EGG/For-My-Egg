@@ -7,6 +7,7 @@ import com.shinhan.formyegg.domain.member.entity.Member;
 import com.shinhan.formyegg.domain.member.repository.MemberRepository;
 import com.shinhan.formyegg.domain.member.service.MemberService;
 import com.shinhan.formyegg.global.error.ErrorCode;
+import com.shinhan.formyegg.global.error.exception.BoardException;
 import com.shinhan.formyegg.global.error.exception.MemberException;
 import com.shinhan.formyegg.global.util.S3Uploader;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +37,13 @@ public class BoardServiceImpl implements BoardService {
         String storedImageName = s3Uploader.upload(boardDto.getImageFile(), imagePath);
         Board board = boardRepository.save(Board.from(boardDto, optionalMember.get(), storedImageName));
         return BoardDto.from(board);
+    }
+
+    @Override
+    public BoardDto detailBoard(long boardId) throws BoardException{
+        Optional<Board> optionalBoard = boardRepository.findById(boardId);
+        if(!optionalBoard.isPresent()) throw new BoardException(ErrorCode.NOT_EXIST_BOARD);
+        return BoardDto.from(optionalBoard.get());
     }
 }
 
