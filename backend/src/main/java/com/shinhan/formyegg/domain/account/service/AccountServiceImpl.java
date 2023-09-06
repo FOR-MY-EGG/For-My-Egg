@@ -1,8 +1,11 @@
 package com.shinhan.formyegg.domain.account.service;
 
 import com.shinhan.formyegg.domain.account.dto.AccountDto;
+import com.shinhan.formyegg.domain.account.entity.Account;
 import com.shinhan.formyegg.domain.account.repository.AccountRepository;
 import com.shinhan.formyegg.domain.member.repository.MemberRepository;
+import com.shinhan.formyegg.global.error.ErrorCode;
+import com.shinhan.formyegg.global.error.exception.AccountException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,13 +18,19 @@ import java.util.Optional;
 @Transactional
 public class AccountServiceImpl implements AccountService{
 
-    private final MemberRepository memberRepository;
     private final AccountRepository accountRepository;
 
     @Override
-    public Optional<AccountDto> getAccountByAccountId(Long accountId) {
-        return Optional.empty();
+    public AccountDto createAccount(AccountDto accountDto) {
+        Account account = Account.from(accountDto);
+        accountRepository.save(account);
+        return AccountDto.from(account);
     }
+
+//    @Override
+//    public Optional<AccountDto> getAccountByAccountId(Long accountId) {
+//        return Optional.empty();
+//    }
 
     @Override
     public Optional<AccountDto> getAccountByAccountNumber(String accountNumber) {
