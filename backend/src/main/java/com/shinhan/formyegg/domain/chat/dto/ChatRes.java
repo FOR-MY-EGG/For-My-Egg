@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Data
 @Builder
-public class ChatListRes {
+public class ChatRes {
     private long chatNo;
     private long writer;
     private int type;
