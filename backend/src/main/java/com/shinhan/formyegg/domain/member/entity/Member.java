@@ -2,14 +2,12 @@ package com.shinhan.formyegg.domain.member.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.shinhan.formyegg.domain.member.dto.MemberDto;
 import lombok.*;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
 import com.shinhan.formyegg.domain.BaseTimeEntity;
 
 @Entity
@@ -38,4 +36,26 @@ public class Member extends BaseTimeEntity {
 
 	@Column(nullable = false)
 	private String kakaoToken;
+
+	public static Member from(MemberDto memberDto){
+		return Member.builder()
+				.memberId(memberDto.getMemberId())
+				.address(memberDto.getAddress())
+				.incomeRank(memberDto.getIncomeRank())
+				.name(memberDto.getName())
+				.nickname(memberDto.getNickname())
+				.kakaoId(memberDto.getKakaoId())
+				.kakaoToken(memberDto.getKakaoToken())
+				.build();
+	}
+
+	public void updateNickname(String nickname){
+		this.nickname = nickname;
+	}
+
+	public void updateAddressAndIncomeRank(String address, int incomeRank){
+		this.address = address;
+		this.incomeRank = incomeRank;
+
+	}
 }

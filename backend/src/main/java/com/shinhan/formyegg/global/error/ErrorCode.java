@@ -7,6 +7,9 @@ import lombok.Getter;
 @Getter
 public enum ErrorCode {
 	// TEST(HttpStatus.INTERNAL_SERVER_ERROR, "001", "businessExceptionTest")
+
+	// 회원
+	NOT_EXIST_MEMBER(HttpStatus.NOT_FOUND, "M-001", "존재하지 않는 회원입니다.")
 	;
 
 	ErrorCode(HttpStatus httpStatus, String errorCode, String message) {
