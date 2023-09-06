@@ -38,8 +38,13 @@ public class AccountServiceImpl implements AccountService{
     }
 
     @Override
-    public AccountDto createAccount(AccountDto accountDto) {
-        return null;
+    public AccountDto updateNickname(AccountDto accountDto) {
+        Optional<Account> optionalAccount = accountRepository.findAccountByNumber(accountDto.getNumber());
+        if(optionalAccount.isEmpty()){
+            throw new AccountException(ErrorCode.NOT_EXIST_MEMBER);
+        }
+        optionalAccount.get().updateNickname(accountDto.getNickname());
+        return accountDto;
     }
 
     @Override
