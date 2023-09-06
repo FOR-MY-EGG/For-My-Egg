@@ -1,6 +1,6 @@
  package com.shinhan.formyegg.api.chat.controller;
 
- import com.shinhan.formyegg.domain.chat.dto.ChatRes;
+ import com.shinhan.formyegg.api.chat.dto.ChatRes;
  import com.shinhan.formyegg.domain.chat.service.ChatService;
  import io.swagger.annotations.Api;
  import io.swagger.annotations.ApiOperation;
@@ -23,6 +23,7 @@
      @ApiOperation(value = "채팅 내역 조회", notes = "커뮤니티 타입으로 채팅 내역 조회")
      @GetMapping("/{affiliation}")
      public ResponseEntity<List<ChatRes>> getChatRoomsByMemberNo(@PathVariable int affiliation) {
-         return ResponseEntity.ok().body(chatService.findChatsByAffiliation(affiliation));
+
+         return ResponseEntity.ok().body(ChatRes.from(chatService.findChatsByAffiliation(affiliation)));
      }
  }

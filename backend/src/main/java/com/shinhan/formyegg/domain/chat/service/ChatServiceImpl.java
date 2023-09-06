@@ -1,7 +1,8 @@
  package com.shinhan.formyegg.domain.chat.service;
 
- import com.shinhan.formyegg.domain.chat.dto.ChatReq;
- import com.shinhan.formyegg.domain.chat.dto.ChatRes;
+ import com.shinhan.formyegg.api.chat.dto.ChatReq;
+ import com.shinhan.formyegg.api.chat.dto.ChatRes;
+ import com.shinhan.formyegg.domain.chat.dto.ChatDto;
  import com.shinhan.formyegg.domain.chat.entity.Chat;
  import com.shinhan.formyegg.domain.chat.repository.ChatRepository;
  import com.shinhan.formyegg.domain.member.entity.Member;
@@ -22,17 +23,16 @@
      private final ChatRepository chatRepository;
      private final MemberRepository memberRepository;
      @Override
-     public List<ChatRes> findChatsByAffiliation(int affiliation) {
-         return chatRepository.findChatByAffiliationAndOrderByCreateDate(affiliation);
+     public List<ChatDto> findChatsByAffiliation(int affiliation) {
+         return chatRepository.findChatByAffiliationOrderByCreateDate(affiliation);
      }
 
      @Override
-     public ChatRes sendChat(ChatReq chatReq) throws MemberException {
-         Optional<Member> optionalMember = memberRepository.findByMemberId(chatReq.getWriter());
+     public ChatDto sendChat(ChatDto chatDto) throws MemberException {
+         Optional<Member> optionalMember = memberRepository.findByMemberId(chatDto.getWriter());
          if(!optionalMember.isPresent()) throw new MemberException(ErrorCode.NOT_EXIST_MEMBER);
-         ChatRes tmp = ChatRes.builder().build();
-         return tmp;
-//         return chatRepository.save(chatReq.toEntity(optionalMember.get()));
+         Chat chat = chatRepository.save(Chat.from(chatDto, optionalMember.get()));
+         return ChatDto.from(chat);
      }
  }
 

@@ -1,4 +1,4 @@
-package com.shinhan.formyegg.domain.chat.dto;
+package com.shinhan.formyegg.api.chat.dto;
 
 import com.shinhan.formyegg.domain.chat.entity.Chat;
 import com.shinhan.formyegg.domain.member.entity.Member;
@@ -12,12 +12,4 @@ public class ChatReq {
     private int affiliation;
     private int type;
     private String content;
-
-    public Chat toEntity(Member member) {
-        return Chat.builder()
-                .memberId(member)
-                .affiliation(affiliation)
-                .content(content)
-                .type(type).build();
-    }
 }
