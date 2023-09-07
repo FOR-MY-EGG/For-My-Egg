@@ -1,6 +1,7 @@
 package com.shinhan.formyegg.domain.board.entity;
 
 import com.shinhan.formyegg.domain.BaseTimeEntity;
+import com.shinhan.formyegg.domain.board.dto.BoardDto;
 import com.shinhan.formyegg.domain.member.entity.Member;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
@@ -20,7 +22,7 @@ public class Board extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="member_id")
-    private Member memberId;
+    private Member writer;
 
     private int affiliation;
 
@@ -35,4 +37,15 @@ public class Board extends BaseTimeEntity {
     private int view;
 
     private String image;
+
+    public static Board from(BoardDto boardDto, Member member, String image) {
+        return Board.builder()
+                .writer(member)
+                .affiliation(boardDto.getAffiliation())
+                .title(boardDto.getTitle())
+                .content(boardDto.getContent())
+                .view(0)
+                .image(image)
+                .build();
+    }
 }
