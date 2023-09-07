@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-@Repository
 public interface CommentRepository extends JpaRepository<Comment, Long> {
-    List<Comment> findCommentsByBoardIdOrderByCreateDate(long boardId);
+    List<Comment> findCommentsByBoardId_BoardIdOrderByCreateDate(long boardId);
 }

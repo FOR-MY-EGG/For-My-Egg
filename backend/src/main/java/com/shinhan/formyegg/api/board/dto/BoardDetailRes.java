@@ -22,9 +22,9 @@ public class BoardDetailRes {
     private String image;
     private List<CommentRes> comments;
 
-    public static BoardDetailRes from(BoardDto boardDto, List<CommentDto> comments) {
+    public static BoardDetailRes from(BoardDto boardDto, List<CommentRes> comments) {
         List<CommentRes> commentResList = new ArrayList<>();
-        for(CommentDto commentDto: comments) {
+        for(CommentRes commentDto: comments) {
             commentResList.add(
                     CommentRes.builder()
                             .commentId(commentDto.getCommentId())
