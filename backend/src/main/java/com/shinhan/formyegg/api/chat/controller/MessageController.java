@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 public class MessageController {
-    private final SimpMessageSendingOperations smso;
+//    private final SimpMessageSendingOperations smso;
     private final ChatService chatService;
 
 
     @MessageMapping("chat.message")
     public void message(ChatReq message) {
         ChatDto chatDto = chatService.sendChat(ChatDto.from(message));
-        smso.convertAndSend("/topic/room."+message.getAffiliation(), ChatRes.from(chatDto));
+//        smso.convertAndSend("/topic/room."+message.getAffiliation(), ChatRes.from(chatDto));
     }
 }
