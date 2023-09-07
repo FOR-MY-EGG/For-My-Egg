@@ -1,5 +1,6 @@
 package com.shinhan.formyegg.domain.comment.entity;
 
+import com.shinhan.formyegg.api.comment.dto.CommentReq;
 import com.shinhan.formyegg.domain.BaseTimeEntity;
 import com.shinhan.formyegg.domain.board.entity.Board;
 import com.shinhan.formyegg.domain.member.entity.Member;
@@ -28,4 +29,12 @@ public class Comment extends BaseTimeEntity {
     private Member memberId;
 
     private String content;
+
+    public static Comment from(CommentReq commentReq, Member member, Board board) {
+        return Comment.builder()
+                .boardId(board)
+                .memberId(member)
+                .content(commentReq.getContent())
+                .build();
+    }
 }

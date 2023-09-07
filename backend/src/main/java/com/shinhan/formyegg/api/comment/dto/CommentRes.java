@@ -31,4 +31,13 @@ public class CommentRes {
         }
         return res;
     }
+
+    public static CommentRes from(Comment comment) {
+        return CommentRes.builder()
+                .commentId(comment.getCommentId())
+                .content(comment.getContent())
+                .createDate(comment.getCreateDate())
+                .nickname(comment.getMemberId().getNickname())
+                .build();
+    }
 }
