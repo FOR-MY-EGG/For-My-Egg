@@ -14,7 +14,8 @@
  @Getter
  @Setter
  @Builder
- public class Invitation implements Serializable {
+ @IdClass(InvitationId.class)
+ public class Invitation{
 
      @Id
      @ManyToOne(fetch = FetchType.LAZY)
