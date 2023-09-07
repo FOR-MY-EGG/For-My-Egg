@@ -22,7 +22,7 @@
      private Group familyId;
 
      @Id
-     @ManyToOne(fetch = FetchType.LAZY)
+     @OneToOne(fetch = FetchType.LAZY)
      @JoinColumn(name = "member_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
      private Member memberId;
  }

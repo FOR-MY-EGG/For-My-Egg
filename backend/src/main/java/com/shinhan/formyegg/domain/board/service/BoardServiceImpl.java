@@ -8,6 +8,9 @@ import com.shinhan.formyegg.domain.member.repository.MemberRepository;
 import com.shinhan.formyegg.global.error.ErrorCode;
 import com.shinhan.formyegg.global.error.exception.BoardException;
 import com.shinhan.formyegg.global.error.exception.MemberException;
+
+//import com.shinhan.formyegg.global.util.S3Uploader;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,7 +26,6 @@ public class BoardServiceImpl implements BoardService {
     private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
 //    private final S3Uploader s3Uploader;
-//
 //    @Value("${board.image.path}")
 //    private String imagePath;
 

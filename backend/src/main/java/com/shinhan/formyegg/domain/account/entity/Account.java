@@ -1,5 +1,7 @@
 package com.shinhan.formyegg.domain.account.entity;
 
+import com.shinhan.formyegg.domain.account.dto.AccountDto;
+import com.shinhan.formyegg.domain.child.entity.Child;
 import lombok.*;
 
 import javax.persistence.*;
@@ -19,17 +21,19 @@ public class Account {
     private Long accountId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private Member member;
+    @JoinColumn(name = "child_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
+    private Child childId;
 
     @Column(name = "nickname", nullable = false, length = 45)
     private String nickname;
 
-    @Column(name = "number", nullable = false, length = 45)
+    @Column(name = "number", nullable = false, length = 45, unique = true)
     private String number;
 
     @Column(name = "balance", nullable = false)
     private Long balance;
 
-
+    public void updateNickname(String nickname) {
+        this.nickname = nickname;
+    }
 }

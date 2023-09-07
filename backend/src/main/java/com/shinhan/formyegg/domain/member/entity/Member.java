@@ -37,6 +37,11 @@ public class Member extends BaseTimeEntity {
 	@Column(nullable = false)
 	private String kakaoToken;
 
+	public static Member from(Long memberId){
+		return Member.builder()
+				.memberId(memberId)
+				.build();
+	}
 	public static Member from(MemberDto memberDto){
 		return Member.builder()
 				.memberId(memberDto.getMemberId())

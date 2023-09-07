@@ -10,10 +10,12 @@ import com.shinhan.formyegg.domain.member.repository.MemberRepository;
 
 import lombok.RequiredArgsConstructor;
 
+import javax.transaction.Transactional;
 import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class MemberServiceImpl implements MemberService{
 	private final MemberRepository memberRepository;
 
