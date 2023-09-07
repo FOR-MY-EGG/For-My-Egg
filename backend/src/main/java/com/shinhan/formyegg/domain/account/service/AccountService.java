@@ -6,12 +6,6 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AccountService {
-
-//    Optional<AccountDto> getAccountByAccountId(Long accountId);
-    Optional<AccountDto> getAccountByAccountNumber(String accountNumber);
-    AccountDto createAccount(AccountDto accountDto);
-
+    AccountDto getAccountByAccountNumber(String accountNumber);
     AccountDto updateNickname(AccountDto accountDto);
-
-    List<AccountDto> getAccountByMemberId(Long memberId);
 }
