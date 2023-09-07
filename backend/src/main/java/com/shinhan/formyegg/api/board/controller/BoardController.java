@@ -4,6 +4,7 @@
  import com.shinhan.formyegg.api.board.dto.BoardCreateRes;
  import com.shinhan.formyegg.api.board.dto.BoardDetailRes;
  import com.shinhan.formyegg.domain.board.dto.BoardDto;
+ import com.shinhan.formyegg.domain.board.entity.Board;
  import com.shinhan.formyegg.domain.board.service.BoardService;
  import com.shinhan.formyegg.domain.comment.service.CommentService;
  import com.shinhan.formyegg.global.error.exception.BoardException;
@@ -12,6 +13,7 @@
  import io.swagger.annotations.ApiOperation;
  import lombok.RequiredArgsConstructor;
  import org.springframework.http.ResponseEntity;
+ import org.springframework.transaction.annotation.Transactional;
  import org.springframework.web.bind.annotation.*;
  import org.springframework.web.multipart.MultipartFile;
 

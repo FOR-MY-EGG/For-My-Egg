@@ -1,5 +1,6 @@
 package com.shinhan.formyegg.domain.comment.service;
 
+import com.shinhan.formyegg.api.comment.dto.CommentRes;
 import com.shinhan.formyegg.domain.chat.dto.ChatDto;
 import com.shinhan.formyegg.domain.chat.entity.Chat;
 import com.shinhan.formyegg.domain.chat.repository.ChatRepository;
@@ -27,10 +28,9 @@ public class CommentServiceImpl implements CommentService {
     private final MemberRepository memberRepository;
 
     @Override
-    public List<CommentDto> findCommentsByBoardId(long boardId) {
-        List<Comment> comments = commentRepository.findCommentsByBoardIdOrderByCreateDate(boardId);
-        List<CommentDto> commentDtoList = new ArrayList<>();
-        return null;
+    public List<CommentRes> findCommentsByBoardId(long boardId) {
+        List<Comment> comments = commentRepository.findCommentsByBoardId_BoardIdOrderByCreateDate(boardId);
+        return CommentRes.from(comments);
     }
 }
 
