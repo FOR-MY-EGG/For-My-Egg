@@ -19,10 +19,10 @@
      @Id
      @ManyToOne(fetch = FetchType.LAZY)
      @JoinColumn(name = "group_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-     private Group family;
+     private Group familyId;
 
      @Id
      @ManyToOne(fetch = FetchType.LAZY)
      @JoinColumn(name = "member_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-     private Member member;
+     private Member memberId;
  }
