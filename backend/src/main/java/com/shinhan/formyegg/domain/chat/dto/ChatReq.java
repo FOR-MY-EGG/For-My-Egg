@@ -1,7 +1,5 @@
-package com.shinhan.formyegg.api.chat.dto;
+package com.shinhan.formyegg.domain.chat.dto;
 
-import com.shinhan.formyegg.domain.chat.entity.Chat;
-import com.shinhan.formyegg.domain.member.entity.Member;
 import lombok.Builder;
 import lombok.Data;
 

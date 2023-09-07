@@ -9,8 +9,15 @@ public enum ErrorCode {
 	// TEST(HttpStatus.INTERNAL_SERVER_ERROR, "001", "businessExceptionTest")
 
 	// 회원
-	NOT_EXIST_MEMBER(HttpStatus.NOT_FOUND, "M-001", "존재하지 않는 회원입니다."),
-	NOT_EXIST_BOARD(HttpStatus.NOT_FOUND, "M-002", "존재하지 않는 게시글입니다.")
+	NOT_EXIST_MEMBER(HttpStatus.BAD_REQUEST, "M-001", "존재하지 않는 회원입니다."),
+
+
+
+	// 계좌
+	NOT_EXIST_ACCOUNT(HttpStatus.BAD_REQUEST, "C-001", "존재하지 않는 계좌입니다."),
+	
+	// 게시글
+	NOT_EXIST_BOARD(HttpStatus.BAD_REQUEST, "B-001", "존재하지 않는 계좌입니다.")
 	;
 
 	ErrorCode(HttpStatus httpStatus, String errorCode, String message) {

@@ -3,8 +3,8 @@ package com.shinhan.formyegg.global.error.exception;
 
 import com.shinhan.formyegg.global.error.ErrorCode;
 
-public class BoardException extends BusinessException{
-    public BoardException(ErrorCode errorCode){
+public class AccountException extends BusinessException{
+    public AccountException(ErrorCode errorCode){
         super(errorCode);
     }
 }
