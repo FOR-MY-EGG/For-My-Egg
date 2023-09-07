@@ -1,10 +1,8 @@
 package com.shinhan.formyegg.domain.account.repository;
 
 import com.shinhan.formyegg.domain.account.entity.Account;
-import com.shinhan.formyegg.domain.member.entity.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 public interface AccountRepository extends JpaRepository<Account, Long> {
@@ -12,5 +10,4 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 
     Optional<Account> findAccountByNumber(String number);
 
-    List<Account> findAllByMemberId(Member member);
 }
