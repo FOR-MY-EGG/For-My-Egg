@@ -29,7 +29,7 @@
 
      @ApiOperation(value = "게시글 등록", notes = "커뮤니티 타입에 따른 게시글 등록")
      @PostMapping("/{affiliation}")
-     public ResponseEntity<BoardCreateRes> createBoard(@RequestPart BoardCreateReq board, @RequestPart MultipartFile image) throws IOException, MemberException {
+     public ResponseEntity<BoardCreateRes> createBoard(@RequestPart BoardCreateReq board, @RequestPart(required = false) MultipartFile image) throws IOException, MemberException {
          BoardCreateRes boardRes = BoardCreateRes.from(boardService.createBoard(BoardDto.from(board, image)));
          return ResponseEntity.ok(boardRes);
      }

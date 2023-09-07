@@ -17,7 +17,7 @@ public enum ErrorCode {
 	NOT_EXIST_ACCOUNT(HttpStatus.BAD_REQUEST, "C-001", "존재하지 않는 계좌입니다."),
 	
 	// 게시글
-	NOT_EXIST_BOARD(HttpStatus.BAD_REQUEST, "B-001", "존재하지 않는 계좌입니다.")
+	NOT_EXIST_BOARD(HttpStatus.BAD_REQUEST, "B-001", "존재하지 않는 게시글입니다.")
 	;
 
 	ErrorCode(HttpStatus httpStatus, String errorCode, String message) {
