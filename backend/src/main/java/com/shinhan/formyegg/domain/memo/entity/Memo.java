@@ -4,7 +4,9 @@ import com.shinhan.formyegg.domain.BaseTimeEntity;
 import com.shinhan.formyegg.domain.child.entity.Child;
 import com.shinhan.formyegg.domain.group.entity.Group;
 import com.shinhan.formyegg.domain.member.entity.Member;
+import com.shinhan.formyegg.domain.memo.dto.MemoDto;
 import lombok.*;
+import org.checkerframework.checker.units.qual.C;
 
 import javax.persistence.*;
 
@@ -36,5 +38,21 @@ public class Memo extends BaseTimeEntity {
     @Column(nullable = false)
     private String content;
 
+    @Column(nullable = false)
+    private String holder;
+
     private String image;
+
+    public static Memo of(Long groupId, MemoDto memoDto){
+        return Memo.builder()
+                .memoId(memoDto.getMemoId())
+                .groupId(Group.from(groupId))
+                .childId(Child.from(memoDto.getChildId()))
+                .amount(memoDto.getAmount())
+                .title(memoDto.getTitle())
+                .image(memoDto.getImage())
+                .holder(memoDto.getHolder())
+                .content(memoDto.getContent())
+                .build();
+    }
 }
