@@ -34,4 +34,10 @@ public class Child {
     @Column(name = "birth_date", nullable = false)
     private LocalDateTime birthDate;
 
+    public static Child from(Long childId){
+        return Child.builder()
+                .childId(childId)
+                .build();
+    }
+
 }
