@@ -17,10 +17,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ChildAccountRes {
+    private String name;
+    private String accountNickname;
     private Long balance;
 
     public static ChildAccountRes from(ChildDto childDto){
         return ChildAccountRes.builder()
+                .name(childDto.getName())
+                .accountNickname(childDto.getAccountNickname())
                 .balance(childDto.getAccountBalance())
                 .build();
     }
