@@ -18,6 +18,8 @@ public class MessageController {
 
     @MessageMapping("chat.message")
     public void message(ChatReq message) {
+        System.out.println("asdasda");
+        System.out.println(message);
         ChatDto chatDto = chatService.sendChat(ChatDto.from(message));
         smso.convertAndSend("/topic/room."+message.getAffiliation(), ChatRes.from(chatDto));
     }
