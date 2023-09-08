@@ -3,6 +3,7 @@
  import com.shinhan.formyegg.api.board.dto.BoardCreateReq;
  import com.shinhan.formyegg.api.board.dto.BoardCreateRes;
  import com.shinhan.formyegg.api.board.dto.BoardDetailRes;
+ import com.shinhan.formyegg.api.board.dto.BoardListRes;
  import com.shinhan.formyegg.domain.board.dto.BoardDto;
  import com.shinhan.formyegg.domain.board.entity.Board;
  import com.shinhan.formyegg.domain.board.service.BoardService;
@@ -12,6 +13,7 @@
  import io.swagger.annotations.Api;
  import io.swagger.annotations.ApiOperation;
  import lombok.RequiredArgsConstructor;
+ import org.springframework.data.domain.Page;
  import org.springframework.http.ResponseEntity;
  import org.springframework.transaction.annotation.Transactional;
  import org.springframework.web.bind.annotation.*;
@@ -39,5 +41,12 @@
      public ResponseEntity<BoardDetailRes> detailBoard(@PathVariable int boardId) throws BoardException {
          BoardDetailRes boardDetailRes = BoardDetailRes.from(boardService.detailBoard(boardId), commentService.findCommentsByBoardId(boardId));
          return ResponseEntity.ok(boardDetailRes);
+     }
+
+     @ApiOperation(value = "게시글 목록 조회", notes = "커뮤니티 타입에 따른 게시글 목록 조회")
+     @GetMapping("/affiliation/{affiliation}")
+     public ResponseEntity<Page<BoardListRes>> getBoardByAffiliation(@PathVariable int affiliation, @RequestParam int page) {
+         Page<BoardListRes> boardListRes = boardService.getBoardByAffiliation(affiliation, page);
+         return ResponseEntity.ok(boardListRes);
      }
  }

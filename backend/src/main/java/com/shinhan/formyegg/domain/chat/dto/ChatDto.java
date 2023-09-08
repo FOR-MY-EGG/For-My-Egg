@@ -8,6 +8,8 @@ import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Builder
@@ -37,6 +39,14 @@ public class ChatDto {
                 .content(chat.getContent())
                 .createDate(chat.getCreateDate())
                 .build();
+    }
+
+    public static List<ChatDto> from(List<Chat> chats){
+        List<ChatDto> chatDtos = new ArrayList<>();
+        for(Chat chat : chats) {
+            chatDtos.add(from(chat));
+        }
+        return chatDtos;
     }
 
 }

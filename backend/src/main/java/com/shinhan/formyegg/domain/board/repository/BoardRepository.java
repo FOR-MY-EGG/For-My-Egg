@@ -1,10 +1,12 @@
- package com.shinhan.formyegg.domain.board.repository;
+package com.shinhan.formyegg.domain.board.repository;
 
- import com.shinhan.formyegg.domain.board.entity.Board;
- import org.springframework.data.jpa.repository.JpaRepository;
- import org.springframework.stereotype.Repository;
+import com.shinhan.formyegg.domain.board.entity.Board;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
- @Repository
- public interface BoardRepository extends JpaRepository<Board, Long> {
-
- }
+@Repository
+public interface BoardRepository extends JpaRepository<Board, Long> {
+    Page<Board> findBoardsByAffiliationOrderByCreateDateDesc(int affiliation, Pageable page);
+}
