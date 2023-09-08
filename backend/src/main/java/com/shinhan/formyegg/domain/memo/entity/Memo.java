@@ -43,7 +43,7 @@ public class Memo extends BaseTimeEntity {
 
     private String image;
 
-    public static Memo of(Long groupId, MemoDto memoDto){
+    public static Memo of(Long groupId, MemoDto memoDto, String image){
         return Memo.builder()
                 .memoId(memoDto.getMemoId())
                 .groupId(Group.from(groupId))
@@ -53,6 +53,7 @@ public class Memo extends BaseTimeEntity {
                 .image(memoDto.getImage())
                 .holder(memoDto.getHolder())
                 .content(memoDto.getContent())
+                .image(image)
                 .build();
     }
 }

@@ -4,6 +4,8 @@ import com.shinhan.formyegg.api.memo.dto.MemoReqDto;
 import com.shinhan.formyegg.domain.memo.entity.Memo;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.web.multipart.MultipartFile;
+
 @Getter
 @Builder
 public class MemoDto {
@@ -15,6 +17,8 @@ public class MemoDto {
     private String content;
     private String holder;
     private String image;
+    private MultipartFile imageFile;
+
     public static MemoDto from(Memo memo){
         return MemoDto.builder()
                 .memoId(memo.getMemoId())
@@ -27,13 +31,13 @@ public class MemoDto {
                 .holder(memo.getHolder())
                 .build();
     }
-    public static MemoDto from(MemoReqDto memoReqDto){
+    public static MemoDto of(MemoReqDto memoReqDto, MultipartFile image){
         return MemoDto.builder()
                 .childId(memoReqDto.getChildId())
                 .amount(memoReqDto.getAmount())
                 .title(memoReqDto.getTitle())
                 .content(memoReqDto.getContent())
-                .image(memoReqDto.getImage())
+                .imageFile(image)
                 .build();
     }
 }

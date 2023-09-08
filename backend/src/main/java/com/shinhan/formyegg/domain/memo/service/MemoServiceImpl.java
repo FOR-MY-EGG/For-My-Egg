@@ -1,5 +1,6 @@
 package com.shinhan.formyegg.domain.memo.service;
 
+import com.shinhan.formyegg.domain.board.entity.Board;
 import com.shinhan.formyegg.domain.child.entity.Child;
 import com.shinhan.formyegg.domain.group.entity.Group;
 import com.shinhan.formyegg.domain.invitation.entity.Invitation;
@@ -7,9 +8,12 @@ import com.shinhan.formyegg.domain.invitation.repository.InvitationRepository;
 import com.shinhan.formyegg.domain.memo.dto.MemoDto;
 import com.shinhan.formyegg.domain.memo.entity.Memo;
 import com.shinhan.formyegg.domain.memo.repository.MemoRepository;
+import com.shinhan.formyegg.global.util.S3Uploader;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -22,11 +26,16 @@ import java.util.stream.Collectors;
 public class MemoServiceImpl implements MemoService{
     private final MemoRepository memoRepository;
     private final InvitationRepository invitationRepository;
+    private final S3Uploader s3Uploader;
 
-    public MemoDto createMemo(Long memberId, MemoDto memoDto){
+    @Value("${memo.image.path}")
+    private String imagePath;
+
+    public MemoDto createMemo(Long memberId, MemoDto memoDto) throws IOException {
         Optional<Invitation> invitation = invitationRepository.findInvitationByMemberId(memberId);
-        Memo save = memoRepository.save(Memo.of(invitation.get().getFamilyId().getFamilyId(), memoDto));
-        return MemoDto.from(save);
+        String storedImageName = s3Uploader.upload(memoDto.getImageFile(), imagePath);
+        Memo memo = memoRepository.save(Memo.of(invitation.get().getFamilyId().getFamilyId(), memoDto, storedImageName));
+        return MemoDto.from(memo);
     }
 
     @Override
