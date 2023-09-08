@@ -27,12 +27,14 @@ public class MemoServiceImpl implements MemoService{
     private final MemoRepository memoRepository;
     private final InvitationRepository invitationRepository;
     private final S3Uploader s3Uploader;
+    private int[] days = new int[] {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+
 
     @Value("${memo.image.path}")
     private String imagePath;
 
     public MemoDto createMemo(Long memberId, MemoDto memoDto) throws IOException {
-        Optional<Invitation> invitation = invitationRepository.findInvitationByMemberId(memberId);
+        Optional<Invitation> invitation = invitationRepository.findInvitationByMemberId_MemberId(memberId);
         String storedImageName = s3Uploader.upload(memoDto.getImageFile(), imagePath);
         Memo memo = memoRepository.save(Memo.of(invitation.get().getFamilyId().getFamilyId(), memoDto, storedImageName));
         return MemoDto.from(memo);
@@ -40,19 +42,21 @@ public class MemoServiceImpl implements MemoService{
 
     @Override
     public List<MemoDto> getMemoListByMonth(Long memberId, Long childId, int year, int month) {
-        Optional<Invitation> invitation = invitationRepository.findInvitationByMemberId(memberId);
+        Optional<Invitation> invitation = invitationRepository.findInvitationByMemberId_MemberId(memberId);
         LocalDateTime startDate = LocalDateTime.of(LocalDate.of(year, month, 1), LocalTime.of(0,0,0));
-        LocalDateTime endDate = LocalDateTime.of(LocalDate.of(year, month, 31), LocalTime.of(23,59,59));
-        List<Memo> memos = memoRepository.findAllByGroupIdAndChildIdAndCreateDateBetween(Group.from(invitation.get().getFamilyId().getFamilyId()), Child.from(childId), startDate, endDate);
+        System.out.println(startDate);
+        LocalDateTime endDate = LocalDateTime.of(LocalDate.of(year, month, days[month-1]), LocalTime.of(23,59,59));
+        System.out.println(endDate);
+        List<Memo> memos = memoRepository.findAllByGroupId_FamilyIdAndChildId_ChildIdAndCreateDateBetween(invitation.get().getFamilyId().getFamilyId(), childId, startDate, endDate);
         return memos.stream().map(MemoDto::from).collect(Collectors.toList());
     }
 
     @Override
     public Optional<MemoDto> getMemoWhenToday(Long memberId, Long childId, int year, int month, int day) {
-        Optional<Invitation> invitation = invitationRepository.findInvitationByMemberId(memberId);
+        Optional<Invitation> invitation = invitationRepository.findInvitationByMemberId_MemberId(memberId);
         LocalDateTime startDate = LocalDateTime.of(LocalDate.of(year, month, day), LocalTime.of(0,0,0));
         LocalDateTime endDate = LocalDateTime.of(LocalDate.of(year, month, day), LocalTime.of(23,59,59));
-        List<Memo> memos = memoRepository.findAllByGroupIdAndChildIdAndCreateDateBetween(Group.from(invitation.get().getFamilyId().getFamilyId()), Child.from(childId), startDate, endDate);
+        List<Memo> memos = memoRepository.findAllByGroupId_FamilyIdAndChildId_ChildIdAndCreateDateBetween(invitation.get().getFamilyId().getFamilyId(), childId, startDate, endDate);
         return Optional.ofNullable(MemoDto.from(memos.get(0)));
     }
 }

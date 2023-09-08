@@ -9,6 +9,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface MemoRepository extends JpaRepository<Memo, Long> {
-    List<Memo> findAllByGroupIdAndChildIdAndCreateDateBetween(Group groupId, Child childId, LocalDateTime startDate,
+    List<Memo> findAllByGroupId_FamilyIdAndChildId_ChildIdAndCreateDateBetween(Long groupId, Long childId, LocalDateTime startDate,
                                                               LocalDateTime endDate);
 }
