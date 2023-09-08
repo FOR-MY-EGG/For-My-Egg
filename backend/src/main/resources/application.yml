@@ -12,6 +12,18 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  rabbitmq:
+    host: ${rabbitmq.host}
+    port: ${rabbitmq.port}
+    username: ${rabbitmq.username}
+    password: ${rabbitmq.password}
+rabbitmq:
+  queue:
+    name: ${rabbitmq.queue.name}
+  exchage:
+    name: ${rabbitmq.exchange.name}
+  routing:
+    key: ${rabbitmq.routing.key}
   # Swagger
   mvc:
     pathmatch:
