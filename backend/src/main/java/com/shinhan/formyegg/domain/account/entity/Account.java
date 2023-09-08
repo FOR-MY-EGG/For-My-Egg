@@ -1,5 +1,6 @@
 package com.shinhan.formyegg.domain.account.entity;
 
+import com.shinhan.formyegg.api.child.dto.ChildCreateReq;
 import com.shinhan.formyegg.domain.account.dto.AccountDto;
 import com.shinhan.formyegg.domain.child.entity.Child;
 import lombok.*;
@@ -20,10 +21,6 @@ public class Account {
     @Column(name = "account_id", updatable = false)
     private Long accountId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "child_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
-    private Child childId;
-
     @Column(name = "nickname", nullable = false, length = 45)
     private String nickname;
 
@@ -35,5 +32,13 @@ public class Account {
 
     public void updateNickname(String nickname) {
         this.nickname = nickname;
+    }
+
+    public static Account from(ChildCreateReq childCreateReq) {
+        return Account.builder()
+                .balance(0L)
+                .nickname(childCreateReq.getNickname())
+                .number(childCreateReq.getNumber())
+                .build();
     }
 }
