@@ -22,7 +22,8 @@ public enum ErrorCode {
 
 	// 계좌
 	NOT_EXIST_ACCOUNT(HttpStatus.BAD_REQUEST, "C-001", "존재하지 않는 계좌입니다."),
-	
+	//정책
+	NOT_EXIST_POLICY(HttpStatus.BAD_REQUEST, "P-001", "존재하지 않는 정책입니다."),
 	// 게시글
 	NOT_EXIST_BOARD(HttpStatus.INTERNAL_SERVER_ERROR, "B-001", "존재하지 않는 게시글입니다."),
 	NOT_EXIST_AFFILIATION(HttpStatus.INTERNAL_SERVER_ERROR, "B-001", "존재하지 않는 게시판 분류입니다.")
