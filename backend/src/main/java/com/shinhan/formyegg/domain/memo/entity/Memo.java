@@ -45,7 +45,6 @@ public class Memo extends BaseTimeEntity {
 
     public static Memo of(Long groupId, MemoDto memoDto, String image){
         return Memo.builder()
-                .memoId(memoDto.getMemoId())
                 .groupId(Group.from(groupId))
                 .childId(Child.from(memoDto.getChildId()))
                 .amount(memoDto.getAmount())
