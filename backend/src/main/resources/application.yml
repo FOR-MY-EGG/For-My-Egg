@@ -19,4 +19,15 @@ spring:
 cloud:
   aws:
     credentials:
-      accessKey:
+      accessKey: ${cloud.aws.credentials.accessKey}
+      secretKey: ${cloud.aws.credentials.secretKey}
+    region:
+      static: ${cloud.aws.region.static}
+    stack:
+      auto: ${cloud.aws.stack.auto}
+    s3:
+      bucket: ${cloud.aws.s3.bucket}
+
+board:
+  image:
+    path: board
