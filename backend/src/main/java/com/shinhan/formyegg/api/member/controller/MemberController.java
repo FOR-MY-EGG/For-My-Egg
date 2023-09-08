@@ -42,10 +42,4 @@ public class MemberController {
         MemberDto memberDto = memberService.updateNickname(MemberDto.from(member));
         return ResponseEntity.status(HttpStatus.OK).body(MemberResponse.from(memberDto));
     }
-
-    @PatchMapping("/profile")
-    public ResponseEntity<MemberResponse> modifyProfile(@RequestBody MemberProfileRequest member){
-        MemberDto memberDto = memberService.updateProfile(MemberDto.from(member));
-        return ResponseEntity.status(HttpStatus.OK).body(MemberResponse.from(memberDto));
-    }
 }

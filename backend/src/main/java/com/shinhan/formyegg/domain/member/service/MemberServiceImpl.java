@@ -58,16 +58,7 @@ public class MemberServiceImpl implements MemberService {
 		return MemberDto.from(optionalMember.get());
 	}
 
-	@Override
-	public MemberDto updateProfile(MemberDto memberDto) {
-		Optional<Member> optionalMember = memberRepository.findByMemberId(memberDto.getMemberId());
-		if (optionalMember.isEmpty())
-			throw new MemberException(ErrorCode.NOT_EXIST_MEMBER);
-		else {
-			optionalMember.get().updateAddressAndIncomeRank(memberDto.getAddress(), memberDto.getIncomeRank());
-		}
-		return MemberDto.from(optionalMember.get());
-	}
+
 
   @Override
 	public MemberDto login(long id) {
