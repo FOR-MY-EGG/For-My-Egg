@@ -11,8 +11,6 @@ import lombok.Getter;
 @Builder
 public class MemberDto {
 	private Long memberId;
-	private String address;
-	private int incomeRank;
 	private String name;
 	private String nickname;
 	private String kakaoId;
@@ -20,8 +18,6 @@ public class MemberDto {
 	public static MemberDto from(Member member){
 		return MemberDto.builder()
 				.memberId(member.getMemberId())
-				.address(member.getAddress())
-				.incomeRank(member.getIncomeRank())
 				.name(member.getName())
 				.nickname(member.getNickname())
 				.kakaoId(member.getKakaoId())
@@ -32,8 +28,6 @@ public class MemberDto {
 		return MemberDto.builder()
 				.kakaoId("2")
 				.kakaoToken("1")
-				.address(member.getAddress())
-				.incomeRank(member.getIncomeRank())
 				.name(member.getName())
 				.nickname(member.getNickname())
 				.build();
@@ -48,8 +42,6 @@ public class MemberDto {
 	public static MemberDto from(MemberProfileRequest member){
 		return MemberDto.builder()
 				.memberId(member.getMemberId())
-				.incomeRank(member.getIncomeRank())
-				.address(member.getAddress())
 				.build();
 	}
 }

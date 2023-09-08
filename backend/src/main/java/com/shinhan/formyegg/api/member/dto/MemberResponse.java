@@ -22,8 +22,6 @@ public class MemberResponse {
     public static MemberResponse from(MemberDto memberDto){
         return MemberResponse.builder()
                 .memberId(memberDto.getMemberId())
-                .address(memberDto.getAddress())
-                .incomeRank(memberDto.getIncomeRank())
                 .name(memberDto.getName())
                 .nickname(memberDto.getNickname())
                 .kakaoId(memberDto.getKakaoId())
