@@ -1,7 +1,9 @@
 package com.shinhan.formyegg.domain.member.service;
 
+import java.util.List;
 import java.util.Optional;
 
+import com.shinhan.formyegg.domain.child.dto.ChildDto;
 import com.shinhan.formyegg.domain.member.dto.MemberDto;
 
 public interface MemberService {
@@ -14,6 +16,8 @@ public interface MemberService {
 	MemberDto updateNickname(MemberDto memberDto);
 
 	MemberDto updateProfile(MemberDto memberDto);
-
-    MemberDto login(long id);
+  
+  MemberDto login(long id);
+  
+  List<ChildDto> getMemberWithChildren(Long memberId);
 }

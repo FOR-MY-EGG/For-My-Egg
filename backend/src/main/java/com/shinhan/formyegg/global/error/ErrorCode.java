@@ -14,7 +14,11 @@ public enum ErrorCode {
 	// 회원
 	NOT_EXIST_MEMBER(HttpStatus.BAD_REQUEST, "M-001", "존재하지 않는 회원입니다."),
 
+	// 아이/어린이
+	NOT_EXIST_KID(HttpStatus.BAD_REQUEST, "K-001", "아이가 존재하지 않습니다."),
 
+	// 그룹
+	NOT_EXIST_GROUP(HttpStatus.BAD_REQUEST, "G-001", "그룹이 존재하지 않습니다."),
 
 	// 계좌
 	NOT_EXIST_ACCOUNT(HttpStatus.BAD_REQUEST, "C-001", "존재하지 않는 계좌입니다."),
