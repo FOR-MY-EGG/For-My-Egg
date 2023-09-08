@@ -29,7 +29,7 @@ public class MemoController {
     private final MemoService memoService;
 
     @PostMapping("/{memberId}")
-    public ResponseEntity<MemoResDto> createMemo(@PathVariable Long memberId, @RequestBody MemoReqDto memoReqDto, @RequestPart MultipartFile image) throws IOException {
+    public ResponseEntity<MemoResDto> createMemo(@PathVariable Long memberId, @RequestPart MemoReqDto memoReqDto, @RequestPart MultipartFile image) throws IOException {
         MemoDto memoDto = memoService.createMemo(memberId, MemoDto.of(memoReqDto, image));
         return ResponseEntity.status(HttpStatus.OK).body(MemoResDto.from(memoDto));
     }
