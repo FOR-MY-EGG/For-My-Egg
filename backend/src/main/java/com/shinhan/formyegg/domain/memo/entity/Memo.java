@@ -2,6 +2,7 @@ package com.shinhan.formyegg.domain.memo.entity;
 
 import com.shinhan.formyegg.domain.BaseTimeEntity;
 import com.shinhan.formyegg.domain.child.entity.Child;
+import com.shinhan.formyegg.domain.group.entity.Group;
 import com.shinhan.formyegg.domain.member.entity.Member;
 import lombok.*;
 
@@ -19,8 +20,8 @@ public class Memo extends BaseTimeEntity {
     private long memoId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="member_id")
-    private Member memberId;
+    @JoinColumn(name="group_id")
+    private Group groupId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="child_id")
