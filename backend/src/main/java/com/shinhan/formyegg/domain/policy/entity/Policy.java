@@ -24,16 +24,15 @@ public class Policy {
     @Column(name = "intro", nullable=false, length=128)
     private String intro;
 
-    @Column(name = "target_start", nullable=false)
-    private int targetStart;
+    @Column(name = "is_multi", nullable=false)
+    private boolean isMulti;
 
-    @Column(name = "target_end", nullable=false)
-    private int targetEnd;
+    @Column(name="target_intro", nullable=false, length=128)
+    private String targetIntro;
 
-    @Column(name = "target_area", nullable=false, length=64)
-    private String targetArea;
+    @Column(name="apply_center", nullable=false, length=64)
+    private String applyCenter;
 
-    @Column(name = "child_cnt", nullable=false)
-    private int childCnt;
-
+    @Column(name="type", nullable=false)
+    private int type;
 }

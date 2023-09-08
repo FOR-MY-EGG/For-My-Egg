@@ -11,8 +11,7 @@ public interface PolicyRepository extends JpaRepository <Policy, Long>{
 
     List<Policy> findAll();
 
-    @Query("SELECT p FROM Policy p WHERE p.targetStart <= :targetValue AND p.targetEnd >= :targetValue")
-    Optional<Policy> findPolicyInRange(@Param("targetValue") int targetValue);
+    Optional<Policy> findPolicyByType(int type);
 
-    Optional<Policy> findByChildCnt(int childCnt);
+    Optional<Policy> findPolicyByisMultiTrue();
 }

@@ -8,6 +8,8 @@
  import com.shinhan.formyegg.domain.member.entity.Member;
  import com.shinhan.formyegg.domain.member.repository.MemberRepository;
  import com.shinhan.formyegg.global.error.ErrorCode;
+ import com.shinhan.formyegg.global.error.exception.AffiliationException;
+ import com.shinhan.formyegg.global.error.exception.BoardException;
  import com.shinhan.formyegg.global.error.exception.MemberException;
  import lombok.RequiredArgsConstructor;
  import lombok.extern.slf4j.Slf4j;
@@ -24,7 +26,8 @@
      private final MemberRepository memberRepository;
      @Override
      public List<ChatDto> findChatsByAffiliation(int affiliation) {
-         return chatRepository.findChatByAffiliationOrderByCreateDate(affiliation);
+         if(affiliation < 0 || affiliation >= 3) throw new AffiliationException(ErrorCode.NOT_EXIST_AFFILIATION);
+         return ChatDto.from(chatRepository.findChatByAffiliationOrderByCreateDate(affiliation));
      }
 
      @Override

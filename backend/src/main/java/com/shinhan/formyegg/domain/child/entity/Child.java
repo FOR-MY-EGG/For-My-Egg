@@ -1,5 +1,6 @@
 package com.shinhan.formyegg.domain.child.entity;
 
+import com.shinhan.formyegg.api.child.dto.ChildCreateReq;
 import com.shinhan.formyegg.domain.account.entity.Account;
 import com.shinhan.formyegg.domain.group.entity.Group;
 import lombok.*;
@@ -34,10 +35,12 @@ public class Child {
     @Column(name = "birth_date", nullable = false)
     private LocalDateTime birthDate;
 
-    public static Child from(Long childId){
+    public static Child from(ChildCreateReq childCreateReq, Group group, Account account) {
         return Child.builder()
-                .childId(childId)
+                .accountId(account)
+                .groupId(group)
+                .name(childCreateReq.getName())
+                .birthDate(childCreateReq.getBirth_date())
                 .build();
     }
-
 }

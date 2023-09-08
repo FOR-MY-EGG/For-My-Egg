@@ -3,6 +3,7 @@ package com.shinhan.formyegg.domain.member.service;
 import com.shinhan.formyegg.domain.child.dto.ChildDto;
 import com.shinhan.formyegg.domain.child.entity.Child;
 import com.shinhan.formyegg.domain.child.repository.ChildRepository;
+import com.shinhan.formyegg.domain.invitation.dto.InvitationDto;
 import com.shinhan.formyegg.domain.invitation.entity.Invitation;
 import com.shinhan.formyegg.domain.invitation.repository.InvitationRepository;
 import com.shinhan.formyegg.domain.member.dto.MemberDto;
@@ -70,12 +71,15 @@ public class MemberServiceImpl implements MemberService {
   @Override
   public List<ChildDto> getMemberWithChildren(Long memberId) {
 		//Get GroupId using memberId
-		Optional<Invitation> optionalInvitation = invitationRepository.findInvitationByMemberId(memberId);
+		Optional<Invitation> optionalInvitation = invitationRepository.findInvitationByMemberId_MemberId(memberId);
+
 		if (optionalInvitation.isEmpty())
 			throw new MemberException(ErrorCode.NOT_EXIST_GROUP);
 		else {
+			InvitationDto invitationDto = InvitationDto.from(optionalInvitation.get());
 			//Get Children Information using GroupId
-			List<Child> children = childRepository.findAllByGroupId(optionalInvitation.get().getFamilyId().getFamilyId());
+			List<Child> children = childRepository.findAllByGroupId_FamilyId(invitationDto.getFamilyId());
+			System.out.println(children.size());
 			if (children.isEmpty())
 				throw new MemberException(ErrorCode.NOT_EXIST_KID);
 			else {
