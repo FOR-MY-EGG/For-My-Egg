@@ -1,11 +1,13 @@
 package com.shinhan.formyegg.domain.board.service;
 
+import com.shinhan.formyegg.api.board.dto.BoardListRes;
 import com.shinhan.formyegg.domain.board.dto.BoardDto;
 import com.shinhan.formyegg.domain.board.entity.Board;
 import com.shinhan.formyegg.domain.board.repository.BoardRepository;
 import com.shinhan.formyegg.domain.member.entity.Member;
 import com.shinhan.formyegg.domain.member.repository.MemberRepository;
 import com.shinhan.formyegg.global.error.ErrorCode;
+import com.shinhan.formyegg.global.error.exception.AffiliationException;
 import com.shinhan.formyegg.global.error.exception.BoardException;
 import com.shinhan.formyegg.global.error.exception.MemberException;
 
@@ -15,6 +17,8 @@ import com.shinhan.formyegg.global.util.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +32,7 @@ public class BoardServiceImpl implements BoardService {
     private final MemberRepository memberRepository;
     private final BoardRepository boardRepository;
     private final S3Uploader s3Uploader;
+
     @Value("${board.image.path}")
     private String imagePath;
 
@@ -47,6 +52,20 @@ public class BoardServiceImpl implements BoardService {
         if (!optionalBoard.isPresent()) throw new BoardException(ErrorCode.NOT_EXIST_BOARD);
         optionalBoard.get().setView(optionalBoard.get().getView()+1);
         return BoardDto.from(optionalBoard.get());
+    }
+
+    @Override
+    public Page<BoardListRes> getBoardByAffiliation(int affiliation, int page) {
+        if(affiliation < 0 || affiliation >= 3) throw new AffiliationException(ErrorCode.NOT_EXIST_AFFILIATION);
+        return boardRepository.findBoardsByAffiliationOrderByCreateDateDesc(affiliation, PageRequest.of(page, 10)).map(
+                board -> BoardListRes.builder()
+                            .boardId(board.getBoardId())
+                            .title(board.getTitle())
+                            .view(board.getView())
+                            .writer(board.getWriter().getMemberId())
+                            .createdDate(board.getCreateDate())
+                            .build()
+        );
     }
 }
 
