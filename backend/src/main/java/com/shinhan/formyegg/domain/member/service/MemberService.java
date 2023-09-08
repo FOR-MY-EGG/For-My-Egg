@@ -14,4 +14,6 @@ public interface MemberService {
 	MemberDto updateNickname(MemberDto memberDto);
 
 	MemberDto updateProfile(MemberDto memberDto);
+
+    MemberDto login(long id);
 }
