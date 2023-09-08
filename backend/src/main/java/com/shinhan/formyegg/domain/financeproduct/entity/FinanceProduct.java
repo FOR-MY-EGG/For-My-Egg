@@ -34,4 +34,7 @@ public class FinanceProduct {
     @Column(name = "type", nullable=false, length=45)
     private String type;
 
+    @Column(name= "link", nullable=true, length=2048)
+    private String link;
+
 }
