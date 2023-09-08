@@ -16,6 +16,8 @@ public interface MemberService {
 	MemberDto updateNickname(MemberDto memberDto);
 
 	MemberDto updateProfile(MemberDto memberDto);
-
-	List<ChildDto> getMemberWithChildren(Long memberId);
+  
+  MemberDto login(long id);
+  
+  List<ChildDto> getMemberWithChildren(Long memberId);
 }

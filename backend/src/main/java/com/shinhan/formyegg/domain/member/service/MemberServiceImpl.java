@@ -69,8 +69,14 @@ public class MemberServiceImpl implements MemberService {
 		return MemberDto.from(optionalMember.get());
 	}
 
-	@Override
-	public List<ChildDto> getMemberWithChildren(Long memberId) {
+  @Override
+	public MemberDto login(long id) {
+		Optional<Member> optionalMember = memberRepository.findById(id);
+		if(!optionalMember.isPresent()) throw new MemberException(ErrorCode.NOT_EXIST_MEMBER);
+		return MemberDto.from(optionalMember.get());
+    
+  @Override
+  public List<ChildDto> getMemberWithChildren(Long memberId) {
 		//Get GroupId using memberId
 		Optional<Invitation> optionalInvitation = invitationRepository.findInvitationByMemberId(memberId);
 		if (optionalInvitation.isEmpty())

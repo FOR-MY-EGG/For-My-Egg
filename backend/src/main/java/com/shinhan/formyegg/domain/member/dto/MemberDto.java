@@ -19,6 +19,7 @@ public class MemberDto {
 	private String kakaoToken;
 	public static MemberDto from(Member member){
 		return MemberDto.builder()
+				.memberId(member.getMemberId())
 				.address(member.getAddress())
 				.incomeRank(member.getIncomeRank())
 				.name(member.getName())

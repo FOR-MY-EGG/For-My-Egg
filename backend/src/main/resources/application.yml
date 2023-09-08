@@ -12,11 +12,39 @@ spring:
     properties:
       hibernate:
         format_sql: true
-  # Swagger
+  rabbitmq:
+    host: ${rabbitmq.host}
+    port: ${rabbitmq.port}
+    username: ${rabbitmq.username}
+    password: ${rabbitmq.password}
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+rabbitmq:
+  queue:
+    name: ${rabbitmq.queue.name}
+  exchage:
+    name: ${rabbitmq.exchange.name}
+  routing:
+    key: ${rabbitmq.routing.key}
+
 cloud:
   aws:
     credentials:
-      accessKey:
+      accessKey: ${cloud.aws.credentials.accessKey}
+      secretKey: ${cloud.aws.credentials.secretKey}
+    region:
+      static: ${cloud.aws.region.static}
+    stack:
+      auto: ${cloud.aws.stack.auto}
+    s3:
+      bucket: ${cloud.aws.s3.bucket}
+
+board:
+  image:
+    path: board
+
+jwt:
+  secret: ${jwt.secret}
+  expiration: ${jwt.expiration}
