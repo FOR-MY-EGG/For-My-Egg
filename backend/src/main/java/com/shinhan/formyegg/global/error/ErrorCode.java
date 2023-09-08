@@ -22,7 +22,9 @@ public enum ErrorCode {
 
 	// 계좌
 	NOT_EXIST_ACCOUNT(HttpStatus.BAD_REQUEST, "C-001", "존재하지 않는 계좌입니다."),
-	
+
+	NOT_EXIST_DATE(HttpStatus.BAD_REQUEST, "D-001", "잘못된 날짜 형식입니다."),
+
 	// 게시글
 	NOT_EXIST_BOARD(HttpStatus.BAD_REQUEST, "B-001", "존재하지 않는 계좌입니다.")
 	;
