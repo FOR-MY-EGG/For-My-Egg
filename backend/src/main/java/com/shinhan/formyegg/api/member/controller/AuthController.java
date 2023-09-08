@@ -21,7 +21,7 @@ public class AuthController {
     public ResponseEntity<LoginResponse> getMember(@RequestParam long id){
         System.out.println("in");
         MemberDto memberDto = memberService.login(id);
-        String token = jwtTokenProvider.createToken(memberDto.getMemberId(), memberDto.getIncomeRank());
+        String token = jwtTokenProvider.createToken(memberDto.getMemberId(), 1);
         LoginResponse loginResponse = LoginResponse.builder()
                 .memberDto(memberDto)
                 .token(token)
