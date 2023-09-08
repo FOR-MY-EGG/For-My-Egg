@@ -23,10 +23,11 @@ public class MemberController {
 
     }
 
-    @GetMapping("/main/{memberId}")
+    @GetMapping("/all/{memberId}")
     public ResponseEntity<MemberMainRes> getMemberChildren(@PathVariable Long memberId){
         MemberDto memberDto = memberService.getMemberByMemberId(memberId);
         List<ChildDto> childDtoList = memberService.getMemberWithChildren(memberId);
+        System.out.println(childDtoList.size());
         return ResponseEntity.status(HttpStatus.OK).body(MemberMainRes.from(memberDto, childDtoList));
 
     }
