@@ -17,6 +17,10 @@ spring:
     port: ${rabbitmq.port}
     username: ${rabbitmq.username}
     password: ${rabbitmq.password}
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
 rabbitmq:
   queue:
     name: ${rabbitmq.queue.name}
@@ -24,10 +28,7 @@ rabbitmq:
     name: ${rabbitmq.exchange.name}
   routing:
     key: ${rabbitmq.routing.key}
-  # Swagger
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
+
 cloud:
   aws:
     credentials:
@@ -43,3 +44,7 @@ cloud:
 board:
   image:
     path: board
+
+jwt:
+  secret: ${jwt.secret}
+  expiration: ${jwt.expiration}
