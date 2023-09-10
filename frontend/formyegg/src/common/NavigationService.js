@@ -22,7 +22,7 @@ function back() {
     );
 }
 
-export default {
+export {
     navigate,
     setTopLevelNavigator,
     back,
