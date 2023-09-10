@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity } from "react-native";
 import React, { useEffect } from "react";
-import NavigationService from "common/NavigationService";
+import NavigationService from "./common/NavigationService";
 import { useDispatch } from 'react-redux';
 import { setName } from "../reducers/memberReducer";
 
@@ -9,7 +9,7 @@ export default function Home() {
 
     useEffect(() => {
         alert('이름 ㅎㅇ');
-        dispatch(setName("김민태"))
+        dispatch(setName("김희곤"))
     }, [])
 
     return (

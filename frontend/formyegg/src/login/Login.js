@@ -1,5 +1,5 @@
 import { Text, TouchableOpacity, View } from "react-native";
-import NavigationService from "common/NavigationService";
+import NavigationService from "../common/NavigationService";
 import React from "react";
 import { useDispatch, useSelector } from 'react-redux';
 
