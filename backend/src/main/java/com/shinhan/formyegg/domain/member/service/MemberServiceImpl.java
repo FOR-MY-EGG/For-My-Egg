@@ -30,13 +30,6 @@ public class MemberServiceImpl implements MemberService {
 	private final ChildRepository childRepository;
 
 	@Override
-	public MemberDto createMember(MemberDto memberDto) {
-		Member member = Member.from(memberDto);
-		memberRepository.save(member);
-		return MemberDto.from(member);
-	}
-
-	@Override
 	public MemberDto getMemberByKakaoId(String kakaoId) {
 		Optional<Member> optionalMember = memberRepository.findByKakaoId(kakaoId);
 		return MemberDto.from(optionalMember.orElseThrow(() -> new MemberException(ErrorCode.NOT_EXIST_MEMBER)));
@@ -59,22 +52,19 @@ public class MemberServiceImpl implements MemberService {
 		return MemberDto.from(optionalMember.get());
 	}
 
-	@Override
-	public MemberDto updateProfile(MemberDto memberDto) {
-		Optional<Member> optionalMember = memberRepository.findByMemberId(memberDto.getMemberId());
-		if (optionalMember.isEmpty())
-			throw new MemberException(ErrorCode.NOT_EXIST_MEMBER);
-		else {
-			optionalMember.get().updateAddressAndIncomeRank(memberDto.getAddress(), memberDto.getIncomeRank());
-		}
-		return MemberDto.from(optionalMember.get());
-	}
 
   @Override
-	public MemberDto login(long id) {
-	  Optional<Member> optionalMember = memberRepository.findById(id);
-	  if (!optionalMember.isPresent()) throw new MemberException(ErrorCode.NOT_EXIST_MEMBER);
-	  return MemberDto.from(optionalMember.get());
+	public MemberDto login(MemberDto memberDto) {
+	  Optional<Member> optionalMember = memberRepository.findByKakaoId(memberDto.getKakaoId());
+	  if (!optionalMember.isPresent()) {
+		  // 가입된 회원이 아니므로 회원가입
+		  Member member = memberRepository.save(Member.from(memberDto));
+		  return MemberDto.from(member);
+	  }else{
+		  // 로그인
+		  optionalMember.get().updateKakaoToken(memberDto.getKakaoToken());
+		  return MemberDto.from(optionalMember.get());
+	  }
   }
     
   @Override
