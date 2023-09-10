@@ -1,11 +1,21 @@
 import React from 'react';
-import { SafeAreaView, Button } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, Image } from 'react-native';
 import  * as KakaoLogin from '@react-native-seoul/kakao-login';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import kakaoButton from 'formyegg/assets/images/kakao_login_symbol.png';
 
 const Login = () => {
   return (
       <SafeAreaView>
-          <Button title='카카오 로그인' onPress={() => login()}/>
+        <TouchableOpacity
+            onPress={() => login()}
+            style={styles.kakaoButton}
+        >
+            <Image source={kakaoButton}
+                style={styles.kakaoSymbol}
+            />
+            <Text>카카오 로그인</Text>
+        </TouchableOpacity>
       </SafeAreaView>
   );
 };
@@ -31,4 +41,22 @@ const getProfile = () => {
   });
 };
 
+const styles = StyleSheet.create({
+    kakaoButton : {
+        justifyContent: 'center',
+        borderRadius: 12,
+        fontSize : 15,
+        backgroundColor:'#FEE500',
+        textAlign: 'center',
+        margin: 10,
+        padding: 20,
+        height: 80,
+        flexDirection :'row'
+    },
+    kakaoSymbol : {
+        height: 30,
+        width: 40,
+        marginRight: 10
+    }
+})
 export default Login;
