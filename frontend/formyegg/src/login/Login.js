@@ -4,6 +4,8 @@ import  * as KakaoLogin from '@react-native-seoul/kakao-login';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import kakaoButton from 'formyegg/assets/images/kakao_login_symbol.png';
 
+
+
 const Login = () => {
   return (
       <SafeAreaView>
@@ -21,23 +23,26 @@ const Login = () => {
 };
 
 const login = () => {
-  KakaoLogin.login().then((result) => {
-      console.log("Login Success", JSON.stringify(result));
-      getProfile();
-  }).catch((error) => {
-      if (error.code === 'E_CANCELLED_OPERATION') {
-          console.log("Login Cancel", error.message);
-      } else {
-          console.log(`Login Fail(code:${error.code})`, error.message);
-      }
+    KakaoLogin.login().then((result) => {
+        console.log("Login Success", JSON.stringify(result));
+        getProfile();
+    }).catch((error) => {
+        if (error.code === 'E_CANCELLED_OPERATION') {
+            console.log("Login Cancel", error.message);
+    } else {
+        console.log(`Login Fail(code:${error.code})`, error.message);
+    }
   });
 };
 
 const getProfile = () => {
   KakaoLogin.getProfile().then((result) => {
-      console.log("GetProfile Success", JSON.stringify(result));
+    const kakaoUserJson = JSON.stringify(result);
+    const kakaoUser = JSON.parse(kakaoUserJson);
+    console.log(kakaoUser.id);
+    console.log("GetProfile Success", JSON.stringify(result));
   }).catch((error) => {
-      console.log(`GetProfile Fail(code:${error.code})`, error.message);
+    console.log(`GetProfile Fail(code:${error.code})`, error.message);
   });
 };
 
