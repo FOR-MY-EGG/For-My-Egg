@@ -15,4 +15,10 @@ import lombok.NoArgsConstructor;
 public class LoginResponse {
     private MemberDto memberDto;
     private String token;
+    public static LoginResponse of(MemberDto memberDto, String token){
+        return LoginResponse.builder()
+                .memberDto(memberDto)
+                .token(token)
+                .build();
+    }
 }
