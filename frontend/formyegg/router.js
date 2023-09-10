@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Navigation from './src/navigator';
 
-import { NavigationService } from './src/common';
+import { setTopLevelNavigator } from './src/common/NavigationService';
 
 class Router extends Component {
 
@@ -13,7 +13,7 @@ class Router extends Component {
         return (
             <Navigation
                 ref={navigatorRef => {
-                    NavigationService.setTopLevelNavigator(navigatorRef);
+                    setTopLevelNavigator(navigatorRef);
                 }}
             />
         )
