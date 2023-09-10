@@ -25,16 +25,13 @@ public class FinanceProduct {
     @Column(name = "intro", nullable=false, length=128)
     private String intro;
 
-    @Column(name = "target_start", nullable=false)
-    private int targetStart;
+    @Column(name = "type", nullable=false)
+    private int type;
 
-    @Column(name = "target_end", nullable=false)
-    private int targetEnd;
-
-    @Column(name = "type", nullable=false, length=45)
-    private String type;
-
-    @Column(name= "link", nullable=true, length=2048)
+    @Column(name= "link", nullable=false, length=2048)
     private String link;
+
+    @Column(name= "target_intro", nullable=false, length=2048)
+    private String targetIntro;
 
 }
