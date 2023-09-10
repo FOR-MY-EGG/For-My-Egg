@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, ScrollView} from 'react-native';
 
+
 import {Header, PricingCard} from 'react-native-elements';
 
 const App = () => {
