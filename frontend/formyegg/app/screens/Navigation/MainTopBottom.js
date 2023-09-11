@@ -6,7 +6,7 @@ import BoardStack from './BoardStack';
 
 const Tab = createBottomTabNavigator();
 
-const TabBottom = () => {
+const MainTopBottom = () => {
   return (
     <Tab.Navigator screenOptions={{headerShown: false}}>
       {/* <Tab.Screen name="Login" component={LoginScreen} /> */}
@@ -17,4 +17,4 @@ const TabBottom = () => {
   );
 };
 
-export default TabBottom;
+export default MainTopBottom;

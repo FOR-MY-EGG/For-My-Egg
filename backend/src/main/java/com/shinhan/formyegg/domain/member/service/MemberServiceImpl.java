@@ -63,6 +63,10 @@ public class MemberServiceImpl implements MemberService {
 	  }else{
 		  // 로그인
 		  optionalMember.get().updateKakaoToken(memberDto.getKakaoToken());
+		  Optional<Invitation> invitation =
+				  invitationRepository.findInvitationByMemberId_MemberId(optionalMember.get().getMemberId());
+		  if(invitation.isEmpty())
+			  return MemberDto.of(optionalMember.get(), 0);
 		  return MemberDto.of(optionalMember.get(), 1);
 	  }
   }
