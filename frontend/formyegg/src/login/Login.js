@@ -41,15 +41,12 @@ export default function Login(){
               url: 'http://10.0.2.2:8080/api/member',
               data: data
           }).then((response) => {
-                console.log(response.data.accessToken);
-              console.log(response.data.nickname);
-              console.log(response.data.memberId);
               dispatch(setMember(response.data));
-              navigate('ProfileScreen', {
-                screen: 'ProfileScreen',
-                info: 'information'})
-              // console.log(JSON.stringify(response.data));
-              // console.log(response);
+              if(response.data.isMember == 0){
+                navigate('ProfileScreen', {
+                    screen: 'ProfileScreen',
+                    info: 'information'});
+              }
           }).catch((error) =>{
               console.log(error);
           });
