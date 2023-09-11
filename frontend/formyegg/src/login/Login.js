@@ -6,6 +6,7 @@ import kakaoButton from 'formyegg/assets/images/kakao_login_symbol.png';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setMember } from '../../reducers/memberReducer';
+import { navigate } from "../common/NavigationService";
 
 
 export default function Login(){
@@ -44,6 +45,9 @@ export default function Login(){
               console.log(response.data.nickname);
               console.log(response.data.memberId);
               dispatch(setMember(response.data));
+              navigate('ProfileScreen', {
+                screen: 'ProfileScreen',
+                info: 'information'})
               // console.log(JSON.stringify(response.data));
               // console.log(response);
           }).catch((error) =>{
