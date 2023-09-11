@@ -2,8 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   token: "",
-  groupId: -1,
-  memberId: -1,
+  groupId: 0,
+  memberId: 0,
+  isMember: 0,
   name: "",
   nickname: "",
 };
@@ -16,6 +17,7 @@ const memberSlice = createSlice({
       state.token = action.payload.accessToken;
       state.memberId = action.payload.memberId;
       state.nickname = action.payload.nickname;
+      state.isMember = action.payload.isMember;
     },
     setName: (state, action) => {
       state.name = action.payload;

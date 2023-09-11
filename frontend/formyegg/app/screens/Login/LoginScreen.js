@@ -4,8 +4,6 @@ import {useDispatch} from 'react-redux';
 import {setMember} from '../../../reducers/memberReducer';
 import * as KakaoLogin from '@react-native-seoul/kakao-login';
 import axios from 'axios';
-// import { navigate } from "common/NavigationService";
-
 
 const LoginScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -42,13 +40,10 @@ const LoginScreen = ({navigation}) => {
           url: 'http://10.0.2.2:8080/api/member',
           data: data
       }).then((response) => {
+          if(response.data.isMember == 0){
+            navigation.navigate('Group');
+          }
           dispatch(setMember(response.data));
-          
-          // if(response.data.isMember == 0){
-          //   navigate('ProfileScreen', {
-          //       screen: 'ProfileScreen',
-          //       info: 'information'});
-          // }
       }).catch((error) =>{
           console.log(error);
       });
