@@ -14,12 +14,23 @@ public class MemberDto {
 	private String nickname;
 	private String kakaoId;
 	private String kakaoToken;
+	private int isMember;
 	public static MemberDto from(Member member){
 		return MemberDto.builder()
 				.memberId(member.getMemberId())
 				.nickname(member.getNickname())
 				.kakaoId(member.getKakaoId())
 				.kakaoToken(member.getKakaoToken())
+				.build();
+	}
+
+	public static MemberDto of(Member member, int isMember){
+		return MemberDto.builder()
+				.memberId(member.getMemberId())
+				.nickname(member.getNickname())
+				.kakaoId(member.getKakaoId())
+				.kakaoToken(member.getKakaoToken())
+				.isMember(isMember)
 				.build();
 	}
 	public static MemberDto from(MemberRequest member){

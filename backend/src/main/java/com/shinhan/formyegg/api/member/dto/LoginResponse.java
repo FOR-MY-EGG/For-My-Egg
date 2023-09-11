@@ -17,11 +17,13 @@ public class LoginResponse {
     private Long groupId;
     private String nickname;
     private String accessToken;
+    private int isMember;
     public static LoginResponse of(MemberDto memberDto, String token){
         return LoginResponse.builder()
                 .memberId(memberDto.getMemberId())
                 .nickname(memberDto.getNickname())
                 .accessToken(token)
+                .isMember(memberDto.getIsMember())
                 .build();
     }
 }
