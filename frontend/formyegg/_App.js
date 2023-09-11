@@ -4,6 +4,7 @@ import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistStore} from 'redux-persist';
 import store from './store';
+import RootRouter from './router';
 
 import {
   SafeAreaView,
@@ -13,7 +14,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import LoginStack from './app/screens/Navigation/LoginStack';
+import BottomTab from './src/common/BottomBar';
 
 export let persistor = persistStore(store);
 
@@ -22,7 +23,8 @@ function App() {
     <NavigationContainer>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <LoginStack />
+          <RootRouter />
+          {/* <BottomTab /> */}
         </PersistGate>
       </Provider>
     </NavigationContainer>
