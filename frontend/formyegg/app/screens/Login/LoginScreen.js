@@ -4,7 +4,7 @@ import {useDispatch} from 'react-redux';
 import {setMember} from '../../../reducers/memberReducer';
 import  * as KakaoLogin from '@react-native-seoul/kakao-login';
 import axios from 'axios';
-import { navigate } from "common/NavigationService";
+// import { navigate } from "common/NavigationService";
 
 export default function LoginScreen(){
   const dispatch = useDispatch();
@@ -39,11 +39,12 @@ export default function LoginScreen(){
           data: data
       }).then((response) => {
           dispatch(setMember(response.data));
-          if(response.data.isMember == 0){
-            navigate('ProfileScreen', {
-                screen: 'ProfileScreen',
-                info: 'information'});
-          }
+          
+          // if(response.data.isMember == 0){
+          //   navigate('ProfileScreen', {
+          //       screen: 'ProfileScreen',
+          //       info: 'information'});
+          // }
       }).catch((error) =>{
           console.log(error);
       });

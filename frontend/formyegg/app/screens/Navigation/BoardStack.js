@@ -1,5 +1,4 @@
 import * as React from 'react';
-import BoardScreen from '../Board/BoardScreen';
 import BoardWriteScreen from '../Board/BoardWriteScreen';
 import ChatScreen from '../Board/ChatScreen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
