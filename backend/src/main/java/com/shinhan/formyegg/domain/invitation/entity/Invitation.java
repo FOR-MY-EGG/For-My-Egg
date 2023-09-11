@@ -26,4 +26,12 @@
      @OneToOne(fetch = FetchType.LAZY)
      @JoinColumn(name = "member_id", foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT))
      private Member memberId;
+
+    public static Invitation of(Member member, Group group){
+        return Invitation.builder()
+                .memberId(member)
+                .familyId(group)
+                .build();
+    }
+
  }

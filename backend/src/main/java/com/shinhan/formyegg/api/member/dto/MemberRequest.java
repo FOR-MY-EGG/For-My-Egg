@@ -10,7 +10,6 @@ import lombok.*;
 @JsonNaming(value= PropertyNamingStrategies.SnakeCaseStrategy.class)
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class MemberRequest {
     private String nickname;
     private String kakaoToken;
