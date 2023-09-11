@@ -1,9 +1,8 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import HomeScreen from '../Home/HomeScreen';
-import LoginScreen from '../Login/LoginScreen';
 import MemoScreen from '../Memo/MemoScreen';
-import BoardScreen from '../Board/BoardScreen';
+import BoardStack from './BoardStack';
 
 const Tab = createBottomTabNavigator();
 
@@ -13,7 +12,7 @@ const TabBottom = () => {
       {/* <Tab.Screen name="Login" component={LoginScreen} /> */}
       <Tab.Screen name="Home" component={HomeScreen} />
       <Tab.Screen name="Memo" component={MemoScreen} />
-      <Tab.Screen name="Board" component={BoardScreen} />
+      <Tab.Screen name="Board" component={BoardStack} />
     </Tab.Navigator>
   );
 };
