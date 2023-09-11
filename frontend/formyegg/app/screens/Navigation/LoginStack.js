@@ -25,7 +25,6 @@ function LoginStack() {
       )}
     </>
   );
-
 }
 
 export default LoginStack;

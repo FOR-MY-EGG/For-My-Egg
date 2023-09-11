@@ -15,7 +15,7 @@ export default function CardComponent({nickname, image, title, createdDate, cont
             <Left>
             <Thumbnail source={{ uri: 'https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/1425160.png' }} />
             <Body>
-                <Text>{nickname}</Text>
+                <Text style={{fontSize: 20}}>{nickname}</Text>
                 <Text note>{createdDate}</Text>
             </Body>
             </Left>
