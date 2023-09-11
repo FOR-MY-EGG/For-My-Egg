@@ -38,7 +38,7 @@ export default function Board({affiliation, mainTitle}) {
             return (
               <CardComponent nickname={item.nickname}
               image={item.image} title={item.title}
-              createAt={item.createAt} content={item.content}
+              createdDate={item.createdDate} content={item.content}
               view={item.view}/>
             )
         }} 

@@ -1,6 +1,6 @@
 import { Text, TouchableOpacity } from "react-native";
 import React, { useEffect } from "react";
-import NavigationService from "./common/NavigationService";
+import { navigate } from "./common/NavigationService";
 import { useDispatch } from 'react-redux';
 import { setName } from "../reducers/memberReducer";
 
@@ -13,8 +13,8 @@ export default function Home() {
     }, [])
 
     return (
-    <TouchableOpacity onPress={()=> NavigationService.navigate('LoginScreen', {
-        screen: 'LoginScreen',
+    <TouchableOpacity onPress={()=> navigate('BoardScreen', {
+        screen: 'BoardScreen',
         info: 'information'})}
         style={{
             justifyContent: 'flex-end',

@@ -42,7 +42,7 @@ export default function Login(){
               data: data
           }).then((response) => {
               dispatch(setMember(response.data));
-              if(response.data.isMember == 0){
+              if(response.data.isMember == 1){
                 navigate('ProfileScreen', {
                     screen: 'ProfileScreen',
                     info: 'information'});
