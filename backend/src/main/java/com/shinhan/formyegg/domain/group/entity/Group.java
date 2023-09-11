@@ -9,7 +9,6 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-@Setter
 @Builder
 public class Group {
 
@@ -20,4 +19,10 @@ public class Group {
 
     @Column(name = "uuid", nullable = false, length = 100)
     private String uuid;
+
+    public static Group from(String uuid){
+        return Group.builder()
+                .uuid(uuid)
+                .build();
+    }
 }
