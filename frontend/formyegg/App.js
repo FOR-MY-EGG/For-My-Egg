@@ -5,6 +5,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore } from "redux-persist";
 import store from './store';
 import RootRouter from './router'
+import { Interceptor } from './src/common/commonHttp';
 
 import {
   SafeAreaView,
@@ -22,7 +23,9 @@ function App() {
     <NavigationContainer>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <RootRouter />
+          <Interceptor>
+            <RootRouter />
+          </Interceptor>
         </PersistGate>
       </Provider>
     </NavigationContainer>
