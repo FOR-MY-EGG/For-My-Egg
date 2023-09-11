@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, View, Button} from 'react-native';
 
-const BoardScreen = ({navigation}) => {
+const BoardType1Screen = ({navigation}) => {
   return (
     <View
       style={{
@@ -9,11 +9,11 @@ const BoardScreen = ({navigation}) => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-      <Text>BoardScreen! 🎉</Text>
+      <Text>임신! 🎉</Text>
       <Button title="글작성" onPress={() => navigation.navigate('Write')} />
       <Button title="채팅" onPress={() => navigation.navigate('Chat')} />
     </View>
   );
 };
 
-export default BoardScreen;
+export default BoardType1Screen;
