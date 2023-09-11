@@ -24,7 +24,7 @@ public class MemberMainRes {
 
     public static MemberMainRes from(MemberDto memberDto, List<ChildDto> childDtoList){
         return MemberMainRes.builder()
-                .userName(memberDto.getName())
+                .userName(memberDto.getNickname())
                 .children(childDtoList)
                 .build();
     }

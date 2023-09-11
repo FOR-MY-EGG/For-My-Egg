@@ -20,6 +20,7 @@
  import org.springframework.web.multipart.MultipartFile;
 
  import java.io.IOException;
+ import java.util.List;
 
  @Api(value = "게시판 API", tags = {"Board"})
  @RestController
@@ -36,17 +37,9 @@
          return ResponseEntity.ok(boardRes);
      }
 
-     @ApiOperation(value = "게시글 상세 내역 조회", notes = "게시글 상세 내역 조회")
-     @GetMapping("/{boardId}")
-     public ResponseEntity<BoardDetailRes> detailBoard(@PathVariable int boardId) throws BoardException {
-         BoardDetailRes boardDetailRes = BoardDetailRes.from(boardService.detailBoard(boardId), commentService.findCommentsByBoardId(boardId));
-         return ResponseEntity.ok(boardDetailRes);
-     }
-
-     @ApiOperation(value = "게시글 목록 조회", notes = "커뮤니티 타입에 따른 게시글 목록 조회")
-     @GetMapping("/affiliation/{affiliation}")
-     public ResponseEntity<Page<BoardListRes>> getBoardByAffiliation(@PathVariable int affiliation, @RequestParam int page) {
-         Page<BoardListRes> boardListRes = boardService.getBoardByAffiliation(affiliation, page);
-         return ResponseEntity.ok(boardListRes);
+     @ApiOperation(value = "게시글 상세 내역 조회", notes = " 커뮤니티 타입에 따른 게시글 상세 내역 조회")
+     @GetMapping("/{affiliation}")
+     public ResponseEntity<List<BoardDetailRes>> getBoardsByAffiliation(@PathVariable int affiliation, int page) throws BoardException {
+         return ResponseEntity.ok(boardService.getBoardByAffiliation(affiliation, page));
      }
  }

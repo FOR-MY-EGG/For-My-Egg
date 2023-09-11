@@ -56,23 +56,15 @@ export default function Login(){
           console.log(`GetProfile Fail(code:${error.code})`, error.message);
         });
     };
-
-
   return (
-      <SafeAreaView>
-        <TouchableOpacity
-            onPress={() => login()}
-            style={styles.kakaoButton}
-        >
-            <Image source={kakaoButton}
-                style={styles.kakaoSymbol}
-            />
-            <Text>카카오 로그인</Text>
-        </TouchableOpacity>
-      </SafeAreaView>
+    <SafeAreaView>
+      <TouchableOpacity onPress={() => login()} style={styles.kakaoButton}>
+        <Image source={kakaoButton} style={styles.kakaoSymbol} />
+        <Text>카카오 로그인</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
   );
 };
-
 
 const styles = StyleSheet.create({
     kakaoButton : {

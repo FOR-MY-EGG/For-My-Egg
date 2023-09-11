@@ -13,6 +13,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class LoginResponse {
-    private MemberDto memberDto;
-    private String token;
+    private Long memberId;
+    private Long groupId;
+    private String nickname;
+    private String accessToken;
+    public static LoginResponse of(MemberDto memberDto, String token){
+        return LoginResponse.builder()
+                .memberId(memberDto.getMemberId())
+                .nickname(memberDto.getNickname())
+                .accessToken(token)
+                .build();
+    }
 }
