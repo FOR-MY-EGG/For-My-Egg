@@ -2,7 +2,7 @@ import React from 'react';
 import { SafeAreaView, StyleSheet, Text, Image } from 'react-native';
 import  * as KakaoLogin from '@react-native-seoul/kakao-login';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import kakaoButton from 'formyegg/assets/images/kakao_login_symbol.png';
+import kakaoButton from 'formyegg/app/assets/images/kakao_login_symbol.png';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setMember } from '../../reducers/memberReducer';
@@ -42,7 +42,7 @@ export default function Login(){
               data: data
           }).then((response) => {
               dispatch(setMember(response.data));
-              if(response.data.isMember == 0){
+              if(response.data.isMember == 1){
                 navigate('ProfileScreen', {
                     screen: 'ProfileScreen',
                     info: 'information'});
