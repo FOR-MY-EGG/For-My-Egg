@@ -1,7 +1,7 @@
-import { View, Image, Text, StyleSheet } from 'react-native';
+import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Card, CardItem, Thumbnail, Body, Left, Right, Button, Icon } from 'native-base';
 import React, { useState, useRef } from 'react';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+// import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function CardComponent({nickname, image, title, createAt, content, view}) {
     const [show, setShow] = useState(false);
@@ -9,8 +9,6 @@ export default function CardComponent({nickname, image, title, createAt, content
     const handleLine = () => {
         setShow(prev => !prev);
     }
-
-
     return (
         <Card>
         <CardItem>

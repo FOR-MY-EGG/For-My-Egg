@@ -11,7 +11,7 @@ const AuthStack = createStackNavigator(
         BoardScreen: {screen: BoardScreen}
     },
     {
-        initialRouteName: 'BoardScreen'
+        initialRouteName: 'LoginScreen'
     }
 );
 
