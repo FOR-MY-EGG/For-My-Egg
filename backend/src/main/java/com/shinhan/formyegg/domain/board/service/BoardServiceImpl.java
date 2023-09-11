@@ -59,7 +59,7 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public List<BoardDetailRes> getBoardByAffiliation(int affiliation, int page) {
         if(affiliation < 0 || affiliation >= 3) throw new AffiliationException(ErrorCode.NOT_EXIST_AFFILIATION);
-        return boardRepository.findBoardsAndNicknameByAffiliation(affiliation, PageRequest.of(page, 8));
+        return boardRepository.findBoardsAndNicknameByAffiliation(affiliation, PageRequest.of(page, 3));
     }
 }
 
