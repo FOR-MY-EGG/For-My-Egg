@@ -1,18 +1,25 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, View, FlatList } from 'react-native';
 import CardComponent from './components/Card';
+import http from '../common/commonHttp';
 
 export default function Board() {
+  const [cards, setCards] = useState([]);
+  
   return (
-    <View style={style.container}>
-        <View>
-            <CardComponent />
-        </View>
-    </View>
+    // <FlatList data={data} keyExtractor={(_) => _.title} style={styles.container} 
+    //         renderItem={({ item }) => {
+    //         	const { title, content } = item;
+    //             return (
+    //             	<FeedSection title={title} content={content}/>
+    //             )
+    //         }}
+    //     />
+    <View></View>
   )
 };
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
       flex: 1,
       backgroundColor: 'white'
