@@ -25,7 +25,6 @@ const LoginScreen = ({navigation}) => {
           console.log(`Login Fail(code:${error.code})`, error.message);
         }
       });
-    return;
   };
 
   const getProfile = kakaoToken => {
@@ -53,6 +52,7 @@ const LoginScreen = ({navigation}) => {
       }).catch((error) =>{
           console.log(error);
       });
+    })
   };
   return (
     <View
