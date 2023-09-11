@@ -12,8 +12,6 @@ import lombok.*;
 @AllArgsConstructor
 public class MemberResponse {
     private Long memberId;
-    private String address;
-    private int incomeRank;
     private String name;
     private String nickname;
     private String kakaoId;

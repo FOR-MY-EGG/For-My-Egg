@@ -3,11 +3,10 @@ import { Card, CardItem, Thumbnail, Body, Left, Right, Button, Icon } from 'nati
 import React, { useState, useRef } from 'react';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function CardComponent() {
+export default function CardComponent({profileImg, writer, createAt, img, title, content}) {
     const [show, setShow] = useState(false);
 
     const handleLine = () => {
-        alert("asd")
         setShow(prev => !prev);
     }
 
@@ -29,22 +28,24 @@ export default function CardComponent() {
             source={{ uri: 'https://user-images.githubusercontent.com/3969643/51441420-b41f1c80-1d14-11e9-9f5d-af5cd3a6aaae.png' }} 
             style={{ height:200, width:null, flex: 1 }} />
         </CardItem>
+        <Text style={{ fontWeight:'900', marginLeft: 20, marginTop: 20}}>Anpigon</Text>
         <CardItem>
-            <Text style={{backgroundColor: "blue"}}>
-            <Text style={{ fontWeight:'900'}}>Anpigon</Text>
-            {!show ? 
-                    <TouchableOpacity style={{backgroundColor: "red"}}>
-                        <Text onPress={() => alert("bbb")}>
-                            {data.slice(0, 10)}
+            <Text style={{marginBottom: 20}}>
+            <TouchableOpacity onPress={() => handleLine()}>
+                {!show ? 
+                        <Text style={{
+                            maxWidth: 300
+                        }}> 
+                            {data.slice(0, 40) + (data.length > 40 ? "..." : "")}
                         </Text>
-                    </TouchableOpacity>
-                :
-                    <TouchableOpacity>
-                        <Text>
+                    :
+                        <Text style={{
+                            maxWidth: 300
+                        }}> 
                             {data}
                         </Text>
-                    </TouchableOpacity>
-            }
+                }
+            </TouchableOpacity>
             </Text>
             </CardItem>
         </Card>

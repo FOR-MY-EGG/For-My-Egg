@@ -4,6 +4,7 @@ import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistStore} from 'redux-persist';
 import store from './store';
+import { Interceptor } from './src/common/commonHttp';
 
 import {
   SafeAreaView,
@@ -22,7 +23,9 @@ function App() {
     <NavigationContainer>
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
-          <LoginStack />
+          <Interceptor>
+            <LoginStack />
+          </Interceptor>
         </PersistGate>
       </Provider>
     </NavigationContainer>
