@@ -24,6 +24,7 @@ const JoinScreen = ({navigation}) => {
       }
     }).then((response) => {
         console.log(response.data);
+        // 메인으로 이동!!!!!!!!!!!!!!!
     }).catch((error) =>{
         console.log(error);
     });
