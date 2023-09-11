@@ -11,7 +11,7 @@ const Stack = createNativeStackNavigator();
 function LoginStack() {
   //token을 isMember로 확인해서 정보가 있으면 메인으로 보내야함 (1)
   const {token} = useSelector(state => state.member);
-
+  
   return (
     <>
       {token ? (
@@ -25,6 +25,7 @@ function LoginStack() {
       )}
     </>
   );
+
 }
 
 export default LoginStack;

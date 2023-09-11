@@ -1,24 +1,22 @@
-import { View, Image, Text, StyleSheet } from 'react-native';
+import { View, Image, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import { Card, CardItem, Thumbnail, Body, Left, Right, Button, Icon } from 'native-base';
 import React, { useState, useRef } from 'react';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+// import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function CardComponent({nickname, image, title, createAt, content, view}) {
+export default function CardComponent({nickname, image, title, createdDate, content, view}) {
     const [show, setShow] = useState(false);
 
     const handleLine = () => {
         setShow(prev => !prev);
     }
-
-
     return (
         <Card>
         <CardItem>
             <Left>
-            <Thumbnail source={{ uri: 'https://steemitimages.com/u/anpigon/avatar' }} />
+            <Thumbnail source={{ uri: 'https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/1425160.png' }} />
             <Body>
                 <Text>{nickname}</Text>
-                <Text note>Janasd 21, 2019</Text>
+                <Text note>{createdDate}</Text>
             </Body>
             </Left>
         </CardItem>
