@@ -1,5 +1,6 @@
 package com.shinhan.formyegg.domain.board.service;
 
+import com.shinhan.formyegg.api.board.dto.BoardDetailRes;
 import com.shinhan.formyegg.api.board.dto.BoardListRes;
 import com.shinhan.formyegg.domain.board.dto.BoardDto;
 import com.shinhan.formyegg.domain.board.entity.Board;
@@ -23,6 +24,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -55,17 +57,9 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
-    public Page<BoardListRes> getBoardByAffiliation(int affiliation, int page) {
+    public List<BoardDetailRes> getBoardByAffiliation(int affiliation, int page) {
         if(affiliation < 0 || affiliation >= 3) throw new AffiliationException(ErrorCode.NOT_EXIST_AFFILIATION);
-        return boardRepository.findBoardsByAffiliationOrderByCreateDateDesc(affiliation, PageRequest.of(page, 10)).map(
-                board -> BoardListRes.builder()
-                            .boardId(board.getBoardId())
-                            .title(board.getTitle())
-                            .view(board.getView())
-                            .writer(board.getWriter().getMemberId())
-                            .createdDate(board.getCreateDate())
-                            .build()
-        );
+        return boardRepository.findBoardsAndNicknameByAffiliation(affiliation, PageRequest.of(page, 8));
     }
 }
 
