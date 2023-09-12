@@ -11,7 +11,7 @@ public interface PolicyRepository extends JpaRepository <Policy, Long>{
 
     List<Policy> findAll();
 
-    Optional<Policy> findPolicyByType(int type);
+    List<Policy> findPolicyByType(int type);
 
-    Optional<Policy> findPolicyByisMultiTrue();
+    List<Policy> findPolicyByIsMultiIsTrue();
 }

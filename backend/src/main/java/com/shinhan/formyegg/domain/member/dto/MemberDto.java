@@ -11,24 +11,33 @@ import lombok.Getter;
 @Builder
 public class MemberDto {
 	private Long memberId;
-	private String name;
 	private String nickname;
 	private String kakaoId;
 	private String kakaoToken;
+    private int isMember;
+
 	public static MemberDto from(Member member){
 		return MemberDto.builder()
 				.memberId(member.getMemberId())
-				.name(member.getName())
 				.nickname(member.getNickname())
 				.kakaoId(member.getKakaoId())
 				.kakaoToken(member.getKakaoToken())
 				.build();
 	}
+
+	public static MemberDto of(Member member, int isMember){
+		return MemberDto.builder()
+				.memberId(member.getMemberId())
+				.nickname(member.getNickname())
+				.kakaoId(member.getKakaoId())
+				.kakaoToken(member.getKakaoToken())
+				.isMember(isMember)
+				.build();
+	}
 	public static MemberDto from(MemberRequest member){
 		return MemberDto.builder()
-				.kakaoId("2")
-				.kakaoToken("1")
-				.name(member.getName())
+				.kakaoId(member.getKakaoId())
+				.kakaoToken(member.getKakaoToken())
 				.nickname(member.getNickname())
 				.build();
 	}

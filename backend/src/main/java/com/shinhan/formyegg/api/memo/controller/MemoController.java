@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.StringTokenizer;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/memo")
@@ -37,7 +38,7 @@ public class MemoController {
     @GetMapping("/{childId}")
     public ResponseEntity<List<MemoResDto>> getMemoListByMonth(@PathVariable Long childId, @RequestParam int month, @RequestParam int year){
         List<MemoDto> memoListByMonth = memoService.getMemoListByMonth(1L, childId, year, month);
-        List<MemoResDto> memos = memoListByMonth.stream().map(MemoResDto::from).toList();
+        List<MemoResDto> memos = memoListByMonth.stream().map(MemoResDto::from).collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(memos);
     }
 

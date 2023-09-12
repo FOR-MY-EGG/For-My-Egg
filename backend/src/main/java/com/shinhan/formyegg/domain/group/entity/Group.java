@@ -26,4 +26,10 @@ public class Group {
                 .familyId(groupId)
                 .build();
     }
+
+    public static Group from(String uuid){
+        return Group.builder()
+                .uuid(uuid)
+                .build();
+    }
 }

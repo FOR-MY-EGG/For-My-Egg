@@ -7,7 +7,6 @@ import com.shinhan.formyegg.domain.child.dto.ChildDto;
 import com.shinhan.formyegg.domain.member.dto.MemberDto;
 
 public interface MemberService {
-	MemberDto createMember(MemberDto memberDto);
 
 	MemberDto getMemberByKakaoId(String kakaoId);
 
@@ -15,7 +14,7 @@ public interface MemberService {
 
 	MemberDto updateNickname(MemberDto memberDto);
 
-  MemberDto login(long id);
-  
+  MemberDto login(MemberDto memberDto);
+
   List<ChildDto> getMemberWithChildren(Long memberId);
 }

@@ -5,6 +5,7 @@ import com.shinhan.formyegg.domain.child.entity.Child;
 import lombok.Builder;
 import lombok.Getter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.WeekFields;
@@ -40,14 +41,15 @@ public class ChildDto {
     }
 
     private static Long getDDay(LocalDateTime birthDate){
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        long daysDiff = ChronoUnit.DAYS.between(currentDateTime, birthDate);
+        LocalDate currentDate = LocalDate.now();
+        long daysDiff = ChronoUnit.DAYS.between(currentDate, birthDate.toLocalDate());
         return daysDiff;
     }
 
     private static int getWeeks(LocalDateTime birthDate){
-        WeekFields weekFields = WeekFields.of(Locale.getDefault());
-        int weekNumber = birthDate.get(weekFields.weekOfWeekBasedYear());
-        return weekNumber;
+        LocalDate currentDate = LocalDate.now();
+        long daysUntilDueDate = ChronoUnit.DAYS.between(currentDate, birthDate.toLocalDate());
+        int weeksPregnant = (int) (daysUntilDueDate / 7);
+        return Math.abs(weeksPregnant-40);
     }
 }

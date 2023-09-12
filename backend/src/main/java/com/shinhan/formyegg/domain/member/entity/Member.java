@@ -20,9 +20,6 @@ public class Member extends BaseTimeEntity {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long memberId;
 
-	@Column(nullable = false, length = 10)
-	private String name;
-
 	@Column(nullable = false, length = 20)
 	private String nickname;
 
@@ -40,7 +37,6 @@ public class Member extends BaseTimeEntity {
 	public static Member from(MemberDto memberDto){
 		return Member.builder()
 				.memberId(memberDto.getMemberId())
-				.name(memberDto.getName())
 				.nickname(memberDto.getNickname())
 				.kakaoId(memberDto.getKakaoId())
 				.kakaoToken(memberDto.getKakaoToken())
@@ -51,4 +47,8 @@ public class Member extends BaseTimeEntity {
 		this.nickname = nickname;
 	}
 
+
+	public void updateKakaoToken(String kakaoToken) {
+		this.kakaoToken = kakaoToken;
+	}
 }

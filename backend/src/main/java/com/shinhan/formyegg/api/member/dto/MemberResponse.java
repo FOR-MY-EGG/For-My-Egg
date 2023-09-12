@@ -12,8 +12,6 @@ import lombok.*;
 @AllArgsConstructor
 public class MemberResponse {
     private Long memberId;
-    private String address;
-    private int incomeRank;
     private String name;
     private String nickname;
     private String kakaoId;
@@ -22,7 +20,6 @@ public class MemberResponse {
     public static MemberResponse from(MemberDto memberDto){
         return MemberResponse.builder()
                 .memberId(memberDto.getMemberId())
-                .name(memberDto.getName())
                 .nickname(memberDto.getNickname())
                 .kakaoId(memberDto.getKakaoId())
                 .kakaoToken(memberDto.getKakaoToken())
