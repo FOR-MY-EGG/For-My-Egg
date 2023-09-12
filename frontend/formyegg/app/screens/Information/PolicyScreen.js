@@ -19,6 +19,7 @@ const PolicyScreen = () => {
   }
   
   useEffect(() => {
+    
     http.get('policy/type/1')
       .then(response => {
         const pregDataArray = response.data
@@ -29,15 +30,15 @@ const PolicyScreen = () => {
         console.error(error);
       });
     http.get('policy/type/2')
-    .then(response => {
-    const familyDataArray = response.data
-        .map(response => response.data)
-        .flat();
-    setFamilyPolicyData(familyDataArray);
-    })
-    .catch(error => {
-    console.error(error);
-    });
+      .then(response => {
+        const familyDataArray = response.data
+          .flat();
+        setFamilyPolicyData(familyDataArray);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+    
   }, []);
 
   const handleCardPress = item => {
@@ -55,8 +56,6 @@ const PolicyScreen = () => {
         flex: 1,
         alignItems: 'center',
       }}>
-      {selectedItem ? null:
-      <Text style={styles.header}>출산,육아 정책</Text>}
       {selectedItem ? (
         <View>
           <View styles={styles.cardContainer}>
@@ -81,23 +80,44 @@ const PolicyScreen = () => {
       
       </View>
       ) : (
-        <FlatList
-          data={pregPolicyData}
-          keyExtractor={(item, index) => index.toString()}
-          contentContainerStyle={styles.cardContainer}
-          renderItem={({item}) => (
-            <TouchableOpacity
-              onPress={() => handleCardPress(item)}
-              style={styles.card}>
-              <View>
-                <Text style={styles.cardTypeText}>
-                {item.name}
-                </Text>
-                <Text style={styles.cardText}>{item.targetIntro}</Text>
-              </View>
-            </TouchableOpacity>
-          )}
-        />
+        <View>
+            <Text style={styles.typeText}>출산 지원 정책</Text>
+            <FlatList
+            data={pregPolicyData}
+            keyExtractor={(item, index) => index.toString()}
+            contentContainerStyle={styles.cardContainer}
+            renderItem={({item}) => (
+                <TouchableOpacity
+                onPress={() => handleCardPress(item)}
+                style={styles.card}>
+                <View>
+                    <Text style={styles.cardTypeText}>
+                    {item.name}
+                    </Text>
+                    <Text style={styles.cardText}>{item.targetIntro}</Text>
+                </View>
+                </TouchableOpacity>
+            )}
+            />
+            <Text style={styles.typeText}>일 가정 양립 지원 서비스</Text>
+            <FlatList
+            data={familyPolicyData}
+            keyExtractor={(item, index) => index.toString()}
+            contentContainerStyle={styles.cardContainer}
+            renderItem={({item}) => (
+                <TouchableOpacity
+                onPress={() => handleCardPress(item)}
+                style={styles.card}>
+                <View>
+                    <Text style={styles.cardTypeText}>
+                    {item.name}
+                    </Text>
+                    <Text style={styles.cardText}>{item.targetIntro}</Text>
+                </View>
+                </TouchableOpacity>
+            )}
+            />
+        </View>
       )}
     </View>
   );
@@ -109,6 +129,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom:0,
     paddingBottom:0
+  },
+  typeText:{
+    marginTop:20,
+    padding: 10,
   },
   header: {
     fontSize: 20,
