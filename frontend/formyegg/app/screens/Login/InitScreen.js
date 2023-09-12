@@ -1,9 +1,11 @@
 import React from 'react';
 import {Text, View, Button} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import axios from 'axios';
+import { setGroupId } from '../../../reducers/memberReducer';
 
 const InitScreen = ({navigation}) => {
+  const dispatch = useDispatch();
   const {token} = useSelector(state => state.member);
 
   const createGroup = () => {
@@ -15,7 +17,7 @@ const InitScreen = ({navigation}) => {
       }
     }).then((response) => {
         console.log(response.data);
-        // 메인으로 이동 !!!!!!!!!!!
+        dispatch(setGroupId(response.data.groupId));
     }).catch((error) =>{
         console.log(error);
     });

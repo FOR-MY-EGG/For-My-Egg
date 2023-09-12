@@ -11,7 +11,6 @@ const LoginScreen = ({navigation}) => {
   const login = () => {
     KakaoLogin.login()
       .then(result => {
-        console.log('Login Success', JSON.stringify(result));
         const kakaoTokenJson = JSON.stringify(result);
         const kakaoToken = JSON.parse(kakaoTokenJson);
         getProfile(kakaoToken.accessToken);
@@ -40,10 +39,10 @@ const LoginScreen = ({navigation}) => {
           url: 'http://10.0.2.2:8080/api/member',
           data: data
       }).then((response) => {
-          if(response.data.isMember == 0){
-            navigation.navigate('Group');
-          }
-          dispatch(setMember(response.data));
+        dispatch(setMember(response.data));
+        if(response.data.isMember == 0){
+          navigation.navigate('Group');
+        }
       }).catch((error) =>{
           console.log(error);
       });

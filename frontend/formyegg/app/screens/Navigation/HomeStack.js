@@ -13,15 +13,15 @@ function HomeStack() {
       <Stack.Screen
         name="Main"
         component={HomeScreen}
-        options={{
-          headerRight: () => (
-            <Button
-              onPress={() => alert('This is a button!')}
-              title="Info"
-              color="#000"
-            />
-          ),
-        }}
+        // options={{
+        //   headerRight: () => (
+        //     <Button
+        //       onPress={() => alert('This is a button!')}
+        //       title="Info"
+        //       color="#000"
+        //     />
+        //   ),
+        // }}
       />
       <Stack.Screen name="Mypage" component={MyPageScreen} />
       <Stack.Screen name="Information" component={InformationScreen} />
