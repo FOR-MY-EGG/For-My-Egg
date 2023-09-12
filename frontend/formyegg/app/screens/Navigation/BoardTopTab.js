@@ -17,17 +17,17 @@ const BoardTopTab = ({navigation}) => {
         <Tab.Screen
           name="type1"
           component={BoardType1Screen}
-          options={{tabBarLabel: '임신'}}
+          options={{tabBarLabel: '임신/출산'}}
         />
         <Tab.Screen
           name="type2"
           component={BoardType2Screen}
-          options={{tabBarLabel: '출산'}}
+          options={{tabBarLabel: '육아'}}
         />
         <Tab.Screen
           name="type3"
           component={BoardType3Screen}
-          options={{tabBarLabel: '육아'}}
+          options={{tabBarLabel: '산후조리'}}
         />
       </Tab.Navigator>
     </>

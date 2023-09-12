@@ -21,6 +21,8 @@ public class ChatDto {
     private String content;
     private LocalDateTime createDate;
 
+    private String nickname;
+
     public static ChatDto from(ChatReq chatReq){
         return ChatDto.builder()
                 .writer(chatReq.getWriter())

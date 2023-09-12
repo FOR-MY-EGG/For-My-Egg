@@ -3,7 +3,7 @@ import { Card, CardItem, Thumbnail, Body, Left, Right, Button, Icon } from 'nati
 import React, { useState, useRef } from 'react';
 // import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function CardComponent({nickname, image, title, createdDate, content, view}) {
+export default function CardComponent({nickname, image, title, createdDate, content, view, profile}) {
     const [show, setShow] = useState(false);
 
     const handleLine = () => {
@@ -13,9 +13,9 @@ export default function CardComponent({nickname, image, title, createdDate, cont
         <Card>
         <CardItem>
             <Left>
-            <Thumbnail source={{ uri: 'https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/1425160.png' }} />
+            <Thumbnail source={{ uri: profile }} />
             <Body>
-                <Text style={{fontSize: 20}}>{nickname}</Text>
+                <Text style={{fontSize: 20, fontWeight: "bold"}}>{nickname}</Text>
                 <Text note>{createdDate}</Text>
             </Body>
             </Left>
