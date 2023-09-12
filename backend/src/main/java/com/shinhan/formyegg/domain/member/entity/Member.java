@@ -47,8 +47,8 @@ public class Member extends BaseTimeEntity {
 		this.nickname = nickname;
 	}
 
-	public void updateKakaoToken(String kakaoToken){
+
+	public void updateKakaoToken(String kakaoToken) {
 		this.kakaoToken = kakaoToken;
 	}
-
 }

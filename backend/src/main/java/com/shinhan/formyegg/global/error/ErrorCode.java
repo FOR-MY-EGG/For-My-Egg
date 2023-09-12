@@ -23,6 +23,9 @@ public enum ErrorCode {
 
 	// 계좌
 	NOT_EXIST_ACCOUNT(HttpStatus.BAD_REQUEST, "C-001", "존재하지 않는 계좌입니다."),
+
+	NOT_EXIST_DATE(HttpStatus.BAD_REQUEST, "D-001", "잘못된 날짜 형식입니다."),
+
 	//정책
 	NOT_EXIST_POLICY(HttpStatus.BAD_REQUEST, "P-001", "존재하지 않는 정책입니다."),
 
