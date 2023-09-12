@@ -19,6 +19,7 @@ public enum ErrorCode {
 
 	// 그룹
 	NOT_EXIST_GROUP(HttpStatus.BAD_REQUEST, "G-001", "그룹이 존재하지 않습니다."),
+	ALREADY_EXIST_GROUP(HttpStatus.BAD_REQUEST, "G-002", "이미 그룹이 존재합니다."),
 
 	// 계좌
 	NOT_EXIST_ACCOUNT(HttpStatus.BAD_REQUEST, "C-001", "존재하지 않는 계좌입니다."),
