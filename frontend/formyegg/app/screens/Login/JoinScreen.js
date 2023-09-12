@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import {Text, View, Button, StyleSheet, TextInput} from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
+import { setGroupId } from '../../../reducers/memberReducer';
 
 const JoinScreen = ({navigation}) => {
+  const dispatch = useDispatch();
   const {token} = useSelector(state => state.member);
 
   const [text, setText] = useState('');
@@ -12,7 +14,6 @@ const JoinScreen = ({navigation}) => {
 
   const submitBtn = () => {
     setText(inputText);
-    console.log(inputText);
     axios({
       method: 'post',
       url: 'http://10.0.2.2:8080/api/group/invitation',
@@ -23,8 +24,8 @@ const JoinScreen = ({navigation}) => {
         authorization: `Bearer `+token
       }
     }).then((response) => {
-        console.log(response.data);
-        // 메인으로 이동!!!!!!!!!!!!!!!
+        console.log(response.data.groupId);
+        dispatch(setGroupId(response.data.groupId));
     }).catch((error) =>{
         console.log(error);
     });
