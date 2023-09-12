@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import {FlatList, Text, View, StyleSheet, Image} from 'react-native';
+import {FlatList, Text, View, StyleSheet, Image, TextInput} from 'react-native';
 import { useState } from 'react';
 import http from "../../utils/commonHttp"
 import { useSelector } from 'react-redux';
 const ChatScreen = ({navigation, route}) => {
   const [message, setMessage] = useState([]);
   const memberId = useSelector((state) => state.member.memberId);
-
+  let inputText = "";
   useEffect(() => {
     http.get(`chat/${route.params.affiliation}`)
     .then((res) => {
@@ -17,23 +17,23 @@ const ChatScreen = ({navigation, route}) => {
     })
   }, [])
 
+  const onTextChange = (text) => {
+    inputText = text;
+    alert(inputText)
+  }
+
   const renderItem = ({item}) => (
     item.writer === memberId ? <MyMessage nickname={item.nickname} createdDate={item.createdDate} content={item.content}/> 
     : <OtherMessage nickname={item.nickname} createdDate={item.createdDate} content={item.content}/>
   );
 
   return (
-    <FlatList style={styles.scroll} data={message} renderItem={renderItem} keyExtractor={item => item.chatId}>
-
-    </FlatList>
-    // <View
-    //   style={{
-    //     flex: 1,
-    //     justifyContent: 'center',
-    //     alignItems: 'center',
-    //   }}>
-    //   <Text>ChatScreen! 🎉</Text>
-    // </View>
+    <View style={{
+      flex: 1,
+    }}>
+      <FlatList style={styles.scroll} data={message} renderItem={renderItem} keyExtractor={item => item.chatId} />
+      <ChatInput onTextChange={onTextChange}/>
+    </View>
   );
 };
 
@@ -59,11 +59,22 @@ const OtherMessage = ({ nickname, createdDate, content }) => (
   </View>
 );
 
+const ChatInput = ({onTextChange}) => (
+  <View style={{backgroundColor: "red", height: 60}}>
+    <TextInput
+        style={styles.chatInput}
+        onChangeText={(text) => onTextChange(text)}
+        placeholder="채팅을 입력해주세요."
+        />
+  </View>
+);
+
 const styles = StyleSheet.create({
   scroll: {
     flex: 1,
     backgroundColor: 'white',
     width: 440,
+    borderWidth: 1
   }, 
   myMessage: {
     marginLeft: 120,
@@ -132,7 +143,16 @@ const styles = StyleSheet.create({
     color: "gray",
     fontSize: 12,
     paddingBottom: 5,
+  },
+  chatInput: {
+    width: 'auto',
+    marginBottom: 100,
+    backgroundColor: "gray",
+    height: 60,
+    borderColor: 'gray',
+    padding: 8,
   }
 });
+
 
 export default ChatScreen;
