@@ -29,8 +29,13 @@ public class GroupServiceImpl implements GroupService {
     public GroupDto createGroup(Long memberId) {
         Optional<Member> member = memberRepository.findByMemberId(memberId);
         if(member.isEmpty()) throw new MemberException(ErrorCode.NOT_EXIST_MEMBER);
+
+        Optional<Invitation> invitation = invitationRepository.findInvitationByMemberId_MemberId(member.get().getMemberId());
+        if(!invitation.isEmpty()) throw new GroupException(ErrorCode.ALREADY_EXIST_GROUP);
+
         String uuid = UUID.randomUUID().toString();
         Group save = groupRepository.save(Group.from(uuid));
+
         invitationRepository.save(Invitation.of(member.get(), save));
         return GroupDto.from(save);
     }
@@ -40,7 +45,9 @@ public class GroupServiceImpl implements GroupService {
         Optional<Member> member = memberRepository.findByMemberId(memberId);
         if(member.isEmpty()) throw new MemberException(ErrorCode.NOT_EXIST_MEMBER);
 
-        System.out.println(groupDto.getUuid());
+        Optional<Invitation> invitation = invitationRepository.findInvitationByMemberId_MemberId(member.get().getMemberId());
+        if(!invitation.isEmpty()) throw new GroupException(ErrorCode.ALREADY_EXIST_GROUP);
+
         Optional<Group> group = groupRepository.findGroupByUuid(groupDto.getUuid());
         if(group.isEmpty()) throw new GroupException(ErrorCode.NOT_EXIST_GROUP);
 
