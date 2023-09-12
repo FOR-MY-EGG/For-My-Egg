@@ -11,17 +11,22 @@ const Stack = createNativeStackNavigator();
 function LoginStack() {
   //token을 isMember로 확인해서 정보가 있으면 메인으로 보내야함 (1)
   const {isMember} = useSelector(state => state.member);
-  // const {token} = useSelector(state => state.member);
+  const {token} = useSelector(state => state.member);
 
   
   return (
     <>
       {!isMember ? (
         <Stack.Navigator>
-          {/* token 체크 후, 없으면 Login 있으면 Group */}
-          <Stack.Screen name="Login" component={LoginScreen} />
-          <Stack.Screen name="Group" component={InitScreen} />
-          <Stack.Screen name="Join" component={JoinScreen} />
+          {!token ? (
+            <Stack.Screen name="Login" component={LoginScreen} />
+            ) : (
+              <>
+                <Stack.Screen name="Group" component={InitScreen} />
+                <Stack.Screen name="Join" component={JoinScreen} />
+              </>
+          )
+        }
         </Stack.Navigator>
       ) : (
         <MainTopBottom />
