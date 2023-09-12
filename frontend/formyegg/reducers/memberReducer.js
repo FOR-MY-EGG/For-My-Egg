@@ -5,7 +5,6 @@ const initialState = {
   groupId: 0,
   memberId: 0,
   isMember: 0,
-  name: "",
   nickname: "",
 };
 
@@ -19,8 +18,8 @@ const memberSlice = createSlice({
       state.nickname = action.payload.nickname;
       state.isMember = action.payload.isMember;
     },
-    setName: (state, action) => {
-      state.name = action.payload;
+    setIsMember: (state, action) => {
+      state.isMember = action.payload;
     },
     setToken: (state, action) => {
       state.token = action.payload;
@@ -28,8 +27,9 @@ const memberSlice = createSlice({
     },
     setGroupId: (state, action) => {
       state.groupId = action.payload;
+      state.isMember = 1;
     }
   },
 });
-export const { setMember, setName, setToken, setGroupId } = memberSlice.actions;
+export const { setMember, setToken, setGroupId, setIsMember } = memberSlice.actions;
 export default memberSlice.reducer;
