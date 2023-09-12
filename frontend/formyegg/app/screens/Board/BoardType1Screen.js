@@ -1,4 +1,4 @@
-import {Text, View, Button} from 'react-native';
+import {Text, View, Button, TouchableOpacity, Image} from 'react-native';
 import React, { useCallback, useEffect, useState } from 'react';
 import { StyleSheet, FlatList } from 'react-native';
 import CardComponent from '../../components/Card';
@@ -46,8 +46,19 @@ const BoardType1Screen = ({navigation}) => {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: "white"
       }}>
-      <Text style={styles.titleText}>임신! 🎉</Text>
+      
+      <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
+        <Text style={styles.titleText}>임신/출산 정보! 🎉</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Write')}>
+          <Image style={styles.button} source={{ uri: "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/write.png" }}></Image>
+        </TouchableOpacity>
+      </View>
+        <TouchableOpacity  onPress={() => navigation.navigate('Chat',{affiliation: 0})}>
+          <Image style={styles.chat} source={{ uri: "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/chat.png" }}></Image>
+        </TouchableOpacity>
+      
       <FlatList data={cards} keyExtractor={(_) => _.title} style={styles.container} 
           renderItem={({ item }) => {
           const { title, content } = item;
@@ -55,14 +66,12 @@ const BoardType1Screen = ({navigation}) => {
               <CardComponent nickname={item.nickname}
               image={item.image} title={item.title}
               createdDate={item.createdDate} content={item.content}
-              view={item.view}/>
+              view={item.view} profile="https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/1425160.png"/>
             )
         }} 
         onEndReached={onEndReached}
         onEndReachedThreshold={0.6}
     />
-      <Button title="글작성" onPress={() => navigation.navigate('Write')} />
-      <Button title="채팅" onPress={() => navigation.navigate('Chat')} />
     </View>
   );
 };
@@ -73,15 +82,32 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     width: 440
   },
+  button: {
+    width: 80,
+    height: 80, 
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation:3,
+  },
   titleText: {
-    fontSize: 20,
-    width: 440,
+    marginLeft: 80,
+    fontSize: 25,
+    fontWeight: "bold",
+    width: 220,
     justifyContent: 'center',
     textAlign: 'center',
-    paddingTop: 5,
     paddingBottom: 5,
-    color: "gray",
+    color: "black",
     backgroundColor: 'white'
+  },
+  chat: {
+    display: 'flex',
+    width: 150,
+    marginBottom: 10,
+    height: 80,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation:3,
   }
 });
 

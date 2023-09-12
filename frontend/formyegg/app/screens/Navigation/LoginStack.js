@@ -16,7 +16,7 @@ function LoginStack() {
   
   return (
     <>
-      {!isMember ? (
+      {isMember ? (
         <Stack.Navigator>
           {/* token 체크 후, 없으면 Login 있으면 Group */}
           <Stack.Screen name="Login" component={LoginScreen} />
