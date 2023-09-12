@@ -1,12 +1,23 @@
 import React, {useEffect, useState} from 'react';
 import {Text, View, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
 import http from '../../utils/commonHttp';
-
+import { Card } from 'galio-framework';
+import { Linking } from "react-native";
+const CardItem = ({ title, content }) => (
+  <View style={styles.cardItem}>
+    <Text style={styles.cardItemTitle}>{title}</Text>
+    <Text style={styles.cardItemContent}>{content}</Text>
+  </View>
+);
 const InformationScreen = () => {
   const [financeData, setFinanceData] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
   const [typeIntroductions, setTypeIntroductions] = useState([]);
 
+  function link(){
+    Linking.openURL(selectedItem.link)
+  }
+  
   useEffect(() => {
     Promise.all(
       [...Array(6)].map((_, index) => http.get(`finance/type/${index + 1}`)),
@@ -78,18 +89,37 @@ const InformationScreen = () => {
         flex: 1,
         alignItems: 'center',
       }}>
-      <Text style={styles.header}>Finance Information🎉</Text>
+      {selectedItem ? null:
+      <Text style={styles.header}>금융정책 추천</Text>}
       {selectedItem ? (
-        <View style={styles.detailsContainer}>
-          <Text>Name: {selectedItem.name}</Text>
-          <Text>Intro: {selectedItem.intro}</Text>
-          <Text>Target Intro: {selectedItem.targetIntro}</Text>
-          <Text>Type: {getTypeName(selectedItem.type)}</Text>
-          <Text>Link: {selectedItem.link}</Text>
-          <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
-            <Text>뒤로 가기</Text>
+        <View>
+          <View styles={styles.cardContainer}>
+            <Text style={styles.header}>{selectedItem.name}</Text>
+          </View>
+          <Text>상품 안내</Text>
+          <View style={styles.detailsContainer}>
+              <Text >{selectedItem.intro}</Text>
+          </View>
+          <Text>대상</Text>
+          <View style={styles.detailsContainer}>
+            <Text>{selectedItem.targetIntro}</Text>
+          </View>
+          <Text >상품 분류</Text>
+          <View style={styles.detailsContainer}>
+            <Text>{getTypeName(selectedItem.type)}</Text>
+          </View>
+          <Text >상품 상세로 이동</Text>
+           <TouchableOpacity onPress={link} style={styles.linkButton} >
+                          <Text>링크 이동 </Text>
           </TouchableOpacity>
-        </View>
+            <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
+                          <Text>뒤로 가기</Text>
+            </TouchableOpacity>
+        {/* <View style={styles.card}>
+          <Text style={styles.cardTypeText}>Link</Text>
+          <Text>{selectedItem.link}</Text>
+        </View> */}
+      </View>
       ) : (
         <FlatList
           data={financeData}
@@ -114,23 +144,27 @@ const InformationScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  introText:{
+    fontSize:15,
+    fontWeight: 'bold',
+    marginBottom:0,
+    paddingBottom:0
+  },
   header: {
     fontSize: 20,
     fontWeight: 'bold',
     marginVertical: 20,
   },
-  detailsContainer: {
-    width: '80%',
-  },
+  
   cardContainer: {
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    padding: 20,
+    padding: 10,
   },
   card: {
     backgroundColor: 'white',
-    padding: 20,
+    padding: 10,
     marginBottom: 20,
     borderRadius: 5,
     elevation: 2,
@@ -144,25 +178,57 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 5,
   },
+  linkButton: {
+    marginTop: 5,
+    backgroundColor: 'lightblue',
+    padding: 15,
+    borderRadius: 5,
+  },
+  
+  detailsContainer: {
+    width: 300,
+    backgroundColor: '#ffffff',
+    padding: 20,
+    borderRadius: 10,
+    marginTop: 5,
+    marginBottom:15,
+    alignItems: 'baseline',
+  },
+  
   backButton: {
     marginTop: 20,
-    backgroundColor: 'lightblue',
+    backgroundColor: '#007BFF',
     padding: 10,
     borderRadius: 5,
+    alignItems: 'center',
+    width: '50%',
   },
-  typeIntroductionContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    marginVertical: 20,
-  },
-  typeIntroductionItem: {
-    backgroundColor: 'lightgray',
-    padding: 10,
-    margin: 5,
-    borderRadius: 5,
-    width: '80%',
+  
+  card: {
+    backgroundColor: '#ffffff',
+    padding: 20,
+    marginBottom: 20,
+    borderRadius: 10,
+    elevation: 2,
+    width: 300,
     maxWidth: 400,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+  
+  cardTypeText: {
+    fontWeight: 'bold',
+    marginBottom: 10,
+    fontSize: 16,
+    textAlign: 'center',
+    color: '#007BFF',
+  },
+  
+  cardText: {
+    textAlign: 'center',
+    fontSize: 14,
   },
 });
 
