@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Text, View, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
-import http from '../../../src/common/commonHttp';
+import React, {useEffect, useState} from 'react';
+import {Text, View, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
+import http from '../../utils/commonHttp';
 
 const InformationScreen = () => {
   const [financeData, setFinanceData] = useState([]);
@@ -8,9 +8,13 @@ const InformationScreen = () => {
   const [typeIntroductions, setTypeIntroductions] = useState([]);
 
   useEffect(() => {
-    Promise.all([...Array(6)].map((_, index) => http.get(`finance/type/${index + 1}`)))
+    Promise.all(
+      [...Array(6)].map((_, index) => http.get(`finance/type/${index + 1}`)),
+    )
       .then(responses => {
-        const financeDataArray = responses.map(response => response.data).flat();
+        const financeDataArray = responses
+          .map(response => response.data)
+          .flat();
         setFinanceData(financeDataArray);
 
         // Extract type introductions
@@ -22,15 +26,15 @@ const InformationScreen = () => {
       });
   }, []);
 
-  const handleCardPress = (item) => {
+  const handleCardPress = item => {
     setSelectedItem(item);
-  }
+  };
 
   const handleBackPress = () => {
     setSelectedItem(null);
-  }
+  };
 
-  const getTypeName = (type) => {
+  const getTypeName = type => {
     switch (type) {
       case 1:
         return '예금';
@@ -47,9 +51,9 @@ const InformationScreen = () => {
       default:
         return '알 수 없음';
     }
-  }
+  };
 
-  const getTypeIntroduction = (type) => {
+  const getTypeIntroduction = type => {
     switch (type) {
       case 1:
         return '예금은 ... 소개입니다.';
@@ -66,7 +70,7 @@ const InformationScreen = () => {
       default:
         return '알 수 없는 타입입니다.';
     }
-  }
+  };
 
   return (
     <View
@@ -91,17 +95,20 @@ const InformationScreen = () => {
           data={financeData}
           keyExtractor={(item, index) => index.toString()}
           contentContainerStyle={styles.cardContainer}
-          renderItem={({ item }) => (
-            <TouchableOpacity onPress={() => handleCardPress(item)} style={styles.card}>
+          renderItem={({item}) => (
+            <TouchableOpacity
+              onPress={() => handleCardPress(item)}
+              style={styles.card}>
               <View>
-                <Text style={styles.cardTypeText}>{getTypeName(item.type)}</Text>
+                <Text style={styles.cardTypeText}>
+                  {getTypeName(item.type)}
+                </Text>
                 <Text style={styles.cardText}>{item.name}</Text>
               </View>
             </TouchableOpacity>
           )}
         />
       )}
-      
     </View>
   );
 };

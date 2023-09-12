@@ -1,7 +1,7 @@
 import React from 'react';
 import {Text, View, Button} from 'react-native';
 
-const MemoScreen = ({navigation}) => {
+const ChildScreen = ({navigation}) => {
   return (
     <View
       style={{
@@ -9,10 +9,10 @@ const MemoScreen = ({navigation}) => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-      <Text>MemoScreen! 🎉</Text>
-      <Button title="입력" onPress={() => navigation.navigate('Write')} />
+      <Text>ChildScreen.🎉</Text>
+      <Button title="채팅" onPress={() => navigation.navigate('Chat')} />
     </View>
   );
 };
 
-export default MemoScreen;
+export default ChildScreen;

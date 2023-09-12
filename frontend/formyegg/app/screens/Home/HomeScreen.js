@@ -1,7 +1,7 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, Button} from 'react-native';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   return (
     <View
       style={{
@@ -10,6 +10,7 @@ const HomeScreen = () => {
         alignItems: 'center',
       }}>
       <Text>Home Screen! 🎉</Text>
+      <Button title="정보" onPress={() => navigation.navigate('Information')} />
     </View>
   );
 };
