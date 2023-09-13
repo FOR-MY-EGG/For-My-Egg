@@ -55,7 +55,7 @@ const BoardType3Screen = ({navigation}) => {
           <Image style={styles.button} source={{ uri: "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/write.png" }}></Image>
         </TouchableOpacity>
       </View>
-        <TouchableOpacity  onPress={() => navigation.navigate('Chat')}>
+        <TouchableOpacity  onPress={() => navigation.navigate('Chat',{affiliation: 2})}>
           <Image style={styles.chat} source={{ uri: "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/chat.png" }}></Image>
         </TouchableOpacity>
       
@@ -87,7 +87,6 @@ const styles = StyleSheet.create({
     height: 80, 
     alignItems: 'center',
     justifyContent: 'center',
-    elevation:3,
   },
   titleText: {
     marginLeft: 80,
@@ -107,7 +106,6 @@ const styles = StyleSheet.create({
     height: 80,
     alignItems: 'center',
     justifyContent: 'center',
-    elevation:3,
   }
 });
 
