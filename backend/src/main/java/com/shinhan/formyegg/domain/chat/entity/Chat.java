@@ -36,7 +36,7 @@ import java.time.LocalDateTime;
                         @ColumnResult(name = "chatId", type = Long.class),
                         @ColumnResult(name = "nickname", type = String.class),
                         @ColumnResult(name = "writer", type = Long.class),
-                        @ColumnResult(name = "type", type = int.class),
+                        @ColumnResult(name = "type", type = Integer.class),
                         @ColumnResult(name = "content", type = String.class),
                         @ColumnResult(name = "createdDate", type = LocalDateTime.class),
                 }
