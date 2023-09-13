@@ -1,7 +1,10 @@
 import React, {useState} from 'react';
-import {Text, View, TextInput, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
+import {Text, View, TextInput, StyleSheet, ScrollView, TouchableOpacity, Image} from 'react-native';
+import {launchImageLibrary} from 'react-native-image-picker';
+import MaterialCommunityIcons from 'react-native-vector-icons/AntDesign';
+import { Avatar } from 'react-native-paper';
 
-const MemoWriteScreen = () => {
+const MemoWriteScreen = ({ navigation }) => {
   const [sender, setSender] = useState('');
   const [transfer, setTransfer] = useState('');
   const [title, setTitle] = useState('');
@@ -11,6 +14,32 @@ const MemoWriteScreen = () => {
   const [inputTransfer, setInputTransfer] = useState('');
   const [inputTitle, setInputTitle] = useState('');
   const [inputContent, setInputContent] = useState('');
+
+  const [response, setResponse] = useState("");
+  const [imageFile, setImageFile] = useState("");
+
+  const onSelectImage = () => {
+    launchImageLibrary(
+      {
+        madiaType: 'photo',
+        maxWidth: 512,
+        maxHeight: 512,
+        includeBase64: true
+      }, 
+      (response) => {
+        console.log(response)
+        // console.log(response.assets[0].base64)
+        if(response.didCancel){
+          return;
+        }else if(response.errorCode){
+          console.log("Image Error : " + response.errorCode);
+        }
+        
+        setResponse(response);
+        setImageFile(response.assets[0].base64);
+     })
+
+   }
 
   return (
     <ScrollView
@@ -33,10 +62,21 @@ const MemoWriteScreen = () => {
                 padding: 10,
                 borderRadius: 12,
                 color: 'black',
-                backgroundColor: 'white'
+                backgroundColor: 'white',
+                alignItems: 'center'
               }}
-              // onPress={()=>onSelectImage()}
-          ><Text style={styles.upload}>통장</Text></TouchableOpacity>
+              onPress={() => navigation.navigate('AccountList')}
+          >
+            <View style={{flexDirection:'row', alignItems: 'center'}}>
+              <Avatar.Image style={{backgroundColor:'white'}}
+              size={43} source={require('../../assets/images/shinhan_logo.png')} />
+              <View>
+                <Text style={styles.upload}>신한 주거래 S20통장</Text>
+                <Text>안뇽</Text>
+              </View>
+            </View>
+            </TouchableOpacity>
+            
         <Text
         style={styles.text}>예금주</Text>
         <TextInput
@@ -80,11 +120,36 @@ const MemoWriteScreen = () => {
                 padding: 10,
                 borderRadius: 12,
                 color: 'black',
-                backgroundColor: '#F3F3F3'
+                backgroundColor: '#F3F3F3',
+                flexDirection : 'row',
+                justifyContent : 'center',
+                alignItems: 'center'
+              }}
+              onPress={()=>onSelectImage()}
+          > 
+              <MaterialCommunityIcons
+                name="upload"
+                size={17}
+              />
+            <Text style={styles.upload}>업로드 하기</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+              key={'rtl'}
+              style={{ 
+                margin: 5,
+                width: '15%',
+                height: 40,
+                padding: 10,
+                borderRadius: 12,
+                color: 'black',
+                backgroundColor: '#F3F3F3',
+                marginTop : 40,
+                marginBottom: 20,
+                alignItems: 'center'
               }}
               // onPress={()=>onSelectImage()}
           >
-              <Text style={styles.upload}>업로드 하기</Text>
+              <Text style={styles.submit}>등록</Text>
           </TouchableOpacity>
     </ScrollView>
   );
@@ -114,6 +179,9 @@ const styles = StyleSheet.create({
   },
   upload : {
     color: 'black',
+    textAlign: 'center',
+  }, submit: {
+    color: '#496B73',
     textAlign: 'center',
     textAlignVertical:'center'
   }
