@@ -25,9 +25,9 @@
      private final ChatRepository chatRepository;
      private final MemberRepository memberRepository;
      @Override
-     public List<ChatDto> findChatsByAffiliation(int affiliation) {
+     public List<ChatRes> findChatsByAffiliation(int affiliation) {
          if(affiliation < 0 || affiliation >= 3) throw new AffiliationException(ErrorCode.NOT_EXIST_AFFILIATION);
-         return ChatDto.from(chatRepository.findChatByAffiliationOrderByCreateDate(affiliation));
+         return chatRepository.findChatByAffiliationOrderByCreateDate(affiliation);
      }
 
      @Override

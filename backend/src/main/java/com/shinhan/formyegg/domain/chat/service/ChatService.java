@@ -8,6 +8,6 @@
  import java.util.List;
 
  public interface ChatService {
-     List<ChatDto> findChatsByAffiliation(int affiliation);
+     List<ChatRes> findChatsByAffiliation(int affiliation);
      ChatDto sendChat(ChatDto chatDto) throws MemberException;
  }
