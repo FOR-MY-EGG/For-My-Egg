@@ -15,7 +15,7 @@ function LoginStack() {
 
   return (
     <>
-      {isMember ? (
+      {!isMember ? (
         <Stack.Navigator>
           {!token ? (
             <Stack.Screen name="Login" component={LoginScreen} />
