@@ -13,20 +13,18 @@ function LoginStack() {
   const {isMember} = useSelector(state => state.member);
   const {token} = useSelector(state => state.member);
 
-  
   return (
     <>
       {!isMember ? (
         <Stack.Navigator>
           {!token ? (
             <Stack.Screen name="Login" component={LoginScreen} />
-            ) : (
-              <>
-                <Stack.Screen name="Group" component={InitScreen} />
-                <Stack.Screen name="Join" component={JoinScreen} />
-              </>
-          )
-        }
+          ) : (
+            <>
+              <Stack.Screen name="Group" component={InitScreen} />
+              <Stack.Screen name="Join" component={JoinScreen} />
+            </>
+          )}
         </Stack.Navigator>
       ) : (
         <MainTopBottom />
