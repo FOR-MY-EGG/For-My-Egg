@@ -7,15 +7,20 @@ import com.shinhan.formyegg.domain.member.entity.Member;
 import com.shinhan.formyegg.domain.memo.dto.MemoDto;
 import lombok.*;
 import org.checkerframework.checker.units.qual.C;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 @Entity
 @Getter
+@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Builder
-public class Memo extends BaseTimeEntity {
+public class Memo{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,6 +47,9 @@ public class Memo extends BaseTimeEntity {
     private String holder;
 
     private String image;
+
+    @CreatedDate
+    private LocalDate createDate;
 
     public static Memo of(Long groupId, MemoDto memoDto, String image){
         return Memo.builder()
