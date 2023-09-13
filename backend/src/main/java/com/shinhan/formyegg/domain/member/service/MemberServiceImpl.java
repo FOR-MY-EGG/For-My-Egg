@@ -53,6 +53,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 
+
   @Override
 	public MemberDto login(MemberDto memberDto) {
 	  Optional<Member> optionalMember = memberRepository.findByKakaoId(memberDto.getKakaoId());

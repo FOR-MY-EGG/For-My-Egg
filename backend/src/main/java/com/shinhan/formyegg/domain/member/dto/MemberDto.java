@@ -14,7 +14,8 @@ public class MemberDto {
 	private String nickname;
 	private String kakaoId;
 	private String kakaoToken;
-	private int isMember;
+    private int isMember;
+
 	public static MemberDto from(Member member){
 		return MemberDto.builder()
 				.memberId(member.getMemberId())

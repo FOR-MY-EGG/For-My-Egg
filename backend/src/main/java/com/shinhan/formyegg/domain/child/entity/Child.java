@@ -43,4 +43,7 @@ public class Child {
                 .birthDate(childCreateReq.getBirth_date())
                 .build();
     }
+    public static Child from(Long childId){
+        return Child.builder().childId(childId).build();
+    }
 }

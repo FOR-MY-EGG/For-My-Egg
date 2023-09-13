@@ -13,8 +13,8 @@ public interface MemberService {
 	MemberDto getMemberByMemberId(Long memberId);
 
 	MemberDto updateNickname(MemberDto memberDto);
-  
+
   MemberDto login(MemberDto memberDto);
-  
+
   List<ChildDto> getMemberWithChildren(Long memberId);
 }

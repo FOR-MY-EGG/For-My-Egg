@@ -45,6 +45,10 @@ board:
   image:
     path: board
 
+memo:
+  image:
+    path: memo
+
 jwt:
   secret: ${jwt.secret}
   expiration: ${jwt.expiration}
