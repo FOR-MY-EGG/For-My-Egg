@@ -8,6 +8,8 @@ import com.shinhan.formyegg.domain.invitation.repository.InvitationRepository;
 import com.shinhan.formyegg.domain.memo.dto.MemoDto;
 import com.shinhan.formyegg.domain.memo.entity.Memo;
 import com.shinhan.formyegg.domain.memo.repository.MemoRepository;
+import com.shinhan.formyegg.global.error.ErrorCode;
+import com.shinhan.formyegg.global.error.exception.MemoException;
 import com.shinhan.formyegg.global.util.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,8 +38,13 @@ public class MemoServiceImpl implements MemoService{
     public MemoDto createMemo(Long memberId, MemoDto memoDto) throws IOException {
         Optional<Invitation> invitation = invitationRepository.findInvitationByMemberId_MemberId(memberId);
         String storedImageName = s3Uploader.upload(memoDto.getImageFile(), imagePath);
-        Memo memo = memoRepository.save(Memo.of(invitation.get().getFamilyId().getFamilyId(), memoDto, storedImageName));
-        return MemoDto.from(memo);
+
+        LocalDate today = LocalDate.now();
+        Optional<Memo> memo = memoRepository.findMemoByCreateDate(today);
+        if(memo.isEmpty()) throw new MemoException(ErrorCode.ALREADY_EXIST_TODAY_MEMO);
+
+        Memo save = memoRepository.save(Memo.of(invitation.get().getFamilyId().getFamilyId(), memoDto, storedImageName));
+        return MemoDto.from(save);
     }
 
     @Override

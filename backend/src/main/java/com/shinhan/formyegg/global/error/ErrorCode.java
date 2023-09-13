@@ -33,7 +33,9 @@ public enum ErrorCode {
 	NOT_EXIST_FINANCE(HttpStatus.BAD_REQUEST, "F-001", "존재하지 않는 금융 상품입니다."),
 	// 게시글
 	NOT_EXIST_BOARD(HttpStatus.INTERNAL_SERVER_ERROR, "B-001", "존재하지 않는 게시글입니다."),
-	NOT_EXIST_AFFILIATION(HttpStatus.INTERNAL_SERVER_ERROR, "B-001", "존재하지 않는 게시판 분류입니다.")
+	NOT_EXIST_AFFILIATION(HttpStatus.INTERNAL_SERVER_ERROR, "B-001", "존재하지 않는 게시판 분류입니다."),
+	// 메모
+	ALREADY_EXIST_TODAY_MEMO(HttpStatus.BAD_REQUEST, "T-001", "해당 날짜의 메모는 이미 존재합니다.")
 	;
 
 	ErrorCode(HttpStatus httpStatus, String errorCode, String message) {
