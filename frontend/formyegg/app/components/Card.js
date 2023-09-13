@@ -25,9 +25,9 @@ export default function CardComponent({nickname, image, title, createdDate, cont
             source={{ uri: image }} 
             style={{ height:200, width:null, flex: 1 }} />
         </CardItem>
-        <Text style={{ fontWeight:'900', marginLeft: 20, marginTop: 20}}>{title}</Text>
+        <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 20, marginTop: 20, marginBottom: 10}}>{title}</Text>
         <CardItem>
-            <Text style={{marginBottom: 20}}>
+            <Text style={{marginBottom: 10}}>
             <TouchableOpacity onPress={() => handleLine()}>
                 {!show ? 
                         <Text style={{

@@ -35,7 +35,7 @@
          Optional<Member> optionalMember = memberRepository.findByMemberId(chatDto.getWriter());
          if(!optionalMember.isPresent()) throw new MemberException(ErrorCode.NOT_EXIST_MEMBER);
          Chat chat = chatRepository.save(Chat.from(chatDto, optionalMember.get()));
-         return ChatDto.from(chat);
+         return ChatDto.from(chat, optionalMember.get().getNickname());
      }
  }
 

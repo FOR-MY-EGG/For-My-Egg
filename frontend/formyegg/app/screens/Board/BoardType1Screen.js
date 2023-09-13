@@ -87,7 +87,6 @@ const styles = StyleSheet.create({
     height: 80, 
     alignItems: 'center',
     justifyContent: 'center',
-    elevation:3,
   },
   titleText: {
     marginLeft: 80,
@@ -107,7 +106,6 @@ const styles = StyleSheet.create({
     height: 80,
     alignItems: 'center',
     justifyContent: 'center',
-    elevation:3,
   }
 });
 
