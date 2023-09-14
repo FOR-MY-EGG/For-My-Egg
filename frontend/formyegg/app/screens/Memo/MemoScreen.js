@@ -1,22 +1,38 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, Button, StyleSheet, Image, ScrollView } from 'react-native';
+import { Text, View, Button, StyleSheet, Image, ScrollView} from 'react-native';
+import {useSelector} from 'react-redux';
 import { Calendar } from 'react-native-calendars/src/index';
 import http from "../../utils/commonHttp";
 
 const MemoScreen = ({ navigation }) => {
+  const {childId} = useSelector((state) => state.member);
   const [memo, setMemo] = useState([]);
+  const [image, setImage] = useState('https://i.namu.wiki/i/ENBxmkOKfCOjIrkhtgFxEz-UCklQuPL_7Xr19tGBRxhQDzgFajHwf1wTH5kzdyJA23v91Nt5ZlqBcXz5aELP-RYKKmDP1JJhTAjFQh93_VapLVKW_Q4srtSbqht36pV8XyuONX78XRXiNZX7CM8wyA.webp');
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
+  const [createDate, setCreateDate] = useState('');
+  const now = new Date();
 
   useEffect(() => {
-    http.get("memo")
+    updateTodayMemo();
+  }, [])
+
+  const updateTodayMemo = () => {
+    setTitle('');
+    http.get("memo/"+childId+"/today?month="+now.getMonth()+"&year="+now.getFullYear()+"&day="+now.getDate())
     .then((res) => {
-      setMemo(res.data);
+      setTitle(res.data.title);
+      setContent(res.data.content);
+      setImage(res.data.image);
+      setCreateDate(res.data.createDate);
+      console.log(res.data);
     })
     .catch((err) => {
 
     })
+  }
 
-    http
-  }, [])
+
   return (
     <ScrollView
       style={{
@@ -47,16 +63,21 @@ const MemoScreen = ({ navigation }) => {
           padding: 15,
         }}
       >
-      <Button title="글 작성하러 가기!" onPress={() => navigation.navigate('Write')} />
-      <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'black', marginBottom: 10 }}>Today</Text>
-        <View
-          fillViewport="true"
-        >
-          <Image source={{ uri: 'http://news.samsungdisplay.com/wp-content/uploads/2018/08/SDC뉴스룸_사진8편_180806_도비라.png'}} 
-            style={{ width: '100%', height: 300, marginBottom:10 }}
-          /> 
-          <Text style={{ fontSize: 15, color: 'black' }}>오늘은 꼬물이가 발차기를 하였다. 정말 멋지군아~! 꼬물꼬물아~@</Text>
-        </View>
+        {!title ? (
+            <Button title="글 작성하러 가기!" onPress={() => navigation.navigate('Write')} />
+          ) : (
+            <>
+            <Text style={{ fontSize: 18, fontWeight: 'bold', color: 'black', marginBottom: 10 }}>{title}({createDate})</Text>
+            <View
+                fillViewport="true"
+              >
+                <Image source={{ uri: image }} 
+                  style={{ width: '100%', height: 300, marginBottom:10 }}
+                /> 
+              <Text style={{ fontSize: 15, color: 'black' }}>content</Text>
+           </View>
+            </>
+          )}
       </View>
     </ScrollView>
   );
