@@ -4,8 +4,9 @@ import {Provider} from 'react-redux';
 import {PersistGate} from 'redux-persist/integration/react';
 import {persistStore} from 'redux-persist';
 import store from './store';
-import { Interceptor } from './app/utils/commonHttp';
+import {Interceptor} from './app/utils/commonHttp';
 import LoginStack from './app/screens/Navigation/LoginStack';
+import {PaperProvider} from 'react-native-paper';
 
 import {
   SafeAreaView,
@@ -16,20 +17,21 @@ import {
   View,
 } from 'react-native';
 
-
 export let persistor = persistStore(store);
 
 function App() {
   return (
-    <NavigationContainer>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <Interceptor>
-            <LoginStack />
-          </Interceptor>
-        </PersistGate>
-      </Provider>
-    </NavigationContainer>
+    <PaperProvider>
+      <NavigationContainer>
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <Interceptor>
+              <LoginStack />
+            </Interceptor>
+          </PersistGate>
+        </Provider>
+      </NavigationContainer>
+    </PaperProvider>
   );
 }
 
