@@ -47,17 +47,15 @@ const MemoScreen = ({ navigation }) => {
   }, [])
 
   const updateTodayMemo = (now) => {
+    today.title='';
     http.get("memo/"+childId+"/today?date="+now)
     .then((res) => {
       setToday(res.data);
       console.log(res.data);
     })
     .catch((err) => {
-      today.title='';
     })
   }
-
-  // memo['2023-09-17'].marked = false;
 
   return (
     <ScrollView
