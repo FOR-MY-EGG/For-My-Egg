@@ -19,12 +19,10 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberMainRes {
-    private String userName;
     private List<ChildDto> children;
 
-    public static MemberMainRes from(MemberDto memberDto, List<ChildDto> childDtoList){
+    public static MemberMainRes from(List<ChildDto> childDtoList){
         return MemberMainRes.builder()
-                .userName(memberDto.getNickname())
                 .children(childDtoList)
                 .build();
     }

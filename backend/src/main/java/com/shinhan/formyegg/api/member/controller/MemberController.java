@@ -34,9 +34,8 @@ public class MemberController {
 
     @GetMapping("/all/{memberId}")
     public ResponseEntity<MemberMainRes> getMemberChildren(@PathVariable Long memberId){
-        MemberDto memberDto = memberService.getMemberByMemberId(memberId);
         List<ChildDto> childDtoList = memberService.getMemberWithChildren(memberId);
-        return ResponseEntity.status(HttpStatus.OK).body(MemberMainRes.from(memberDto, childDtoList));
+        return ResponseEntity.status(HttpStatus.OK).body(MemberMainRes.from(childDtoList));
 
     }
 
