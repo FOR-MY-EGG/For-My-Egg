@@ -27,7 +27,7 @@ const Interceptor = ({ children }) => {
       (err) => {
         // console.log(err);
         // console.log(err.response.data.message);
-        return err;
+        return Promise.reject(err);
       }
     );
   }, []);
