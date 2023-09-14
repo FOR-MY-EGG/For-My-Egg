@@ -84,15 +84,11 @@ public class MemberServiceImpl implements MemberService {
 			//Get Children Information using GroupId
 			List<Child> children = childRepository.findAllByGroupId_FamilyId(invitationDto.getFamilyId());
 			System.out.println(children.size());
-			if (children.isEmpty())
-				throw new MemberException(ErrorCode.NOT_EXIST_KID);
-			else {
-				List<ChildDto> childDtoList = children.stream()
+			List<ChildDto> childDtoList = children.stream()
 						.map(child -> {
 							return ChildDto.from(child);
 						}).collect(Collectors.toList());
 				return childDtoList;
-			}
 		}
 	}
 }

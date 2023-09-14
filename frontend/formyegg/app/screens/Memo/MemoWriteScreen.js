@@ -2,21 +2,51 @@ import React, {useState} from 'react';
 import {Text, View, TextInput, StyleSheet, ScrollView, TouchableOpacity, Image} from 'react-native';
 import {launchImageLibrary} from 'react-native-image-picker';
 import MaterialCommunityIcons from 'react-native-vector-icons/AntDesign';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import {useDispatch, useSelector} from 'react-redux';
 import { Avatar } from 'react-native-paper';
-
+import axios from 'axios';
+import http from "../../utils/commonHttp"
 const MemoWriteScreen = ({ navigation }) => {
+  const {childId} = useSelector(state => state.member);
+  const {token} = useSelector(state => state.member);
+
   const [sender, setSender] = useState('');
   const [transfer, setTransfer] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
-  const [inputSender, setInputSender] = useState('');
-  const [inputTransfer, setInputTransfer] = useState('');
-  const [inputTitle, setInputTitle] = useState('');
-  const [inputContent, setInputContent] = useState('');
-
   const [response, setResponse] = useState("");
-  const [imageFile, setImageFile] = useState("");
+  const [imageFile, setImageFile] = useState({name: "", type: "", uri: ""});
+
+  const onSubmit = () => {
+    console.log("submit")
+    const memoReqDto = {
+        childId : childId,
+        sender : sender,
+        amount: transfer,
+        title: title,
+        content: content
+    }
+    const formData = new FormData();
+    formData.append("memoReqDto", JSON.stringify(memoReqDto)
+    , { type: "application/json"});
+    formData.append("image", imageFile);
+    console.log("-----------")
+    http.post('memo',
+      formData,
+      { headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    }).then((response) => {
+        console.log(JSON.stringify(response))
+        console.log("memo upload success");
+        navigation.navigate('MemoMain');
+    }).catch((error) =>{
+        // console.log(error);
+    });
+  }
+
 
   const onSelectImage = () => {
     launchImageLibrary(
@@ -36,7 +66,7 @@ const MemoWriteScreen = ({ navigation }) => {
         }
         
         setResponse(response);
-        setImageFile(response.assets[0].base64);
+        setImageFile({name : response.assets[0].fileName, type: response.assets[0].type, uri: response.assets[0].uri});
      })
 
    }
@@ -63,16 +93,22 @@ const MemoWriteScreen = ({ navigation }) => {
                 borderRadius: 12,
                 color: 'black',
                 backgroundColor: 'white',
-                alignItems: 'center'
+                justifyContent: 'center'
               }}
               onPress={() => navigation.navigate('AccountList')}
           >
             <View style={{flexDirection:'row', alignItems: 'center'}}>
               <Avatar.Image style={{backgroundColor:'white'}}
               size={43} source={require('../../assets/images/shinhan_logo.png')} />
-              <View>
-                <Text style={styles.upload}>신한 주거래 S20통장</Text>
-                <Text>안뇽</Text>
+              <View style={{marginLeft: 10}}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Text style={styles.upload}>신한 주거래 S20통장</Text>
+                  <SimpleLineIcons
+                    name="arrow-right"
+                    size={10}
+                  />
+                </View>
+                <Text>100-123-45687</Text>
               </View>
             </View>
             </TouchableOpacity>
@@ -82,7 +118,7 @@ const MemoWriteScreen = ({ navigation }) => {
         <TextInput
           backgroundColor={'white'}
           style={styles.textInput}
-          onChangeText={(sender) => setInputSender(sender)}
+          onChangeText={(sender) => setSender(sender)}
           placeholder="통장에 남길 한마디를 적어주세요."
         />
         <Text
@@ -147,7 +183,7 @@ const MemoWriteScreen = ({ navigation }) => {
                 marginBottom: 20,
                 alignItems: 'center'
               }}
-              // onPress={()=>onSelectImage()}
+              onPress={()=>onSubmit()}
           >
               <Text style={styles.submit}>등록</Text>
           </TouchableOpacity>
@@ -180,6 +216,7 @@ const styles = StyleSheet.create({
   upload : {
     color: 'black',
     textAlign: 'center',
+    marginLeft: 5
   }, submit: {
     color: '#496B73',
     textAlign: 'center',

@@ -25,31 +25,7 @@ const MainTopBottom = navigation => {
             <MaterialCommunityIcons name="home" color={color} size={26} />
           ),
           tabBarShowLabel: false,
-          headerShown: true,
-          headerRight: () => (
-            <>
-              <View
-                style={{
-                  // backgroundColor: 'red',
-                  flexDirection: 'row',
-                  flexWrap: 'wrap',
-                }}>
-                <TouchableOpacity onPress={() => navigation.navigate('Alert')}>
-                  <MaterialCommunityIcons
-                    name="baby-bottle-outline"
-                    size={28}
-                  />
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => navigation.navigate('Alert')}>
-                  <MaterialCommunityIcons name="bell-outline" size={28} />
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={() => navigation.navigate('Setting')}>
-                  <MaterialIcons name="settings" size={28} />
-                </TouchableOpacity>
-              </View>
-            </>
-          ),
+          headerShown: false,
         }}
       />
       <Tab.Screen
