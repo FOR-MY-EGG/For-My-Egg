@@ -4,6 +4,8 @@ import MyPageScreen from '../Mypage/MyPageScreen';
 import {Button, View, TouchableOpacity, Text} from 'native-base';
 import HomeScreen from '../Home/HomeScreen';
 import InformationScreen from '../Information/InformationScreen';
+import ChildScreen from '../Mypage/ChildScreen';
+import ChildRegistrationScreen from '../Mypage/ChildRegistrationScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -23,6 +25,8 @@ function HomeStack() {
         //   ),
         // }}
       />
+      <Stack.Screen name="ChildRegist" component={ChildRegistrationScreen}/>
+      <Stack.Screen name="Child" component={ChildScreen}/>
       <Stack.Screen name="Mypage" component={MyPageScreen} />
       <Stack.Screen name="Information" component={InformationScreen} />
       {/* <Stack.Screen name="Write" component={BoardWriteScreen} /> */}
