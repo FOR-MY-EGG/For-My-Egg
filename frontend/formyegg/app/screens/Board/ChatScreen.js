@@ -137,7 +137,7 @@ const ChatInput = ({onText, text, onSend}) => (
 const styles = StyleSheet.create({
   scroll: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#FDF8E1',
     width: 440,
     borderWidth: 1
   }, 
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     flex: 1,
     flexDirection: "row",
-    backgroundColor: 'lightgray',
+    backgroundColor: 'white',
     padding: 5,
     marginVertical: 8,
     marginHorizontal: 16,

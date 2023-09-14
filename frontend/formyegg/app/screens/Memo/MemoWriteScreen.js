@@ -6,9 +6,8 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import {useDispatch, useSelector} from 'react-redux';
 import { Avatar } from 'react-native-paper';
 import axios from 'axios';
-
+import http from "../../utils/commonHttp"
 const MemoWriteScreen = ({ navigation }) => {
-  const data = new FormData();
   const {childId} = useSelector(state => state.member);
   const {token} = useSelector(state => state.member);
 
@@ -18,31 +17,33 @@ const MemoWriteScreen = ({ navigation }) => {
   const [content, setContent] = useState('');
 
   const [response, setResponse] = useState("");
-  const [imageFile, setImageFile] = useState("");
+  const [imageFile, setImageFile] = useState({name: "", type: "", uri: ""});
 
   const onSubmit = () => {
     console.log("submit")
-    axios({
-      method: 'post',
-      url: 'http://10.0.2.2:8080/api/memo', //@Multipart error
-      data : {
-        memoReqDto : {
-          childId : childId,
-          sender : sender,
-          amount: transfer,
-          title: title,
-          content: content
-        }
-      },
-      headers: {
-        authorization: `Bearer `+token,
+    const memoReqDto = {
+        childId : childId,
+        sender : sender,
+        amount: transfer,
+        title: title,
+        content: content
+    }
+    const formData = new FormData();
+    formData.append("memoReqDto", JSON.stringify(memoReqDto)
+    , { type: "application/json"});
+    formData.append("image", imageFile);
+    console.log("-----------")
+    http.post('memo',
+      formData,
+      { headers: {
         'Content-Type': 'multipart/form-data'
       }
     }).then((response) => {
+        console.log(JSON.stringify(response))
         console.log("memo upload success");
         navigation.navigate('MemoMain');
     }).catch((error) =>{
-        console.log(error);
+        // console.log(error);
     });
   }
 
@@ -65,7 +66,7 @@ const MemoWriteScreen = ({ navigation }) => {
         }
         
         setResponse(response);
-        setImageFile(response.assets[0].base64);
+        setImageFile({name : response.assets[0].fileName, type: response.assets[0].type, uri: response.assets[0].uri});
      })
 
    }

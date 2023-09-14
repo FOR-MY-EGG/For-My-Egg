@@ -41,7 +41,7 @@ public class MemoServiceImpl implements MemoService{
 
         LocalDate today = LocalDate.now();
         Optional<Memo> memo = memoRepository.findMemoByCreateDate(today);
-        if(memo.isEmpty()) throw new MemoException(ErrorCode.ALREADY_EXIST_TODAY_MEMO);
+        if(!memo.isEmpty()) throw new MemoException(ErrorCode.ALREADY_EXIST_TODAY_MEMO);
 
         Memo save = memoRepository.save(Memo.of(invitation.get().getFamilyId().getFamilyId(), memoDto, storedImageName));
         return MemoDto.from(save);

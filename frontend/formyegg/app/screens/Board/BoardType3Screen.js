@@ -10,7 +10,7 @@ const BoardType3Screen = ({navigation}) => {
   const [page, setPage] = useState(0);
 
   const getData = async () => {
-    http.get(`board/1?page=${page}`)
+    http.get(`board/2?page=${page}`)
     .then((res) => {
       setCards((prev) => [...prev, ...res.data]);
     })
@@ -46,12 +46,12 @@ const BoardType3Screen = ({navigation}) => {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: "white"
+        backgroundColor: "#FDF8E1"
       }}>
       
       <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
         <Text style={styles.titleText}>산후조리 정보! 🎉</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Write')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Write',{affiliation: 2})}>
           <Image style={styles.button} source={{ uri: "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/write.png" }}></Image>
         </TouchableOpacity>
       </View>
@@ -79,7 +79,7 @@ const BoardType3Screen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#FDF8E1',
     width: 440
   },
   button: {
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingBottom: 5,
     color: "black",
-    backgroundColor: 'white'
+    backgroundColor: '#FDF8E1'
   },
   chat: {
     display: 'flex',
