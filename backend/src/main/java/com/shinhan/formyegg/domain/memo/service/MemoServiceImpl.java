@@ -3,6 +3,7 @@ package com.shinhan.formyegg.domain.memo.service;
 import com.shinhan.formyegg.domain.board.entity.Board;
 import com.shinhan.formyegg.domain.child.entity.Child;
 import com.shinhan.formyegg.domain.group.entity.Group;
+import com.shinhan.formyegg.domain.group.repository.GroupRepository;
 import com.shinhan.formyegg.domain.invitation.entity.Invitation;
 import com.shinhan.formyegg.domain.invitation.repository.InvitationRepository;
 import com.shinhan.formyegg.domain.memo.dto.MemoDto;
@@ -48,22 +49,24 @@ public class MemoServiceImpl implements MemoService{
     }
 
     @Override
-    public List<MemoDto> getMemoListByMonth(Long memberId, Long childId, int year, int month) {
+    public List<MemoDto> getMemoListByMonth(Long memberId, Long childId) {
         Optional<Invitation> invitation = invitationRepository.findInvitationByMemberId_MemberId(memberId);
-        LocalDateTime startDate = LocalDateTime.of(LocalDate.of(year, month, 1), LocalTime.of(0,0,0));
-        System.out.println(startDate);
-        LocalDateTime endDate = LocalDateTime.of(LocalDate.of(year, month, days[month-1]), LocalTime.of(23,59,59));
-        System.out.println(endDate);
-        List<Memo> memos = memoRepository.findAllByGroupId_FamilyIdAndChildId_ChildIdAndCreateDateBetween(invitation.get().getFamilyId().getFamilyId(), childId, startDate, endDate);
+//        LocalDateTime startDate = LocalDateTime.of(LocalDate.of(year, month, 1), LocalTime.of(0,0,0));
+//        System.out.println(startDate);
+//        LocalDateTime endDate = LocalDateTime.of(LocalDate.of(year, month, days[month-1]), LocalTime.of(23,59,59));
+//        System.out.println(endDate);
+//        List<Memo> memos = memoRepository.findAllByGroupId_FamilyIdAndChildId_ChildIdAndCreateDateBetween(invitation.get().getFamilyId().getFamilyId(), childId, startDate, endDate);
+        List<Memo> memos = memoRepository.findAllByGroupId_FamilyIdAndChildId_ChildId(invitation.get().getFamilyId().getFamilyId(), childId);
         return memos.stream().map(MemoDto::from).collect(Collectors.toList());
     }
 
     @Override
-    public Optional<MemoDto> getMemoWhenToday(Long memberId, Long childId, int year, int month, int day) {
+    public MemoDto getMemoWhenToday(Long memberId, Long childId, int year, int month, int day) {
         Optional<Invitation> invitation = invitationRepository.findInvitationByMemberId_MemberId(memberId);
-        LocalDateTime startDate = LocalDateTime.of(LocalDate.of(year, month, day), LocalTime.of(0,0,0));
-        LocalDateTime endDate = LocalDateTime.of(LocalDate.of(year, month, day), LocalTime.of(23,59,59));
-        List<Memo> memos = memoRepository.findAllByGroupId_FamilyIdAndChildId_ChildIdAndCreateDateBetween(invitation.get().getFamilyId().getFamilyId(), childId, startDate, endDate);
-        return Optional.ofNullable(MemoDto.from(memos.get(0)));
+        LocalDate today = LocalDate.of(year, month, day);
+        Optional<Memo> memo = memoRepository.findMemoByGroupId_FamilyIdAndChildId_ChildIdAndCreateDate(invitation.get().getFamilyId().getFamilyId(), childId, today);
+        if(memo.isEmpty()) throw new MemoException(ErrorCode.NOT_EXIST_TODAY_MEMO);
+
+        return MemoDto.from(memo.get());
     }
 }

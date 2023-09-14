@@ -11,6 +11,6 @@ import java.util.Optional;
 
 public interface MemoService {
     MemoDto createMemo(Long memberId, MemoDto memoDto) throws IOException;
-    List<MemoDto> getMemoListByMonth(Long memberId, Long childId, int year, int month);
-    Optional<MemoDto> getMemoWhenToday(Long memberId, Long childId, int year, int month, int day);
+    List<MemoDto> getMemoListByMonth(Long memberId, Long childId);
+    MemoDto getMemoWhenToday(Long memberId, Long childId, int year, int month, int day);
 }

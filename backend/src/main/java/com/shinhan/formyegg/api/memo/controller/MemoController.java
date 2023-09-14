@@ -2,6 +2,7 @@ package com.shinhan.formyegg.api.memo.controller;
 
 import com.shinhan.formyegg.api.memo.dto.MemoReqDto;
 import com.shinhan.formyegg.api.memo.dto.MemoResDto;
+import com.shinhan.formyegg.api.memo.dto.MemoTodayResDto;
 import com.shinhan.formyegg.domain.board.entity.Board;
 import com.shinhan.formyegg.domain.memo.dto.MemoDto;
 import com.shinhan.formyegg.domain.memo.entity.Memo;
@@ -9,6 +10,7 @@ import com.shinhan.formyegg.domain.memo.repository.MemoRepository;
 import com.shinhan.formyegg.domain.memo.service.MemoService;
 import com.shinhan.formyegg.global.error.ErrorCode;
 import com.shinhan.formyegg.global.error.exception.BusinessException;
+import com.shinhan.formyegg.global.error.exception.MemoException;
 import com.shinhan.formyegg.global.util.S3Uploader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,16 +44,21 @@ public class MemoController {
     }
 
     @GetMapping("/{childId}")
-    public ResponseEntity<List<MemoResDto>> getMemoListByMonth(@PathVariable Long childId, @RequestParam int month, @RequestParam int year){
-        List<MemoDto> memoListByMonth = memoService.getMemoListByMonth(1L, childId, year, month);
+    public ResponseEntity<List<MemoResDto>> getMemoListByMonth(Authentication authentication, @PathVariable Long childId){
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        Long memberId = Long.parseLong(userDetails.getUsername());
+        List<MemoDto> memoListByMonth = memoService.getMemoListByMonth(memberId, childId);
         List<MemoResDto> memos = memoListByMonth.stream().map(MemoResDto::from).collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(memos);
     }
 
     @GetMapping("/{childId}/today")
-    public ResponseEntity<MemoResDto> getMemoWhenToday(@PathVariable Long childId, @RequestParam String date){
-        StringTokenizer st = new StringTokenizer(date, "-");
-        Optional<MemoDto> memoWhenToday = memoService.getMemoWhenToday(1L, childId, Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()), Integer.parseInt(st.nextToken()));
-        return ResponseEntity.status(HttpStatus.OK).body(MemoResDto.from(memoWhenToday.get()));
+    public ResponseEntity<MemoTodayResDto> getMemoWhenToday(Authentication authentication, @PathVariable Long childId, @RequestParam String date){
+        System.out.println(date);
+        String[] split = date.split("-");
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        Long memberId = Long.parseLong(userDetails.getUsername());
+        MemoDto memoWhenToday = memoService.getMemoWhenToday(memberId, childId, Integer.parseInt(split[0]),  Integer.parseInt(split[1]),  Integer.parseInt(split[2]));
+        return ResponseEntity.status(HttpStatus.OK).body(MemoTodayResDto.from(memoWhenToday));
     }
 }
