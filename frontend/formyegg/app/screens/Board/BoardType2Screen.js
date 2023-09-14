@@ -46,7 +46,7 @@ const BoardType2Screen = ({navigation}) => {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: "white"
+        backgroundColor: "#FDF8E1"
       }}>
       
       <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
@@ -79,7 +79,7 @@ const BoardType2Screen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#FDF8E1',
     width: 440
   },
   button: {
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingBottom: 5,
     color: "black",
-    backgroundColor: 'white'
+    backgroundColor: '#FDF8E1'
   },
   chat: {
     display: 'flex',
