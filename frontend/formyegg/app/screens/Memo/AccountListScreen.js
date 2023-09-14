@@ -14,7 +14,7 @@ const AccountListScreen = () => {
         <Text style={{fontSize: 16, marginBottom: 10}}>출금할 계좌를 아래에서 선택해주세요.</Text>
     </View>
 
-        <View
+        <TouchableOpacity
             style={{ 
             margin: 15,
             width: '85%',
@@ -37,8 +37,8 @@ const AccountListScreen = () => {
                     <Text>110-123-45687</Text>
                 </View>
             </View>
-        </View>
-        <View
+        </TouchableOpacity>
+        <TouchableOpacity
             style={{ 
             margin: 15,
             width: '85%',
@@ -61,8 +61,8 @@ const AccountListScreen = () => {
                     <Text>110-789-12483</Text>
                 </View>
             </View>
-        </View>
-        <View
+        </TouchableOpacity>
+        <TouchableOpacity
             style={{ 
             margin: 15,
             width: '85%',
@@ -74,6 +74,7 @@ const AccountListScreen = () => {
             justifyContent: 'center',
             marginBottom: 5
             }}
+            // onPress
         >
             <View style={{flexDirection:'row', alignItems: 'center'}}>
             <Avatar.Image style={{backgroundColor:'white'}}
@@ -85,7 +86,7 @@ const AccountListScreen = () => {
                     <Text>110-593-67887</Text>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     </View>
   )
 }
