@@ -3,12 +3,14 @@ import { View, TouchableOpacity, Text, StyleSheet, Modal } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import shinhanAPI from '../../utils/shinhanAPI';
-
+import { Avatar } from 'react-native-paper';
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 const ChildRegistrationScreen = ({ navigation }) => {
   const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [isModalVisible, setModalVisible] = useState(false);
   const [accountData, setAccountData] = useState('');
+  const [cardData, setCardData] = useState([]);
 
   function formatDateToCustomString(date) {
     const year = date.getFullYear();
@@ -28,20 +30,25 @@ const ChildRegistrationScreen = ({ navigation }) => {
 
   const accountDataParcing = () =>{
     console.log(Object.keys(accountData))
+    const cardData = [];
     for(let i = 1;i < Object.keys(accountData).length; i++){
       const replay_key = '반복횟수' + i;// 반복 횟수 조회 키  
       const part_key = '조회내역'+i; // 조회 내역 키  
       const replay = accountData[replay_key] // 반복 횟수 
       const content =  accountData[part_key] // 조회 내역 
-      for(let i = 0; i < replay; i++){
-        if(content[i].구분 == "예적금"){
+      for(let j = 0; j < replay; j++){
+        if(content[j].구분 == "예적금"){
           const search_type = "잔액(원화)"
-          console.log(content[i].상품명)
-          console.log(content[i].계좌번호)
-          console.log(content[i][search_type])
+          cardData.push({
+            상품명: content[j]?.상품명,
+            계좌번호: content[j]?.계좌번호,
+            잔액: content[j]?.[search_type],
+          });
         }
       }
     }
+    setCardData(cardData);
+    console.log(cardData)
   }
   const fetchShinhanData = async () => {
     const req = {
@@ -120,9 +127,20 @@ const ChildRegistrationScreen = ({ navigation }) => {
             >
               <Icon name="close" size={25} color="black" />
             </TouchableOpacity>
-            <Text style={styles.modalText}>
+            
+            <View style={styles.cardContainer}>
               
-            </Text>
+              {cardData.map((card, index) => (
+                
+                <View style={styles.card} key={index} >
+                  <Avatar.Image style={{backgroundColor:'white'}}
+              size={43} source={require('../../assets/images/shinhan_logo.png')} />
+                  <Text>상품명: {card.상품명}</Text>
+                  <Text>계좌번호: {card.계좌번호}</Text>
+                  <Text>잔액: {card.잔액}</Text>
+                </View>
+              ))}
+            </View>
           </View>
         </View>
       </Modal>
@@ -135,6 +153,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 16,
+    backgroundColor: '#FDF8E1'
   },
   inputContainer: {
     flexDirection: 'row',
@@ -171,7 +190,7 @@ const styles = StyleSheet.create({
   },
   modalContent: {
     width: '100%',
-    backgroundColor: 'white',
+    backgroundColor: '#EBEBEB',
     padding: 20,
     borderRadius: 10,
     alignItems: 'center',
@@ -189,6 +208,19 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'blue',
   },
+  cardContainer: {
+    marginTop: 20,
+    width: '100%',
+  },
+  card: {
+    backgroundColor: '#FFF',
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: '#DDD',
+  },
+
 });
 
 export default ChildRegistrationScreen;
