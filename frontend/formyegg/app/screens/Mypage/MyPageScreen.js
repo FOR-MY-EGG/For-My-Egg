@@ -1,7 +1,60 @@
 import React from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome'; 
 
-const MyPageScreen = () => {
-  return <div>MyPageScreen</div>;
+const MyPageScreen = ({navigation}) => {
+  const options = [
+    { id: 1, label: '아이 정보 관리', onPress: () => navigation.navigate('Child') },
+    { id: 2, label: '가족 계정 연동', onPress: () => {} },
+    { id: 3, label: '로그아웃', onPress: () => {} },
+  ];
+
+  const renderOption = ({ item }) => (
+    <TouchableOpacity onPress={item.onPress} style={styles.option}>
+      <Text style={styles.optionText}>{item.label}</Text>
+      {item.id != 3?
+        <View style={styles.iconContainer}>
+          <Icon name="chevron-right" size={20} color="#000" />
+        </View>: null
+      }
+    </TouchableOpacity>
+  );
+
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={options}
+        keyExtractor={(item) => item.id.toString()}
+        renderItem={renderOption}
+        ItemSeparatorComponent={() => <View style={styles.separator} />}
+      />
+    </View>
+  );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingHorizontal: 16,
+    paddingTop: 24,
+    backgroundColor: '#FDF8E1'
+  },
+  option: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingVertical: 16,
+  },
+  optionText: {
+    fontSize: 18,
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#ccc',
+  },
+  iconContainer: {
+    marginLeft: 'auto',
+  },
+});
 
 export default MyPageScreen;
