@@ -51,7 +51,7 @@ const BoardType1Screen = ({navigation}) => {
       
       <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
         <Text style={styles.titleText}>임신/출산 정보! 🎉</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Write')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Write',{affiliation: 0})}>
           <Image style={styles.button} source={{ uri: "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/write.png" }}></Image>
         </TouchableOpacity>
       </View>

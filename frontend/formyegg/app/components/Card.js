@@ -15,7 +15,7 @@ export default function CardComponent({nickname, image, title, createdDate, cont
             <Text style={{marginLeft: 10, marginTop: 10}} variant="titleLarge">{nickname}</Text>
             <Text style={{marginLeft: 150, marginTop: 40, marginBottom: 10}} variant="bodyMedium">{createdDate}</Text>
             </Card.Content>
-            <Card.Cover source={{ uri: image }} />
+            <Card.Cover source={{ uri: image || "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/noImage.png" }} />
             <Text style={{marginLeft: 10, marginTop: 10}} variant="titleLarge">{title}</Text>
             <TouchableOpacity onPress={() => handleLine()} style={{marginTop: 10, marginLeft: 10}}>
                  {!show ? 
