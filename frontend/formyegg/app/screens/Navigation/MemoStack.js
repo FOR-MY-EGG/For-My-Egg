@@ -9,9 +9,21 @@ const Stack = createNativeStackNavigator();
 function MemoStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="MemoMain" component={MemoScreen} />
-      <Stack.Screen name="Write" component={MemoWriteScreen} />
-      <Stack.Screen name="AccountList" component={AccountListScreen} />
+      <Stack.Screen
+        name="MemoMain"
+        component={MemoScreen}
+        options={{title: '기록 캘린더'}}
+      />
+      <Stack.Screen
+        name="Write"
+        component={MemoWriteScreen}
+        options={{title: '메모 작성'}}
+      />
+      <Stack.Screen
+        name="AccountList"
+        component={AccountListScreen}
+        options={{title: '계좌 선택'}}
+      />
     </Stack.Navigator>
   );
 }
