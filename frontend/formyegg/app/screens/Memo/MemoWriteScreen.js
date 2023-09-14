@@ -227,9 +227,9 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
   },
   upload: {
+    flexDirection: 'row',
+    flex: 1,
     color: 'black',
-    textAlign: 'center',
-    // alignContent: 'center',
   },
   submit: {
     color: '#496B73',
