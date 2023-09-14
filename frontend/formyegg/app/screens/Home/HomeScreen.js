@@ -14,6 +14,7 @@ const HomeScreen = ({navigation}) => {
         alignItems: 'center',
       }}>
       <Text>Home Screen! 🎉</Text>
+      <Button title="내 정보" onPress={() => navigation.navigate('Mypage')} />
       <Button title="정보" onPress={() => navigation.navigate('Information')} />
       <Button title="로그아웃" onPress={() => dispatch(setMember({
         token: "",
