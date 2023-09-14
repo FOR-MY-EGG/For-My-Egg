@@ -32,6 +32,18 @@ public class ChatDto {
                 .build();
     }
 
+    public static ChatDto from(Chat chat, String nickname){
+        return ChatDto.builder()
+                .chatId(chat.getChatId())
+                .writer(chat.getWriter().getMemberId())
+                .affiliation(chat.getAffiliation())
+                .nickname(nickname)
+                .type(chat.getType())
+                .content(chat.getContent())
+                .createDate(chat.getCreateDate())
+                .build();
+    }
+
     public static ChatDto from(Chat chat){
         return ChatDto.builder()
                 .chatId(chat.getChatId())

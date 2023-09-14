@@ -42,7 +42,10 @@ public class BoardServiceImpl implements BoardService {
     public BoardDto createBoard(BoardDto boardDto) throws IOException, MemberException {
         Optional<Member> optionalMember = memberRepository.findByMemberId(boardDto.getWriter());
         if(!optionalMember.isPresent()) throw new MemberException(ErrorCode.NOT_EXIST_MEMBER);
-        String storedImageName = s3Uploader.upload(boardDto.getImageFile(), imagePath);
+        String storedImageName = null;
+        if(boardDto.getImageFile() != null) {
+            storedImageName = s3Uploader.upload(boardDto.getImageFile(), imagePath);
+        }
         Board board = boardRepository.save(Board.from(boardDto, optionalMember.get(), storedImageName));
         return BoardDto.from(board);
     }

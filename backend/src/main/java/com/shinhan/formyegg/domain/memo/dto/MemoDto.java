@@ -6,7 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Getter
 @Builder
@@ -20,7 +20,7 @@ public class MemoDto {
     private String holder;
     private String image;
     private MultipartFile imageFile;
-    private LocalDateTime createDate;
+    private LocalDate createDate;
 
     public static MemoDto from(Memo memo){
         return MemoDto.builder()

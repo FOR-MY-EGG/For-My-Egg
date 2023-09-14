@@ -24,7 +24,8 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/ws/chat")
-                .setAllowedOrigins("http://localhost:3000", "http://ec2-3-39-138-177.ap-northeast-2.compute.amazonaws.com:3000", "https://ec2-3-39-138-177.ap-northeast-2.compute.amazonaws.com:3000")
+//                .setAllowedOrigins("http://localhost:3000", "http://ec2-3-39-138-177.ap-northeast-2.compute.amazonaws.com:3000", "https://ec2-3-39-138-177.ap-northeast-2.compute.amazonaws.com:3000")
+                .setAllowedOriginPatterns("*")
                 .withSockJS();
 
     }

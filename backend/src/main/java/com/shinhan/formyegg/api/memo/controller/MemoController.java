@@ -14,6 +14,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,8 +31,12 @@ import java.util.stream.Collectors;
 public class MemoController {
     private final MemoService memoService;
 
-    @PostMapping("/{memberId}")
-    public ResponseEntity<MemoResDto> createMemo(@PathVariable Long memberId, @RequestPart MemoReqDto memoReqDto, @RequestPart MultipartFile image) throws IOException {
+    @PostMapping
+    public ResponseEntity<MemoResDto> createMemo(Authentication authentication, @RequestPart(value = "memoReqDto", required = false) MemoReqDto memoReqDto, @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        Long memberId = Long.parseLong(userDetails.getUsername());
+        System.out.println(memoReqDto);
+        System.out.println(image);
         MemoDto memoDto = memoService.createMemo(memberId, MemoDto.of(memoReqDto, image));
         return ResponseEntity.status(HttpStatus.OK).body(MemoResDto.from(memoDto));
     }

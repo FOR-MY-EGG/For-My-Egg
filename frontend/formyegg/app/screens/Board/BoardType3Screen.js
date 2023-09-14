@@ -10,7 +10,7 @@ const BoardType3Screen = ({navigation}) => {
   const [page, setPage] = useState(0);
 
   const getData = async () => {
-    http.get(`board/1?page=${page}`)
+    http.get(`board/2?page=${page}`)
     .then((res) => {
       setCards((prev) => [...prev, ...res.data]);
     })
@@ -27,7 +27,7 @@ const BoardType3Screen = ({navigation}) => {
         image: "https://user-images.githubusercontent.com/3969643/51441420-b41f1c80-1d14-11e9-9f5d-af5cd3a6aaae.png", 
         title: "yuyu", 
         view: 0,
-        createAt: "20202020", 
+        createAt: "2020-03-20 13:00", 
         content: "이번에는 리액트 네이티브(React Native)로 인스타그램 UI을 구현하는 포스팅입니다. 다른 앱을 따라 만들어 보는 것은 굉장히 재미있습니다. 구글에서 인스타그램 클론 코딩 강의를 찾아보니, 다른 개발자들이 올린 동영상 강의를 몇 개 찾을 수 있었습니다."}]);
     }, [])
   );
@@ -46,16 +46,16 @@ const BoardType3Screen = ({navigation}) => {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: "white"
+        backgroundColor: "#FDF8E1"
       }}>
       
       <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
         <Text style={styles.titleText}>산후조리 정보! 🎉</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('Write')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Write',{affiliation: 2})}>
           <Image style={styles.button} source={{ uri: "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/write.png" }}></Image>
         </TouchableOpacity>
       </View>
-        <TouchableOpacity  onPress={() => navigation.navigate('Chat')}>
+        <TouchableOpacity  onPress={() => navigation.navigate('Chat',{affiliation: 2})}>
           <Image style={styles.chat} source={{ uri: "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/chat.png" }}></Image>
         </TouchableOpacity>
       
@@ -79,7 +79,7 @@ const BoardType3Screen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#FDF8E1',
     width: 440
   },
   button: {
@@ -87,7 +87,6 @@ const styles = StyleSheet.create({
     height: 80, 
     alignItems: 'center',
     justifyContent: 'center',
-    elevation:3,
   },
   titleText: {
     marginLeft: 80,
@@ -98,7 +97,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingBottom: 5,
     color: "black",
-    backgroundColor: 'white'
+    backgroundColor: '#FDF8E1'
   },
   chat: {
     display: 'flex',
@@ -107,7 +106,6 @@ const styles = StyleSheet.create({
     height: 80,
     alignItems: 'center',
     justifyContent: 'center',
-    elevation:3,
   }
 });
 
