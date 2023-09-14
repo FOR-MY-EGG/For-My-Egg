@@ -6,7 +6,7 @@ const initialState = {
   memberId: 0,
   isMember: 0,
   nickname: "",
-  childId: 1,
+  childId: 0,
 };
 
 const memberSlice = createSlice({
