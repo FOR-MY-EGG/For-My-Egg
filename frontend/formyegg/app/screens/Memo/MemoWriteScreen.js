@@ -8,7 +8,7 @@ import { Avatar } from 'react-native-paper';
 import axios from 'axios';
 import http from "../../utils/commonHttp"
 const MemoWriteScreen = ({ navigation }) => {
-  const {childId} = useSelector(state => state.member);
+  const childId = useSelector(state => state.child.childId);
   const {token} = useSelector(state => state.member);
 
   const [sender, setSender] = useState('');

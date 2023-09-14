@@ -7,7 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import http from "../../utils/commonHttp";
 
 const MemoScreen = ({ navigation }) => {
-  const {childId} = useSelector((state) => state.member);
+  const childId = useSelector(state => state.child.childId);
   const [memo, setMemo] = useState({});
   const [today, setToday] = useState({
     title: '',

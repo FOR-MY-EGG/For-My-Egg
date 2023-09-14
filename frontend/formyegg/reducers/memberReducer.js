@@ -6,7 +6,6 @@ const initialState = {
   memberId: 0,
   isMember: 0,
   nickname: "",
-  childId: 0,
 };
 
 const memberSlice = createSlice({
@@ -30,10 +29,7 @@ const memberSlice = createSlice({
       state.groupId = action.payload;
       state.isMember = 1;
     },
-    setChildId: (state, action) => {
-      state.childId = action.payload;
-    }
   },
 });
-export const { setMember, setToken, setGroupId, setIsMember, setChildId } = memberSlice.actions;
+export const { setMember, setToken, setGroupId, setIsMember} = memberSlice.actions;
 export default memberSlice.reducer;
