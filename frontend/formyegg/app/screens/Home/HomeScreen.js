@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {setMember} from '../../../reducers/memberReducer';
 import {useDispatch, useSelector} from 'react-redux';
-import {Avatar, Button, Surface, Card} from 'react-native-paper';
+import {Avatar, Modal, Portal, RadioButton, Button} from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import http from '../../utils/commonHttp';
@@ -23,6 +23,18 @@ const HomeScreen = ({navigation}) => {
   const memberId = useSelector(state => state.member.memberId);
   const [childs, setChilds] = useState([]);
   // const child = useSelector((state) => state.child);
+
+  const [visible, setVisible] = React.useState(false);
+  const [checked, setChecked] = React.useState('second');
+  const showModal = () => setVisible(true);
+  const hideModal = () => setVisible(false);
+  const containerStyle = {
+    backgroundColor: 'white',
+    padding: 20,
+    borderRadius: 20,
+    margin: 30,
+  };
+
   useFocusEffect(
     useCallback(() => {
       http
@@ -40,6 +52,102 @@ const HomeScreen = ({navigation}) => {
   return (
     <>
       <SafeAreaView style={styles.container}>
+        <Portal>
+          <Modal
+            visible={visible}
+            onDismiss={hideModal}
+            contentContainerStyle={containerStyle}>
+            <Text style={{fontSize: 18, fontWeight: 'bold'}}>아이 선택</Text>
+            <Text>아이를 선택해주세요.</Text>
+            <View
+              style={{
+                borderBottomColor: 'gray',
+                borderBottomWidth: StyleSheet.hairlineWidth,
+                marginVertical: 10,
+              }}
+            />
+            <View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <RadioButton
+                  style={{flex: 3}}
+                  value="first"
+                  color="yellowgreen"
+                  status={checked === 'first' ? 'checked' : 'unchecked'}
+                  onPress={() => setChecked('first')}
+                />
+                <TouchableOpacity
+                  onPress={() => setChecked('first')}
+                  style={{
+                    flex: 1,
+                    // backgroundColor: 'red',
+                    alignSelf: 'center',
+                  }}>
+                  <Text
+                    style={{
+                      // flex: 1,
+                      // backgroundColor: 'red',
+                      // alignSelf: 'center',
+                      textAlign: 'left',
+                    }}>
+                    꼬물이
+                  </Text>
+                </TouchableOpacity>
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                }}>
+                <RadioButton
+                  value="second"
+                  color="yellowgreen"
+                  status={checked === 'second' ? 'checked' : 'unchecked'}
+                  onPress={() => setChecked('second')}></RadioButton>
+                <TouchableOpacity
+                  onPress={() => setChecked('second')}
+                  style={{
+                    flex: 1,
+                    // backgroundColor: 'red',
+                    alignSelf: 'center',
+                  }}>
+                  <Text
+                    style={{
+                      // flex: 1,
+                      // backgroundColor: 'red',
+                      // alignSelf: 'center',
+                      textAlign: 'left',
+                    }}>
+                    초롱이
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                // alignContent: 'flex-end',
+                alignSelf: 'flex-end',
+              }}>
+              <Button
+                style={{marginRight: 10}}
+                // icon="camera"
+                mode="text"
+                onPress={() => console.log('Pressed')}>
+                취소
+              </Button>
+              <Button
+                // icon="camera"
+                mode="text"
+                onPress={() => console.log('Pressed')}>
+                확인
+              </Button>
+            </View>
+          </Modal>
+        </Portal>
         <ScrollView style={styles.scrollView}>
           <View
             style={{
@@ -54,7 +162,7 @@ const HomeScreen = ({navigation}) => {
               style={{
                 flexDirection: 'row',
               }}>
-              <TouchableOpacity onPress={() => navigation.navigate('Home')}>
+              <TouchableOpacity onPress={showModal}>
                 <MaterialCommunityIcons name="baby-bottle-outline" size={28} />
               </TouchableOpacity>
               <TouchableOpacity
