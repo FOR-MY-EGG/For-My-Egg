@@ -27,7 +27,6 @@ const ChildScreen = ({ navigation }) => {
 
   useEffect(() => {
     // 화면이 처음 렌더링될 때 아이 목록을 불러옴
-    console.log(userInfo.memberId)
     const memberId = userInfo.memberId
     fetchChildList(memberId);
   }, []);
@@ -52,12 +51,27 @@ const ChildScreen = ({ navigation }) => {
         renderItem={renderChildItem}
       />
       <View style={styles.registerButtonContainer}>
-        <TouchableOpacity onPress={() => navigation.navigate('ChildRegist')}>
-          <View style={styles.registerButton}>
-            <Icon name="plus" size={30} color="#000" />
-            <Text style={styles.registerText}>아이 등록하기</Text>
-          </View>
-        </TouchableOpacity>
+          <TouchableOpacity
+              style={{ 
+                // margin: 15,
+                width: '85%',
+                height: 60,
+                // padding: 10,
+                borderRadius: 12,
+                color: 'black',
+                backgroundColor: 'white',
+                flexDirection : 'row',
+                justifyContent : 'center',
+                alignItems: 'center'
+              }}
+              onPress={()=>navigation.navigate('ChildRegist')}
+          > 
+              <Icon
+                name="plus"
+                size={17}
+              />
+            <Text style={styles.upload}>아이 등록하기</Text>
+          </TouchableOpacity>
       </View>
     </View>
   );
@@ -68,7 +82,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 16,
     padding: 24,
-    backgroundColor: '#FDF8E1'
   },
   
   childItem: {
@@ -91,7 +104,13 @@ const styles = StyleSheet.create({
 
   registerButtonContainer: {
     marginBottom: 20, // 마진 추가
+    alignItems: 'center'
   },
+  upload : {
+    color: 'black',
+    textAlign: 'center',
+    marginLeft: 5
+  }
 });
 
 export default ChildScreen;
