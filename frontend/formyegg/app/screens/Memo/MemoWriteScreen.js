@@ -14,10 +14,12 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import {useDispatch, useSelector} from 'react-redux';
 import {Avatar} from 'react-native-paper';
 import axios from 'axios';
-import http from '../../utils/commonHttp';
-const MemoWriteScreen = ({navigation}) => {
+import http from "../../utils/commonHttp"
+const MemoWriteScreen = ({ navigation }) => {
   const {childId} = useSelector(state => state.member);
   const {token} = useSelector(state => state.member);
+  const {accountTitle} = useSelector(state => state.account);
+  const {number} = useSelector(state => state.account);
 
   const [sender, setSender] = useState('');
   const [transfer, setTransfer] = useState('');
@@ -95,6 +97,45 @@ const MemoWriteScreen = ({navigation}) => {
       style={{
         backgroundColor: '#FDF8E1',
       }}>
+
+        
+        
+        
+        
+        <Text
+        marginTop={20}
+        style={styles.text}>출금 통장</Text>
+        <TouchableOpacity
+              style={{ 
+                margin: 15,
+                width: '85%',
+                height: 60,
+                padding: 10,
+                borderRadius: 12,
+                color: 'black',
+                backgroundColor: 'white',
+                justifyContent: 'center'
+              }}
+              onPress={() => navigation.navigate('AccountList')}
+          >
+            <View style={{flexDirection:'row', alignItems: 'center'}}>
+              <Avatar.Image style={{backgroundColor:'white'}}
+              size={43} source={require('../../assets/images/shinhan_logo.png')} />
+              <View style={{marginLeft: 10}}>
+                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                  <Text style={styles.upload}>{accountTitle}</Text>
+                  <SimpleLineIcons
+                    name="arrow-right"
+                    size={10}
+                  />
+                </View>
+                <Text>{number}</Text>
+              </View>
+
+
+
+
+
       <Text marginTop={20} style={styles.text}>
         출금 통장
       </Text>
@@ -131,6 +172,10 @@ const MemoWriteScreen = ({navigation}) => {
             </View>
             <View>
               <Text>100-123-45687</Text>
+
+
+
+
             </View>
           </View>
         </View>

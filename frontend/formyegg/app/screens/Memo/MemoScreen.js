@@ -7,7 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import http from "../../utils/commonHttp";
 
 const MemoScreen = ({ navigation }) => {
-  const {childId} = useSelector((state) => state.member);
+  const childId = useSelector(state => state.child.childId);
   const [memo, setMemo] = useState({});
   const [today, setToday] = useState({
     title: '',
@@ -47,17 +47,15 @@ const MemoScreen = ({ navigation }) => {
   }, [])
 
   const updateTodayMemo = (now) => {
+    today.title='';
     http.get("memo/"+childId+"/today?date="+now)
     .then((res) => {
       setToday(res.data);
       console.log(res.data);
     })
     .catch((err) => {
-      today.title='';
     })
   }
-
-  // memo['2023-09-17'].marked = false;
 
   return (
     <ScrollView

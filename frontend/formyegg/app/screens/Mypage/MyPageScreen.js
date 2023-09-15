@@ -1,12 +1,21 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
+import { useDispatch } from 'react-redux';
+import { setMember } from '../../../reducers/memberReducer';
 
 const MyPageScreen = ({navigation}) => {
+  const dispatch = useDispatch();
   const options = [
     { id: 1, label: '아이 정보 관리', onPress: () => navigation.navigate('Child') },
     { id: 2, label: '가족 계정 연동', onPress: () => {} },
-    { id: 3, label: '로그아웃', onPress: () => {} },
+    { id: 3, label: '로그아웃', onPress: () => dispatch(setMember({
+                        token: "",
+                        groupId: 0,
+                        memberId: 0,
+                        isMember: 0,
+                        nickname: "",
+    })) },
   ];
 
   const renderOption = ({ item }) => (
