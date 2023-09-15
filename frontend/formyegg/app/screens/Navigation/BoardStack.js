@@ -9,9 +9,17 @@ const Stack = createNativeStackNavigator();
 function BoardStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name="BoardMain" component={BoardTopTab} />
+      <Stack.Screen
+        name="BoardMain"
+        component={BoardTopTab}
+        options={{headerShown: false}}
+      />
       <Stack.Screen name="Chat" component={ChatScreen} />
-      <Stack.Screen name="Write" component={BoardWriteScreen} />
+      <Stack.Screen
+        name="Write"
+        component={BoardWriteScreen}
+        options={{title: '글 등록'}}
+      />
     </Stack.Navigator>
   );
 }

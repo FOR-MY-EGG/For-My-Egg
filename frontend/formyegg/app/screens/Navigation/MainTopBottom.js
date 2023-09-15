@@ -14,20 +14,9 @@ const MainTopBottom = navigation => {
     <Tab.Navigator
       screenOptions={{
         headerShown: false,
-      }}>
-      <Tab.Screen
-        name="Home"
-        component={HomeStack}
-        options={{
-          title: '홈',
-          // tabBarLabel: 'Home',
-          tabBarIcon: ({color}) => (
-            <MaterialCommunityIcons name="home" color={color} size={26} />
-          ),
-          tabBarShowLabel: false,
-          headerShown: false,
-        }}
-      />
+        tabBarActiveTintColor: '#A2C6C3',
+      }}
+      initialRouteName="Home">
       <Tab.Screen
         name="Memo"
         component={MemoStack}
@@ -43,6 +32,19 @@ const MainTopBottom = navigation => {
           ),
           tabBarShowLabel: false,
           // headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="Home"
+        component={HomeStack}
+        options={{
+          title: '홈',
+          // tabBarLabel: 'Home',
+          tabBarIcon: ({color}) => (
+            <MaterialCommunityIcons name="home" color={color} size={26} />
+          ),
+          tabBarShowLabel: false,
+          headerShown: false,
         }}
       />
       <Tab.Screen
