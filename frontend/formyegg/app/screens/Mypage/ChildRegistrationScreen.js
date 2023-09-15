@@ -1,26 +1,28 @@
 import React, { useState,useEffect } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Modal } from 'react-native';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { View, TouchableOpacity, Text, StyleSheet, Modal, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import shinhanAPI from '../../utils/shinhanAPI';
 import { Avatar } from 'react-native-paper';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import DatePicker from 'react-native-date-picker'
+
 const ChildRegistrationScreen = ({ navigation }) => {
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+  // const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [isModalVisible, setModalVisible] = useState(false);
   const [accountData, setAccountData] = useState('');
   const [cardData, setCardData] = useState([]);
+  const [date, setDate] = useState(new Date())
+  const [open, setOpen] = useState(false)
 
-  function formatDateToCustomString(date) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}`;
-    return formattedDate;
-  }
+  // function formatDateToCustomString(date) {
+  //   const year = date.getFullYear();
+  //   const month = String(date.getMonth() + 1).padStart(2, '0');
+  //   const day = String(date.getDate()).padStart(2, '0');
+  //   const hours = String(date.getHours()).padStart(2, '0');
+  //   const minutes = String(date.getMinutes()).padStart(2, '0');
+  //   const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}`;
+  //   return formattedDate;
+  // }
   useEffect(() => {
     // 모달이 열릴 때 API를 호출하여 데이터를 가져옴
     if (isModalVisible) {
@@ -69,48 +71,70 @@ const ChildRegistrationScreen = ({ navigation }) => {
   };
 
 
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
+  // const showDatePicker = () => {
+  //   console.log(1);
+  //   setDatePickerVisibility(true);
+  // };
 
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
+  // const hideDatePicker = () => {
+  //   console.log(2);
+  //   setDatePickerVisibility(false);
+  // };
 
-  const handleConfirm = (date) => {
-    hideDatePicker();
-    setSelectedDate(date);
-  };
+  // const handleConfirm = (date) => {
+  //   console.log(3);
+  //   hideDatePicker();
+  //   // setSelectedDate(date);
+  // };
 
   const toggleModal = () => {
+    console.log(4);
     setModalVisible(!isModalVisible);
   };
 
   const handleRegister = () => {
+    console.log(5);
     toggleModal();
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.inputContainer}>
-        <TouchableOpacity style={styles.inputButton} onPress={showDatePicker}>
-          <Text style={styles.inputButtonText}>생일 수정</Text>
-        </TouchableOpacity>
-        {selectedDate && (
+        {/* <TouchableOpacity style={styles.inputButton} onPress={showDatePicker}>
+          <Text style={styles.inputButtonText}>생일 등록</Text>
+        </TouchableOpacity> */}
+        {/* {selectedDate && (
           <Text style={styles.selectedDateText}>
             {formatDateToCustomString(selectedDate)}
           </Text>
-        )}
+        )} */}
+<>
+        <Button title="Open" onPress={() => setOpen(true)} />
+        <DatePicker
+          modal
+          locale={"ko"}
+          open={open}
+          date={date}
+          mode={"date"}
+          textColor={"black"}
+          onConfirm={(date) => {
+
+            console.log(date);
+            setOpen(false)
+            setDate(date)
+          }}
+          onCancel={() => {
+            setOpen(false)
+          }}
+        />
+      </>
       </View>
-      <DateTimePickerModal
-        isVisible={isDatePickerVisible}
-        mode="datetime"
-        onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
-      />
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
         <Text style={styles.buttonText}>기록통장 등록하기</Text>
       </TouchableOpacity>
+      
+      
+      {/* 통장 모달  */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -153,7 +177,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 16,
-    backgroundColor: '#FDF8E1'
+    // backgroundColor: '#FDF8E1'
   },
   inputContainer: {
     flexDirection: 'row',
