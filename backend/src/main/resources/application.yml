@@ -8,7 +8,7 @@ spring:
     password: ${DB_PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     properties:
       hibernate:
         format_sql: true
@@ -23,23 +23,23 @@ spring:
 
 rabbitmq:
   queue:
-    name: ${rabbitmq.queue.name}
-  exchage:
-    name: ${rabbitmq.exchange.name}
+    name: ${rabbitmq.q.name}
+  exchange:
+    name: ${rabbitmq.e.name}
   routing:
-    key: ${rabbitmq.routing.key}
+    key: ${rabbitmq.r.key}
 
 cloud:
   aws:
     credentials:
-      accessKey: ${cloud.aws.credentials.accessKey}
-      secretKey: ${cloud.aws.credentials.secretKey}
+      accessKey: ${aws_accessKey}
+      secretKey: ${aws_secretKey}
     region:
-      static: ${cloud.aws.region.static}
+      static: ${aws_region}
     stack:
-      auto: ${cloud.aws.stack.auto}
+      auto: ${aws_auto}
     s3:
-      bucket: ${cloud.aws.s3.bucket}
+      bucket: ${s3_bucket}
 
 board:
   image:
@@ -50,5 +50,5 @@ memo:
     path: memo
 
 jwt:
-  secret: ${jwt.secret}
-  expiration: ${jwt.expiration}
+  secret: ${jwt_secret}
+  expiration: ${jwt_expiration}
