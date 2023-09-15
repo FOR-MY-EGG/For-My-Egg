@@ -1,84 +1,93 @@
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import { Avatar, Button, Card, Text } from 'react-native-paper';
-import React, { useState } from 'react';
+import {StyleSheet, TouchableOpacity} from 'react-native';
+import {Avatar, Button, Card, Text, View} from 'react-native-paper';
+import React, {useState} from 'react';
 
-export default function CardComponent({nickname, image, title, createdDate, content, profile}) {
-    const [show, setShow] = useState(false);
+export default function CardComponent({
+  nickname,
+  image,
+  title,
+  createdDate,
+  content,
+  profile,
+}) {
+  const [show, setShow] = useState(false);
 
-    const handleLine = () => {
-        setShow(prev => !prev);
-    }
-    return (
-        <Card style={{backgroundColor: "#FAFAFA", borderStyle: 'solid', borderWidth: 0.5, marginBottom: 5}}>
-            <Card.Content style={{flexDirection: "row", minHeight: 80}}>
-            <Avatar.Image size={50} source={{ uri: profile }} />
-            <Text style={{marginLeft: 10, marginTop: 10}} variant="titleLarge">{nickname}</Text>
-            <Text style={{marginLeft: 150, marginTop: 40, marginBottom: 10}} variant="bodyMedium">{createdDate}</Text>
-            </Card.Content>
-            <Card.Cover source={{ uri: image || "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/noImage.png" }} />
-            <Text style={{marginLeft: 10, marginTop: 10}} variant="titleLarge">{title}</Text>
-            <TouchableOpacity onPress={() => handleLine()} style={{marginTop: 10, marginLeft: 10}}>
-                 {!show ? 
-                        <Text style={{
-                            maxWidth: 300
-                        }}> 
-                            {content.slice(0, 40) + (content.length > 40 ? "..." : "")}
-                        </Text>
-                    :
-                        <Text style={{ 
-                            maxWidth: 300
-                        }}> 
-                            {content}
-                        </Text>
-                }
-            </TouchableOpacity>
-            <Card.Actions>
-            {/* <Button>Ok</Button> */}
-            </Card.Actions>
-        </Card>
-        // <Card>
-        // <CardItem>
-        //     <Left>
-        //     <Thumbnail source={{ uri: profile }} />
-        //     <Body>
-        //         <Text style={{fontSize: 20, fontWeight: "bold"}}>{nickname}</Text>
-        //         <Text note>{createdDate}</Text>
-        //     </Body>
-        //     </Left>
-        // </CardItem>
-        // <CardItem cardBody>
-        //     <Image 
-        //     source={{ uri: image }} 
-        //     style={{ height:200, width:null, flex: 1 }} />
-        // </CardItem>
-        // <Text style={{ fontSize: 20, fontWeight: 'bold', marginLeft: 20, marginTop: 20, marginBottom: 10}}>{title}</Text>
-        // <CardItem>
-        //     <Text style={{marginBottom: 10}}>
-        //     <TouchableOpacity onPress={() => handleLine()}>
-        //         {!show ? 
-        //                 <Text style={{
-        //                     maxWidth: 300
-        //                 }}> 
-        //                     {content.slice(0, 40) + (content.length > 40 ? "..." : "")}
-        //                 </Text>
-        //             :
-        //                 <Text style={{ 
-        //                     maxWidth: 300
-        //                 }}> 
-        //                     {content}
-        //                 </Text>
-        //         }
-        //     </TouchableOpacity>
-        //     </Text>
-        //     </CardItem>
-        // </Card>
-    );
+  const handleLine = () => {
+    setShow(prev => !prev);
+  };
+  return (
+    <Card
+      style={{
+        backgroundColor: '#FFFCFC',
+        // backgroundColor: 'green',
+        elevation: 2,
+        marginBottom: 5,
+      }}>
+      <Card.Content
+        style={{
+          flexDirection: 'row',
+          flex: 1,
+          //   minHeight: 80,
+          justifyContent: 'center',
+          //   alignContent: 'center',
+          alignItems: 'center',
+          marginBottom: 10,
+        }}>
+        <Avatar.Image size={32} source={{uri: profile}} />
+        <Text variant="bodyLarge" style={{marginLeft: 10, color: '#343434'}}>
+          {nickname}
+        </Text>
+        <Text
+          //   style={{marginLeft: 150, marginTop: 40, marginBottom: 10}}
+          style={{textAlign: 'right', flex: 1, color: '#A0A0A0'}}
+          variant="bodySmall">
+          {createdDate}
+        </Text>
+      </Card.Content>
+      <Card.Cover
+        source={{
+          uri:
+            image ||
+            'https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/noImage.png',
+        }}
+        style={{borderRadius: 0, flex: 1}}
+      />
+      <Text
+        style={{padding: 10, fontWeight: 800, color: '#343434'}}
+        variant="titleMedium">
+        {title}
+      </Text>
+      <TouchableOpacity
+        onPress={() => handleLine()}
+        style={{paddingHorizontal: 10}}>
+        {!show ? (
+          <Text
+            style={{
+              //   maxWidth: 300,
+              //   color: '#A9A9A9',
+              color: '#A0A0A0',
+            }}>
+            {content.slice(0, 34) + (content.length > 34 ? ' ...더보기' : '')}
+          </Text>
+        ) : (
+          <Text
+            style={{
+              //   maxWidth: 300,
+              color: '#343434',
+            }}>
+            {content}
+          </Text>
+        )}
+      </TouchableOpacity>
+      <Card.Actions>{/* <Button>Ok</Button> */}</Card.Actions>
+    </Card>
+  );
 }
- 
+
 const style = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });

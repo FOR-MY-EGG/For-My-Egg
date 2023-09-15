@@ -20,8 +20,8 @@ function HomeStack() {
           headerShown: false,
         }}
       />
-      <Stack.Screen name="ChildRegist" component={ChildRegistrationScreen}/>
-      <Stack.Screen name="Child" component={ChildScreen}/>
+      <Stack.Screen name="ChildRegist" component={ChildRegistrationScreen} />
+      <Stack.Screen name="Child" component={ChildScreen} />
       <Stack.Screen name="Mypage" component={MyPageScreen} />
       <Stack.Screen name="Information" component={InformationScreen} />
       <Stack.Screen name="Alert" component={AlertScreen} />
