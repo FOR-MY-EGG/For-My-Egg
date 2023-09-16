@@ -31,32 +31,32 @@ const LoginScreen = ({navigation}) => {
     KakaoLogin.getProfile().then(result => {
       const kakaoUserJson = JSON.stringify(result);
       const kakaoUser = JSON.parse(kakaoUserJson);
-      const data = {
-        kakao_token: kakaoToken,
-        kakao_id: kakaoUser.id,
-        nickname: kakaoUser.nickname,
-      };
-      axios({
-        method: 'post',
-        url: 'http://ec2-3-39-138-177.ap-northeast-2.compute.amazonaws.com:8080/api/member',
-        data: data,
-      })
-        .then(response => {
-          dispatch(setMember(response.data));
-          messaging().getToken()
-          .then((token) => {
-            console.log(token);
-            setToken(token);
+      messaging().getToken()
+        .then((token) => {
+          const data = {
+            kakao_token: kakaoToken,
+            kakao_id: kakaoUser.id,
+            nickname: kakaoUser.nickname,
+            device_token: token
+          };
+          axios({
+            method: 'post',
+            url: 'http://ec2-3-39-138-177.ap-northeast-2.compute.amazonaws.com:8080/api/member',
+            data: data,
           })
-          dispatch(setFcmToken(token));
-          console.log('[FCM Token] ', token);
-          if (response.data.isMember == 0) {
-            navigation.navigate('Group');
-          }
+            .then(response => {
+              dispatch(setMember(response.data));
+              
+              dispatch(setFcmToken(token));
+              console.log('[FCM Token] ', token);
+              if (response.data.isMember == 0) {
+                navigation.navigate('Group');
+              }
+            })
+            .catch(error => {
+              console.log(error);
+            });
         })
-        .catch(error => {
-          console.log(error);
-        });
     });
   };
   return (
