@@ -31,12 +31,26 @@ const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const memberId = useSelector(state => state.member.memberId);
   const [childs, setChilds] = useState([]);
-  // const child = useSelector((state) => state.child);
+  const child = useSelector((state) => state.child);
 
   const [visible, setVisible] = React.useState(false);
-  const [checked, setChecked] = React.useState(0);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
+
+  const [checked, setChecked] = useState(0);
+  const [tmpCheck, setTmpCheck] = useState(0);
+  
+  const selectChild = () => {
+    setChecked(tmpCheck);
+    dispatch(setChild(childs[tmpCheck]));
+    hideModal();
+  }
+
+  const cancelChild = () => {
+    setTmpCheck(checked);
+    hideModal();
+  }
+
   const containerStyle = {
     backgroundColor: 'white',
     padding: 20,
@@ -50,8 +64,10 @@ const HomeScreen = ({navigation}) => {
         .then(res => {
           let children = res.data.children;
           if (children.length > 0) {
+            setChecked(0);
+            setTmpCheck(0);
             setChilds(children);
-            dispatch(setChild(children[0]));
+            dispatch(setChild(children[checked]))
           }
         })
         .catch(err => {});
@@ -88,11 +104,11 @@ const HomeScreen = ({navigation}) => {
                   style={{flex: 3}}
                   value={index}
                   color="yellowgreen"
-                  status={checked == index ? 'checked' : 'unchecked'}
-                  onPress={() => setChecked(index)}
+                  status={tmpCheck == index ? 'checked' : 'unchecked'}
+                  onPress={() => setTmpCheck(index)}
                 />
                 <TouchableOpacity
-                  onPress={() => setChecked(index)}
+                  onPress={() => setTmpCheck(index)}
                   style={{
                     flex: 1,
                     // backgroundColor: 'red',
@@ -152,13 +168,13 @@ const HomeScreen = ({navigation}) => {
                 style={{marginRight: 10}}
                 // icon="camera"
                 mode="text"
-                onPress={() => console.log('Pressed')}>
+                onPress={() => cancelChild()}>
                 취소
               </Button>
               <Button
                 // icon="camera"
                 mode="text"
-                onPress={() => console.log('Pressed')}>
+                onPress={() => selectChild()}>
                 확인
               </Button>
             </View>
@@ -236,7 +252,7 @@ const HomeScreen = ({navigation}) => {
                   alignSelf: 'center',
                 }}>
                 <Text style={{fontSize: 15, color: '#343434'}}>
-                  김싸피님의 육아적금(통장별칭)
+                    {child.accountNickname}
                 </Text>
               </View>
               <View
@@ -251,7 +267,7 @@ const HomeScreen = ({navigation}) => {
                     fontWeight: 700,
                     marginTop: 5,
                   }}>
-                  100,000원(잔액)
+                  {child.accountBalance}원
                 </Text>
               </View>
             </View>
@@ -289,7 +305,7 @@ const HomeScreen = ({navigation}) => {
                         color: '#A3CFB8',
                         fontWeight: 700,
                       }}>
-                      꼬물이(아이이름)
+                      {child.name}
                     </Text>
                   </View>
                   <View
@@ -304,7 +320,7 @@ const HomeScreen = ({navigation}) => {
                         fontSize: 14,
                         textAlign: 'right',
                       }}>
-                      {true ? '출산 예정일' : '생일'}
+                      {child.dday > 0 ? '출산 예정일' : '생일'}
                     </Text>
                     <Text
                       style={{
@@ -315,7 +331,7 @@ const HomeScreen = ({navigation}) => {
                         fontWeight: 700,
                         marginHorizontal: 10,
                       }}>
-                      2023. 09. 13
+                      {new String(child.birthDate).substring(0, 10)}
                     </Text>
                   </View>
                 </View>
@@ -332,7 +348,8 @@ const HomeScreen = ({navigation}) => {
                       color: '#343434',
                       fontWeight: 700,
                     }}>
-                    D-26
+                      {console.log(childs)}
+                    D{parseInt(child.dday) < 0 ? "+" : "-"}{Math.abs(child.dday)}
                     {/* 출산 예정일이거나 생일이다. */}
                   </Text>
                 </View>

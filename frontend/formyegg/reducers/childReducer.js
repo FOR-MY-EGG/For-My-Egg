@@ -9,7 +9,9 @@ const initialState = {
   childId: 0,
   dday: 89,
   name: "",
-  weeks: 0
+  weeks: 0,
+
+  checked: 0
 };
 
 const childSlice = createSlice({
@@ -27,7 +29,10 @@ const childSlice = createSlice({
       state.name = action.payload.name;
       state.weeks = action.payload.weeks;
     },
+    setChecked: (state, action) => {
+      state.checked = action.payload;
+    },
   },
 });
-export const { setChild } = childSlice.actions;
+export const { setChild, setChecked } = childSlice.actions;
 export default childSlice.reducer;
