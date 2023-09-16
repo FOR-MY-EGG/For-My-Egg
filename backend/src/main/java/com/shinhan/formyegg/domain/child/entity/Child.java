@@ -6,7 +6,9 @@ import com.shinhan.formyegg.domain.group.entity.Group;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @AllArgsConstructor
@@ -14,6 +16,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Builder
+@ToString
 public class Child {
 
     @Id
@@ -35,12 +38,12 @@ public class Child {
     @Column(name = "birth_date", nullable = false)
     private LocalDateTime birthDate;
 
-    public static Child from(ChildCreateReq childCreateReq, Group group, Account account) {
+    public static Child from(ChildCreateReq childCreateReq, Group group, Account account, int year, int month, int date) {
         return Child.builder()
                 .accountId(account)
                 .groupId(group)
                 .name(childCreateReq.getName())
-                .birthDate(childCreateReq.getBirth_date())
+                .birthDate(LocalDateTime.of(LocalDate.of(year, month, date), LocalTime.MIN))
                 .build();
     }
     public static Child from(Long childId){
