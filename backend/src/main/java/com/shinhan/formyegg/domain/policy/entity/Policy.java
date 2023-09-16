@@ -21,13 +21,13 @@ public class Policy {
     @Column(name = "name", nullable=false, length=64)
     private String name;
 
-    @Column(name = "intro", nullable=false, length=128)
+    @Column(name = "intro", nullable=false, length=2048)
     private String intro;
 
     @Column(name = "is_multi", nullable=false)
     private boolean isMulti;
 
-    @Column(name="target_intro", nullable=false, length=128)
+    @Column(name="target_intro", nullable=false, length=2048)
     private String targetIntro;
 
     @Column(name="apply_center", nullable=false, length=64)
