@@ -12,7 +12,7 @@ function MemoStack() {
       <Stack.Screen
         name="MemoMain"
         component={MemoScreen}
-        options={{title: '기록 캘린더'}}
+        options={{title: '기록 캘린더', headerShown: false}}
       />
       <Stack.Screen
         name="Write"
