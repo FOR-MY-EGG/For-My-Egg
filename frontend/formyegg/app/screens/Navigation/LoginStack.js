@@ -25,8 +25,16 @@ function LoginStack() {
             />
           ) : (
             <>
-              <Stack.Screen name="Group" component={InitScreen} />
-              <Stack.Screen name="Join" component={JoinScreen} />
+              <Stack.Screen
+                name="Group"
+                component={InitScreen}
+                options={{headerShown: false}}
+              />
+              <Stack.Screen
+                name="Join"
+                component={JoinScreen}
+                options={{title: '그룹 코드 등록'}}
+              />
             </>
           )}
         </Stack.Navigator>
