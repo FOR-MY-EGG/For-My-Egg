@@ -8,6 +8,7 @@ import ChildScreen from '../Mypage/ChildScreen';
 import ChildRegistrationScreen from '../Mypage/ChildRegistrationScreen';
 import AlertScreen from '../Home/AlertScreen';
 import FamilyScreen from '../Mypage/FamilyScreen';
+import AccountInfo from '../Home/AccountInfo';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,7 @@ function HomeStack() {
       <Stack.Screen name="ChildRegist" component={ChildRegistrationScreen} />
       <Stack.Screen name="Child" component={ChildScreen} />
       <Stack.Screen name="Mypage" component={MyPageScreen} />
+      <Stack.Screen name="AccountInfo" component={AccountInfo} />
       <Stack.Screen name="Information" component={InformationScreen} />
       <Stack.Screen name="Alert" component={AlertScreen} />
       <Stack.Screen name="Family" component={FamilyScreen} />

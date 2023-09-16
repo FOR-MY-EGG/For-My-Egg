@@ -34,7 +34,7 @@ const HomeScreen = ({navigation}) => {
   // const child = useSelector((state) => state.child);
 
   const [visible, setVisible] = React.useState(false);
-  const [checked, setChecked] = React.useState('second');
+  const [checked, setChecked] = React.useState(0);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
   const containerStyle = {
@@ -43,7 +43,6 @@ const HomeScreen = ({navigation}) => {
     borderRadius: 20,
     margin: 30,
   };
-
   useFocusEffect(
     useCallback(() => {
       http
@@ -68,6 +67,7 @@ const HomeScreen = ({navigation}) => {
             contentContainerStyle={containerStyle}>
             <Text style={{fontSize: 18, fontWeight: 'bold'}}>아이 선택</Text>
             <Text>아이를 선택해주세요.</Text>
+            
             <View
               style={{
                 borderBottomColor: 'gray',
@@ -75,21 +75,24 @@ const HomeScreen = ({navigation}) => {
                 marginVertical: 10,
               }}
             />
+            
             <View>
-              <View
+              {childs.map((c, index) => (
+                <View
+                key={index}
                 style={{
                   flexDirection: 'row',
                   alignItems: 'center',
                 }}>
                 <RadioButton
                   style={{flex: 3}}
-                  value="first"
+                  value={index}
                   color="yellowgreen"
-                  status={checked === 'first' ? 'checked' : 'unchecked'}
-                  onPress={() => setChecked('first')}
+                  status={checked == index ? 'checked' : 'unchecked'}
+                  onPress={() => setChecked(index)}
                 />
                 <TouchableOpacity
-                  onPress={() => setChecked('first')}
+                  onPress={() => setChecked(index)}
                   style={{
                     flex: 1,
                     // backgroundColor: 'red',
@@ -102,10 +105,13 @@ const HomeScreen = ({navigation}) => {
                       // alignSelf: 'center',
                       textAlign: 'left',
                     }}>
-                    꼬물이
+                      {c.name}
                   </Text>
                 </TouchableOpacity>
+                
               </View>
+              ))}
+{/*               
               <View
                 style={{
                   flexDirection: 'row',
@@ -133,8 +139,9 @@ const HomeScreen = ({navigation}) => {
                     초롱이
                   </Text>
                 </TouchableOpacity>
-              </View>
+              </View> */}
             </View>
+            
             <View
               style={{
                 flexDirection: 'row',
@@ -193,6 +200,7 @@ const HomeScreen = ({navigation}) => {
             </View>
           </View>
           <TouchableOpacity
+            onPress={() => navigation.navigate('AccountInfo')}
             style={{
               height: 100,
               backgroundColor: 'white',
