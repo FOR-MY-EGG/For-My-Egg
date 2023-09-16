@@ -23,12 +23,24 @@ function HomeStack() {
         }}
       />
       <Stack.Screen name="ChildRegist" component={ChildRegistrationScreen} />
-      <Stack.Screen name="Child" component={ChildScreen} />
-      <Stack.Screen name="Mypage" component={MyPageScreen} />
+      <Stack.Screen
+        name="Child"
+        component={ChildScreen}
+        options={{title: '아이 정보'}}
+      />
+      <Stack.Screen
+        name="Mypage"
+        component={MyPageScreen}
+        options={{title: '마이페이지'}}
+      />
       <Stack.Screen name="AccountInfo" component={AccountInfo} />
       <Stack.Screen name="Information" component={InformationScreen} />
       <Stack.Screen name="Alert" component={AlertScreen} />
-      <Stack.Screen name="Family" component={FamilyScreen} />
+      <Stack.Screen
+        name="Family"
+        component={FamilyScreen}
+        options={{title: '초대 코드'}}
+      />
     </Stack.Navigator>
   );
 }

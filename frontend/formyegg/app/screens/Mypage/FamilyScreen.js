@@ -30,28 +30,34 @@ const FamilyScreen = ({navigation}) => {
       style={{
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
+        // alignItems: 'center',
       }}>
-      <Text style={{fontSize: 20}}>아래에 초대코드를 공유하여</Text>
-      <Text style={{fontSize: 20, marginBottom: 10}}>
-        {' '}
-        가족을 초대할 수 있습니다
+      <Text
+        style={{
+          fontSize: 18,
+          fontWeight: 600,
+          textAlign: 'center',
+          marginBottom: 5,
+        }}>
+        초대 코드 복사
+      </Text>
+      <Text style={{fontSize: 16, textAlign: 'center', marginBottom: 20}}>
+        아래 초대코드를 공유하여 가족을 초대 해보세요
       </Text>
       <TouchableOpacity
         style={{
-          width: '85%',
-          height: 60,
-          borderRadius: 12,
-          color: 'black',
+          marginHorizontal: 30,
+          minHeight: 90,
+          paddingHorizontal: 20,
+          borderRadius: 5,
           backgroundColor: 'white',
-          justifyContent: 'center',
           alignItems: 'center',
           flexDirection: 'row',
         }}
         onPress={() => {
           onCopyAddress(code);
         }}>
-        <Clip name="clipboard" size={17} />
+        <Clip name="clipboard" size={17} style={{flex: 1, textAlign: 'left'}} />
         <Text style={styles.upload}>{code}</Text>
       </TouchableOpacity>
     </View>
@@ -60,11 +66,10 @@ const FamilyScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   upload: {
-    color: 'black',
+    color: '#A3C9B8',
+    flex: 9,
     textAlign: 'center',
-    marginLeft: 5,
-    fontSize: 13,
-    // width: "100%"
+    fontSize: 16,
   },
 });
 
