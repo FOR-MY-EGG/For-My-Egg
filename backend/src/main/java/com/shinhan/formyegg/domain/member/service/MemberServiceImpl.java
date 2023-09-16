@@ -31,12 +31,6 @@ public class MemberServiceImpl implements MemberService {
 	private final ChildRepository childRepository;
 
 	@Override
-	public MemberDto getMemberByKakaoId(String kakaoId) {
-		Optional<Member> optionalMember = memberRepository.findByKakaoId(kakaoId);
-		return MemberDto.from(optionalMember.orElseThrow(() -> new MemberException(ErrorCode.NOT_EXIST_MEMBER)));
-	}
-
-	@Override
 	public MemberDto getMemberByMemberId(Long memberId) {
 		Optional<Member> optionalMember = memberRepository.findByMemberId(memberId);
 		return MemberDto.from(optionalMember.orElseThrow(() -> new MemberException(ErrorCode.NOT_EXIST_MEMBER)));
@@ -72,7 +66,7 @@ public class MemberServiceImpl implements MemberService {
 		  return MemberDto.of(optionalMember.get(), 1);
 	  }
   }
-    
+
   @Override
   public List<ChildDto> getMemberWithChildren(Long memberId) {
 		//Get GroupId using memberId
@@ -85,8 +79,6 @@ public class MemberServiceImpl implements MemberService {
 
 		List<Child> children = childRepository.findAllByGroupId_FamilyId(invitationDto.getFamilyId());
 		if(children.isEmpty()) throw new BusinessException(ErrorCode.NOT_EXIST_GROUP);
-	  System.out.println(children);
-		System.out.println(children.size());
 		return children.stream()
 					.map(ChildDto::from).collect(Collectors.toList());
 
