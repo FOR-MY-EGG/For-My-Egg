@@ -14,4 +14,5 @@ public class MemberRequest {
     private String nickname;
     private String kakaoToken;
     private String kakaoId;
+    private String deviceToken;
 }
