@@ -28,6 +28,8 @@ const childSlice = createSlice({
       state.dday = action.payload.dday;
       state.name = action.payload.name;
       state.weeks = action.payload.weeks;
+      console.log("change---"+ JSON.stringify(action.payload))
+      
     },
     setChecked: (state, action) => {
       state.checked = action.payload;

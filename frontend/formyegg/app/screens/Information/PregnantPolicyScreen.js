@@ -10,7 +10,7 @@ const CardItem = ({title, content}) => (
     <Text style={styles.cardItemContent}>{content}</Text>
   </View>
 );
-const PolicyScreen = () => {
+const PregnantPolicyScreen = () => {
   const [pregPolicyData, setPregPolicyData] = useState([]);
   const [familyPolicyData, setFamilyPolicyData] = useState([]);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -20,24 +20,24 @@ const PolicyScreen = () => {
   }
 
   useEffect(() => {
-    // http
-    //   .get('policy/type/1')
-    //   .then(response => {
-    //     const pregDataArray = response.data.flat();
-    //     setPregPolicyData(pregDataArray);
-    //   })
-    //   .catch(error => {
-    //     console.error(error);
-    //   });
     http
-      .get('policy/type/2')
+      .get('policy/type/1')
       .then(response => {
-        const familyDataArray = response.data.flat();
-        setFamilyPolicyData(familyDataArray);
+        const pregDataArray = response.data.flat();
+        setPregPolicyData(pregDataArray);
       })
       .catch(error => {
         console.error(error);
       });
+    // http
+    //   .get('policy/type/2')
+    //   .then(response => {
+    //     const familyDataArray = response.data.flat();
+    //     setFamilyPolicyData(familyDataArray);
+    //   })
+    //   .catch(error => {
+    //     console.error(error);
+    //   });
   }, []);
 
   const handleCardPress = item => {
@@ -85,7 +85,7 @@ const PolicyScreen = () => {
       ) : (
         <View>
           <FlatList
-            data={familyPolicyData}
+            data={pregPolicyData}
             keyExtractor={(item, index) => index.toString()}
             contentContainerStyle={styles.cardContainer}
             renderItem={({item}) => (
@@ -179,4 +179,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PolicyScreen;
+export default PregnantPolicyScreen;
