@@ -25,6 +25,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import http from '../../utils/commonHttp';
 import {useFocusEffect} from '@react-navigation/native';
 import { setChild} from '../../../reducers/childReducer';
+import shinhanAPI from '../../utils/shinhanAPI';
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -59,6 +60,31 @@ const HomeScreen = ({navigation}) => {
     borderRadius: 20,
     margin: 30,
   };
+  const accountBalanceCheck = async (number) => {
+    const req = {
+      "dataHeader": {
+          "apikey": "2023_Shinhan_SSAFY_Hackathon"
+      },
+      "dataBody": { 
+          "출금계좌번호":`"${number}"`
+      }
+    }
+    await shinhanAPI.post("account/balance/detail",req)
+  }
+  const accountNameCheck = async (number) => {
+    
+    const req = {			
+      "dataHeader": {			
+          "apikey": "2023_Shinhan_SSAFY_Hackathon"
+      },			
+      "dataBody": {
+          "입금은행코드": "088",			
+          "입금계좌번호": `"${number}"`
+      }
+    }
+    await shinhanAPI.post("search/name",req)
+  }			
+  }
   useFocusEffect(
     useCallback(() => {
       http
