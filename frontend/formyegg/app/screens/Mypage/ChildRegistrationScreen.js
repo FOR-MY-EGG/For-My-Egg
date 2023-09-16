@@ -205,7 +205,11 @@ const ChildRegistrationScreen = ({ navigation }) => {
             name="account-balance-wallet"
             size={17}
           />
-        <Text style={styles.upload}>기록통장 등록하기</Text>
+          {!number ? (
+            <Text style={styles.upload}>기록통장 등록하기</Text>
+          ):(
+            <Text style={styles.upload}>기록통장: {number}</Text>
+          )}
       </TouchableOpacity>
         <TextInput
           backgroundColor={'white'}
@@ -221,6 +225,7 @@ const ChildRegistrationScreen = ({ navigation }) => {
         onPress={() => onSubmit()}>
         등록
       </Button>
+      
       <Modal
         animationType="slide"
         transparent={true}
@@ -231,7 +236,7 @@ const ChildRegistrationScreen = ({ navigation }) => {
       >
         <TouchableWithoutFeedback onPress={handleModalClose}>
         <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
+          <View style={[styles.modalContent, {height: 300}]}>
            
             
             <View style={styles.cardContainer}>
@@ -239,11 +244,13 @@ const ChildRegistrationScreen = ({ navigation }) => {
               {cardData.map((card, index) => (
                 <TouchableOpacity onPress={() => sentAccountNumber(card.계좌번호)} key={index}>
                 <View style={styles.card} >
-                  <Avatar.Image style={{backgroundColor:'white'}}
+                  <Avatar.Image style={{backgroundColor:'white', marginRight: 10}}
               size={43} source={require('../../assets/images/shinhan_logo.png')} />
-                  <Text>상품명: {card.상품명}</Text>
-                  <Text>계좌번호: {card.계좌번호}</Text>
-                  <Text>잔액: {card.잔액}</Text>
+                  <View>
+                    <Text style={{fontSize: 16}}>{card.상품명}</Text>
+                    <Text>계좌 번호:{card.계좌번호}</Text>
+                    <Text>잔액: {card.잔액+'원'}</Text>
+                  </View>
                 </View>
                 </TouchableOpacity>
               ))}
@@ -329,6 +336,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     borderWidth: 1,
     borderColor: '#DDD',
+    flexDirection: "row"
   },
   upload : {
     color: 'black',

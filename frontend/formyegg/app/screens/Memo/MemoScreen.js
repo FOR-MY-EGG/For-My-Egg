@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {format} from 'date-fns';
 import {Text, View, StyleSheet, Image, ScrollView} from 'react-native';
 import {useSelector} from 'react-redux';
@@ -6,6 +6,7 @@ import {Calendar} from 'react-native-calendars/src/index';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import http from '../../utils/commonHttp';
 import {Button} from 'react-native-paper';
+import { useFocusEffect } from '@react-navigation/native';
 
 const MemoScreen = ({navigation}) => {
   const childId = useSelector(state => state.child.childId);
@@ -33,8 +34,8 @@ const MemoScreen = ({navigation}) => {
     setSelectedDate(day);
     updateTodayMemo(day);
   };
-
-  useEffect(() => {
+  useFocusEffect(
+  useCallback(() => {
     http
       .get('memo/' + childId)
       .then(res => {
@@ -46,7 +47,7 @@ const MemoScreen = ({navigation}) => {
       })
       .catch(err => {});
     updateTodayMemo(format(new Date(), 'yyyy-MM-dd'));
-  }, []);
+  }, []));
 
   const updateTodayMemo = now => {
     today.title = '';
