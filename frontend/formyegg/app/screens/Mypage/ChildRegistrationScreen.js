@@ -1,32 +1,25 @@
 import React, { useState,useEffect } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Modal } from 'react-native';
-import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import { View, TouchableOpacity, Text, StyleSheet, Modal, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Calendar from 'react-native-vector-icons/Entypo';
+import Account from 'react-native-vector-icons/MaterialIcons';
 import shinhanAPI from '../../utils/shinhanAPI';
 import { Avatar } from 'react-native-paper';
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import DatePicker from 'react-native-date-picker'
+import {format} from 'date-fns';
+
 const ChildRegistrationScreen = ({ navigation }) => {
-  const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
   const [isModalVisible, setModalVisible] = useState(false);
   const [accountData, setAccountData] = useState('');
   const [cardData, setCardData] = useState([]);
+  const [date, setDate] = useState(new Date())
+  const [inputDate, setInputDate] = useState('');
+  const [open, setOpen] = useState(false)
 
-  function formatDateToCustomString(date) {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const hours = String(date.getHours()).padStart(2, '0');
-    const minutes = String(date.getMinutes()).padStart(2, '0');
-    const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}`;
-    return formattedDate;
-  }
   useEffect(() => {
-    // 모달이 열릴 때 API를 호출하여 데이터를 가져옴
-    if (isModalVisible) {
       fetchShinhanData(); // API 호출 함수
-    }
-  }, [isModalVisible]);
+  }, []);
 
   const accountDataParcing = () =>{
     console.log(Object.keys(accountData))
@@ -69,48 +62,113 @@ const ChildRegistrationScreen = ({ navigation }) => {
   };
 
 
-  const showDatePicker = () => {
-    setDatePickerVisibility(true);
-  };
-
-  const hideDatePicker = () => {
-    setDatePickerVisibility(false);
-  };
-
-  const handleConfirm = (date) => {
-    hideDatePicker();
-    setSelectedDate(date);
-  };
-
   const toggleModal = () => {
+    console.log(4);
+    fetchShinhanData();
     setModalVisible(!isModalVisible);
   };
 
   const handleRegister = () => {
+    console.log(5);
     toggleModal();
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.inputContainer}>
-        <TouchableOpacity style={styles.inputButton} onPress={showDatePicker}>
-          <Text style={styles.inputButtonText}>생일 수정</Text>
-        </TouchableOpacity>
-        {selectedDate && (
-          <Text style={styles.selectedDateText}>
-            {formatDateToCustomString(selectedDate)}
-          </Text>
-        )}
+      <View style={{width: '85%'}}>
+        <Text style={{fontSize: 16, marginBottom: 10}}>
+          아이 정보를 입력해주세요.
+        </Text>
       </View>
-      <DateTimePickerModal
-        isVisible={isDatePickerVisible}
-        mode="datetime"
-        onConfirm={handleConfirm}
-        onCancel={hideDatePicker}
-      />
-      <TouchableOpacity style={styles.button} onPress={handleRegister}>
-        <Text style={styles.buttonText}>기록통장 등록하기</Text>
-      </TouchableOpacity>
+      <View style={styles.inputContainer}>
+        
+            <>
+            {!inputDate ? (
+        <TouchableOpacity
+        style={{ 
+          width: '85%',
+          height: 60,
+          borderRadius: 12,
+          color: 'black',
+          backgroundColor: 'white',
+          flexDirection : 'row',
+          justifyContent : 'center',
+          alignItems: 'center'
+        }}
+        onPress={()=> setOpen(true)}
+    > 
+        <Calendar
+          name="calendar"
+          size={17}
+        />
+      <Text style={styles.upload}>생일 선택하기</Text>
+    </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+                style={{ 
+                  width: '85%',
+                  height: 60,
+                  borderRadius: 12,
+                  color: 'black',
+                  backgroundColor: 'white',
+                  flexDirection : 'row',
+                  justifyContent : 'center',
+                  alignItems: 'center'
+                }}
+                onPress={()=> setOpen(true)}
+            > 
+            
+                <Calendar
+                  name="calendar"
+                  size={17}
+                />
+              <Text style={styles.upload}>{format(inputDate, "yyyy-MM-dd")}</Text>
+              </TouchableOpacity>
+      )}
+              
+          <DatePicker
+            modal
+            locale={"ko"}
+            open={open}
+            date={date}
+            mode={"date"}
+            textColor={"black"}
+            onConfirm={(date) => {
+
+              console.log(date);
+              setOpen(false)
+              setDate(date)
+              setInputDate(date)
+            }}
+            onCancel={() => {
+              setOpen(false)
+            }}
+          />
+      </>
+      </View>
+      <TouchableOpacity
+                style={{ 
+                  width: '85%',
+                  height: 60,
+                  borderRadius: 12,
+                  color: 'black',
+                  backgroundColor: 'white',
+                  justifyContent : 'center',
+                  alignItems: 'center',
+                  flexDirection : 'row'
+                }}
+                onPress={handleRegister}
+            > 
+            
+                <Account
+                  name="account-balance-wallet"
+                  size={17}
+                />
+              <Text style={styles.upload}>기록통장 등록하기</Text>
+            </TouchableOpacity>
+      
+      
+      {/* 통장 모달  */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -153,7 +211,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 16,
-    backgroundColor: '#FDF8E1'
+    alignItems: 'center'
   },
   inputContainer: {
     flexDirection: 'row',
@@ -220,6 +278,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#DDD',
   },
+  upload : {
+    color: 'black',
+    textAlign: 'center',
+    marginLeft: 5,
+  }
 
 });
 

@@ -10,11 +10,11 @@ const MyPageScreen = ({navigation}) => {
     { id: 1, label: '아이 정보 관리', onPress: () => navigation.navigate('Child') },
     { id: 2, label: '가족 계정 연동', onPress: () => {} },
     { id: 3, label: '로그아웃', onPress: () => dispatch(setMember({
-                        token: "",
-                        groupId: 0,
-                        memberId: 0,
-                        isMember: 0,
-                        nickname: "",
+                    token: "",
+                    groupId: 0,
+                    memberId: 0,
+                    isMember: 0,
+                    nickname: "",
     })) },
   ];
 
@@ -23,7 +23,7 @@ const MyPageScreen = ({navigation}) => {
       <Text style={styles.optionText}>{item.label}</Text>
       {item.id != 3?
         <View style={styles.iconContainer}>
-          <Icon name="chevron-right" size={20} color="#000" />
+          <Icon name="chevron-right" size={16} color="#000" />
         </View>: null
       }
     </TouchableOpacity>
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 16,
     paddingTop: 24,
-    backgroundColor: '#FDF8E1'
+    // backgroundColor: '#FDF8E1'
   },
   option: {
     flexDirection: 'row',
@@ -55,7 +55,8 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   optionText: {
-    fontSize: 18,
+    fontSize: 16,
+    marginLeft: 7
   },
   separator: {
     height: 1,

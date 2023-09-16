@@ -13,7 +13,16 @@ const BoardTopTab = ({navigation}) => {
     <>
       {/* <Button title="글작성" onPress={() => navigation.navigate('Write')} />
       <Button title="채팅" onPress={() => navigation.navigate('Chat')} /> */}
-      <Tab.Navigator>
+      <Tab.Navigator
+        screenOptions={{
+          tabBarActiveTintColor: '#A2C6C3',
+          tabBarInactiveTintColor: '#7E7855',
+
+          tabBarPressColor: '#A3C9B8',
+          tabBarIndicatorStyle: {
+            backgroundColor: '#A3C9B8',
+          },
+        }}>
         <Tab.Screen
           name="type1"
           component={BoardType1Screen}
