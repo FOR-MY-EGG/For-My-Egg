@@ -18,7 +18,11 @@ function LoginStack() {
       {!isMember ? (
         <Stack.Navigator>
           {!token ? (
-            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen
+              name="Login"
+              component={LoginScreen}
+              options={{headerShown: false}}
+            />
           ) : (
             <>
               <Stack.Screen name="Group" component={InitScreen} />
