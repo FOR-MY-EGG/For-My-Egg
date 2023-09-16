@@ -13,7 +13,6 @@ import MaterialCommunityIcons from 'react-native-vector-icons/AntDesign';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import {useDispatch, useSelector} from 'react-redux';
 import {Avatar} from 'react-native-paper';
-import axios from 'axios';
 import http from '../../utils/commonHttp';
 import {Button} from 'react-native-paper';
 
@@ -53,7 +52,7 @@ const MemoWriteScreen = ({navigation}) => {
         .then(response => {
           console.log(JSON.stringify(response));
           console.log('memo upload success');
-          navigation.navigate('MemoMain');
+          navigation.goBack();
         })
       .catch(error => {});
     };
