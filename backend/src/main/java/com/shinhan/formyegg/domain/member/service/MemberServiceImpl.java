@@ -9,6 +9,7 @@ import com.shinhan.formyegg.domain.invitation.repository.InvitationRepository;
 import com.shinhan.formyegg.domain.member.dto.MemberDto;
 import com.shinhan.formyegg.domain.member.entity.Member;
 import com.shinhan.formyegg.global.error.ErrorCode;
+import com.shinhan.formyegg.global.error.exception.BusinessException;
 import com.shinhan.formyegg.global.error.exception.MemberException;
 import org.springframework.stereotype.Service;
 
@@ -79,17 +80,16 @@ public class MemberServiceImpl implements MemberService {
 
 		if (optionalInvitation.isEmpty())
 			throw new MemberException(ErrorCode.NOT_EXIST_GROUP);
-		else {
-			InvitationDto invitationDto = InvitationDto.from(optionalInvitation.get());
-			//Get Children Information using GroupId
-			List<Child> children = childRepository.findAllByGroupId_FamilyId(invitationDto.getFamilyId());
-			System.out.println(children.size());
-			List<ChildDto> childDtoList = children.stream()
-						.map(child -> {
-							return ChildDto.from(child);
-						}).collect(Collectors.toList());
-				return childDtoList;
-		}
+
+		InvitationDto invitationDto = InvitationDto.from(optionalInvitation.get());
+
+		List<Child> children = childRepository.findAllByGroupId_FamilyId(invitationDto.getFamilyId());
+		if(children.isEmpty()) throw new BusinessException(ErrorCode.NOT_EXIST_GROUP);
+	  System.out.println(children);
+		System.out.println(children.size());
+		return children.stream()
+					.map(ChildDto::from).collect(Collectors.toList());
+
 	}
 }
 

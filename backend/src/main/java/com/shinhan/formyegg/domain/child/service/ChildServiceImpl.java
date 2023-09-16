@@ -38,7 +38,10 @@ public class ChildServiceImpl implements ChildService{
     public void createChildAndAccount(Long groupId, ChildCreateReq childCreateReq) {
         Optional<Group> optionalGroup = groupRepository.findById(groupId);
         if(!optionalGroup.isPresent()) throw new GroupException(ErrorCode.NOT_EXIST_GROUP);
+
+
         Account account = accountRepository.save(Account.from(childCreateReq));
-        childRepository.save(Child.from(childCreateReq, optionalGroup.get(), account));
+        String[] split = childCreateReq.getBirthDate().split("-");
+        childRepository.save(Child.from(childCreateReq, optionalGroup.get(), account, Integer.parseInt(split[0]), Integer.parseInt(split[1]), Integer.parseInt(split[2])));
     }
 }

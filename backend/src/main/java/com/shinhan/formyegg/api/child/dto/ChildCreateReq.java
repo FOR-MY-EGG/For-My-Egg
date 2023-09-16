@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Builder
 public class ChildCreateReq {
     private String name;
-    private LocalDateTime birth_date;
+    private String birthDate;
     private String nickname;
     private String number;
 }

@@ -9,22 +9,22 @@ import javax.persistence.*;
 
 import com.shinhan.formyegg.domain.member.entity.Member;
 
-@Entity(name = "account")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Builder
+@ToString
+@Entity
 public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "account_id", updatable = false)
     private Long accountId;
 
     @Column(name = "nickname", nullable = false, length = 45)
     private String nickname;
 
-    @Column(name = "number", nullable = false, length = 45, unique = true)
+    @Column(name = "number", nullable = false, length = 45)
     private String number;
 
     @Column(name = "balance", nullable = false)
