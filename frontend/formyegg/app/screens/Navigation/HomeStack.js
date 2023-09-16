@@ -33,7 +33,11 @@ function HomeStack() {
         component={MyPageScreen}
         options={{title: '마이페이지'}}
       />
-      <Stack.Screen name="AccountInfo" component={AccountInfo} />
+      <Stack.Screen
+        name="AccountInfo"
+        component={AccountInfo}
+        options={{title: '기록 상세 내역 조회'}}
+      />
       <Stack.Screen name="Information" component={InformationScreen} />
       <Stack.Screen name="Alert" component={AlertScreen} />
       <Stack.Screen
