@@ -55,15 +55,15 @@ public class MemberServiceImpl implements MemberService {
 	  if (!optionalMember.isPresent()) {
 		  // 가입된 회원이 아니므로 회원가입
 		  Member member = memberRepository.save(Member.from(memberDto));
-		  return MemberDto.of(member, 0);
+		  return MemberDto.of(member, 0, 0);
 	  }else{
 		  // 로그인
 		  optionalMember.get().updateKakaoToken(memberDto.getKakaoToken());
 		  Optional<Invitation> invitation =
 				  invitationRepository.findInvitationByMemberId_MemberId(optionalMember.get().getMemberId());
 		  if(invitation.isEmpty())
-			  return MemberDto.of(optionalMember.get(), 0);
-		  return MemberDto.of(optionalMember.get(), 1);
+			  return MemberDto.of(optionalMember.get(), 0, 0);
+		  return MemberDto.of(optionalMember.get(), 1, invitation.get().getFamilyId().getFamilyId());
 	  }
   }
 

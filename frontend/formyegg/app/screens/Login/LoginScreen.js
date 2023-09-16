@@ -38,7 +38,7 @@ const LoginScreen = ({navigation}) => {
       };
       axios({
         method: 'post',
-        url: 'http://10.0.2.2:8080/api/member',
+        url: 'http://ec2-3-39-138-177.ap-northeast-2.compute.amazonaws.com:8080/api/member',
         data: data,
       })
         .then(response => {

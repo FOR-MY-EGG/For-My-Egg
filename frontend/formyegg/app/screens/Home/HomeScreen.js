@@ -70,13 +70,13 @@ const HomeScreen = ({navigation}) => {
             for(let chi of children) {
               let pChi = parseInt(chi.dday);
               if(pChi >= 0) {
-                  if(Math.abs(pChi) > 180) chi.weeks = "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/eggs/egg1.GIF";
-                  else if(Math.abs(pChi) > 80) chi.weeks = "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/eggs/egg2.GIF";
-                  else chi.weeks = "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/eggs/egg3.GIF";
+                  if(Math.abs(pChi) > 180) chi.egg = "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/eggs/egg1.GIF";
+                  else if(Math.abs(pChi) > 80) chi.egg = "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/eggs/egg2.GIF";
+                  else chi.egg = "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/eggs/egg3.GIF";
               } else {
-                  if(Math.abs(pChi) < 80) chi.weeks = "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/eggs/egg3.GIF";
-                  else if(Math.abs(pChi) < 180) chi.weeks = "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/eggs/egg4.GIF";
-                  else chi.weeks = "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/eggs/egg5.GIF";
+                  if(Math.abs(pChi) < 80) chi.egg = "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/eggs/egg3.GIF";
+                  else if(Math.abs(pChi) < 180) chi.egg = "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/eggs/egg4.GIF";
+                  else chi.egg = "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/eggs/egg5.GIF";
               }
             }
             console.log(children)
@@ -99,8 +99,10 @@ const HomeScreen = ({navigation}) => {
           tmpC = c;
         }
       }
-      setTmpCheck(tmpC.childId);
-      dispatch(setChild(tmpC));
+      if(tmpC) {
+        setTmpCheck(tmpC.childId);
+        dispatch(setChild(tmpC));
+      }
     }
   }, [childs])
   return (
@@ -440,7 +442,7 @@ const HomeScreen = ({navigation}) => {
                     resizeMode: 'cover',
                   }}
                   // source={{uri: child.egg}}
-                  source = {{uri: child.weeks}}
+                  source = {child.egg ? ({uri: child.egg}) : ({uri: "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/eggs/egg1.GIF"})}
                 />
                 {console.log(child)}
               </View>

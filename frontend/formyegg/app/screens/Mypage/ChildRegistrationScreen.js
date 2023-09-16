@@ -36,7 +36,6 @@ const ChildRegistrationScreen = ({navigation}) => {
   }, []);
 
   const accountDataParcing = () => {
-    console.log(Object.keys(accountData));
     const cardData = [];
     for (let i = 1; i < Object.keys(accountData).length; i++) {
       const replay_key = '반복횟수' + i; // 반복 횟수 조회 키
@@ -55,7 +54,6 @@ const ChildRegistrationScreen = ({navigation}) => {
       }
     }
     setCardData(cardData);
-    console.log(cardData);
   };
 
   const sentAccountNumber = number => {
@@ -75,7 +73,6 @@ const ChildRegistrationScreen = ({navigation}) => {
       .post('account', req)
       .then(response => {
         setAccountData(response.data.dataBody);
-        console.log(accountData);
         accountDataParcing();
       })
       .catch(error => console.error('Error:', error))
@@ -88,10 +85,10 @@ const ChildRegistrationScreen = ({navigation}) => {
       number: number,
       nickname: nickname,
     };
+    console.log("groyupId"+groupId)
     http
       .post('child/' + groupId, child)
       .then(response => {
-        console.log(JSON.stringify(response.data));
         navigation.goBack();
       })
       .catch(error => {
@@ -184,7 +181,6 @@ const ChildRegistrationScreen = ({navigation}) => {
             cancelText="취소" // 원하는 취소 버튼 텍스트로 변경
             confirmText="확인"
             onConfirm={date => {
-              console.log(date);
               setOpen(false);
               setDate(date);
               setInputDate(date);

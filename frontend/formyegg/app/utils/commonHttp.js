@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import store from "../../store.js"; //
 
 const http = axios.create({
-  baseURL: "http://10.0.2.2:8080/api/",
+  baseURL: "http://ec2-3-39-138-177.ap-northeast-2.compute.amazonaws.com:8080/api/",
   // process.env 파일로 url저장해서 쓰면 더 좋음! (누가 적용 해주셈)
 });
 
