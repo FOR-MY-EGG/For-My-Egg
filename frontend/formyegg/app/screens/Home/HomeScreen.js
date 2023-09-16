@@ -11,12 +11,21 @@ import {
 } from 'react-native';
 import {setMember} from '../../../reducers/memberReducer';
 import {useDispatch, useSelector} from 'react-redux';
-import {Avatar, Modal, Portal, RadioButton, Button} from 'react-native-paper';
+import {
+  Avatar,
+  Modal,
+  Portal,
+  RadioButton,
+  Button,
+  IconButton,
+  MD3Colors,
+} from 'react-native-paper';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import http from '../../utils/commonHttp';
 import {useFocusEffect} from '@react-navigation/native';
 import {setChild} from '../../../reducers/childReducer';
+import {red100} from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -163,15 +172,23 @@ const HomeScreen = ({navigation}) => {
                 flexDirection: 'row',
               }}>
               <TouchableOpacity onPress={showModal}>
-                <MaterialCommunityIcons name="baby-bottle-outline" size={28} />
+                <MaterialCommunityIcons
+                  name="baby-face-outline"
+                  size={28}
+                  color="#84AFA7"
+                />
               </TouchableOpacity>
               <TouchableOpacity
-                style={{marginHorizontal: 5}}
+                style={{marginHorizontal: 15}}
                 onPress={() => navigation.navigate('Alert')}>
-                <MaterialCommunityIcons name="bell-outline" size={28} />
+                <MaterialCommunityIcons
+                  name="bell-outline"
+                  size={28}
+                  color="#84AFA7"
+                />
               </TouchableOpacity>
               <TouchableOpacity onPress={() => navigation.navigate('Mypage')}>
-                <MaterialIcons name="settings" size={28} />
+                <MaterialIcons name="settings" size={28} color="#84AFA7" />
               </TouchableOpacity>
             </View>
           </View>
@@ -193,10 +210,10 @@ const HomeScreen = ({navigation}) => {
                 justifyContent: 'center',
               }}>
               <Avatar.Icon
-                size={54}
+                size={48}
                 icon="heart"
                 // color="yellow"
-                backgroundColor="green"
+                backgroundColor="#A2C6C3"
               />
             </View>
             <View
@@ -210,14 +227,24 @@ const HomeScreen = ({navigation}) => {
                   justifyContent: 'center',
                   alignSelf: 'center',
                 }}>
-                <Text>김싸피님의 육아적금</Text>
+                <Text style={{fontSize: 15, color: '#343434'}}>
+                  김싸피님의 육아적금(통장별칭)
+                </Text>
               </View>
               <View
                 style={{
                   justifyContent: 'center',
                   // alignSelf: 'center',
                 }}>
-                <Text>1000,000원</Text>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    color: '#343434',
+                    fontWeight: 700,
+                    marginTop: 5,
+                  }}>
+                  100,000원(잔액)
+                </Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -230,6 +257,7 @@ const HomeScreen = ({navigation}) => {
               marginBottom: 20,
               flexDirection: 'row',
               elevation: 2,
+              paddingHorizontal: 40,
             }}>
             <View
               style={{flex: 1, flexDirection: 'column', paddingVertical: 20}}>
@@ -246,10 +274,41 @@ const HomeScreen = ({navigation}) => {
                     justifyContent: 'center',
                   }}>
                   <View>
-                    <Text style={{textAlign: 'center'}}>꼬물이</Text>
+                    <Text
+                      style={{
+                        textAlign: 'left',
+                        fontSize: 17,
+                        color: '#A3CFB8',
+                        fontWeight: 700,
+                      }}>
+                      꼬물이(아이이름)
+                    </Text>
                   </View>
-                  <View>
-                    <Text style={{textAlign: 'center'}}>2023. 09. 13</Text>
+                  <View
+                    style={{
+                      flexDirection: 'row',
+                      flex: 1,
+                      alignItems: 'center',
+                    }}>
+                    <Text
+                      style={{
+                        // flex: 1,
+                        fontSize: 14,
+                        textAlign: 'right',
+                      }}>
+                      {true ? '출산 예정일' : '생일'}
+                    </Text>
+                    <Text
+                      style={{
+                        flex: 1,
+                        textAlign: 'left',
+                        fontSize: 15,
+                        color: '#343434',
+                        fontWeight: 700,
+                        marginHorizontal: 10,
+                      }}>
+                      2023. 09. 13
+                    </Text>
                   </View>
                 </View>
                 <View
@@ -258,7 +317,16 @@ const HomeScreen = ({navigation}) => {
                     justifyContent: 'center',
                     alignSelf: 'center',
                   }}>
-                  <Text style={{textAlign: 'center', fontSize: 24}}>D-26</Text>
+                  <Text
+                    style={{
+                      textAlign: 'right',
+                      fontSize: 24,
+                      color: '#343434',
+                      fontWeight: 700,
+                    }}>
+                    D-26
+                    {/* 출산 예정일이거나 생일이다. */}
+                  </Text>
                 </View>
               </View>
               <View
