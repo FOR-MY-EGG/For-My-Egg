@@ -44,7 +44,7 @@ export default function CardComponent({
           {createdDate}
         </Text>
       </Card.Content>
-      <Card.Cover
+      {image ? <Card.Cover
         source={{
           uri:
             image ||
@@ -52,6 +52,8 @@ export default function CardComponent({
         }}
         style={{borderRadius: 0, flex: 1}}
       />
+      : <Text />}
+      
       <Text
         style={{padding: 10, fontWeight: 800, color: '#343434'}}
         variant="titleMedium">

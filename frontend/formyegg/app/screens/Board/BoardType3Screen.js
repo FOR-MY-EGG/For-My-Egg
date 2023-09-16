@@ -9,10 +9,10 @@ import {Button} from 'react-native-paper';
 const BoardType3Screen = ({navigation}) => {
   const [cards, setCards] = useState([]);
   const [page, setPage] = useState(0);
-
-  const getData = async () => {
+  console.log(page);
+  const getData = () => {
     http
-      .get(`board/2?page=${page}`)
+      .get(`board/0?page=${page}`)
       .then(res => {
         setCards(prev => [...prev, ...res.data]);
       })
@@ -23,24 +23,34 @@ const BoardType3Screen = ({navigation}) => {
 
   useFocusEffect(
     useCallback(() => {
-      setPage(0);
-      setCards([
-        {
-          nickname: '김민태',
+      http
+      .get(`board/2?page=${page}`)
+      .then(res => {
+        setCards(prev => [{
+          nickname: '관리자',
           image:
-            'https://user-images.githubusercontent.com/3969643/51441420-b41f1c80-1d14-11e9-9f5d-af5cd3a6aaae.png',
-          title: 'yuyu',
+            '',
+          title: '공지사항입니다.',
           view: 0,
-          createAt: '2020-03-20 13:00',
+          createdDate: '2020-03-20 13:00',
           content:
-            '이번에는 리액트 네이티브(React Native)로 인스타그램 UI을 구현하는 포스팅입니다. 다른 앱을 따라 만들어 보는 것은 굉장히 재미있습니다. 구글에서 인스타그램 클론 코딩 강의를 찾아보니, 다른 개발자들이 올린 동영상 강의를 몇 개 찾을 수 있었습니다.',
-        },
-      ]);
+            '여러분들 이 게시판은 FOR MY EGG의 정보공유 커뮤니티입니다. 여러분들의 의견을 자유롭게 펼치시고 게시글 및 채팅을 통해 서로 의견을 나눠보세요. 그럼 화이팅',
+        }, ...res.data]);
+      })
+      .catch(err => {
+        alert(JSON.stringify(err));
+      });
+      return () => {
+        setCards([]);
+        setPage(0);
+      }
     }, []),
   );
 
   useEffect(() => {
-    getData();
+    if(page != 0) {
+      getData();
+    }
   }, [page]);
 
   const onEndReached = async () => {
@@ -89,7 +99,6 @@ const BoardType3Screen = ({navigation}) => {
         keyExtractor={_ => _.title}
         style={styles.container}
         renderItem={({item}) => {
-          const {title, content} = item;
           return (
             <CardComponent
               nickname={item.nickname}
