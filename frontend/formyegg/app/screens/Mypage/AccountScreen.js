@@ -4,6 +4,8 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Avatar } from 'react-native-paper';
 import shinhanAPI from '../../utils/shinhanAPI';
 import {useFocusEffect } from '@react-navigation/native';
+import http from '../../utils/commonHttp';
+
 const AccountScreen = ({navigation}) => {
   const [accountData, setAccountData] = useState('');
   const [cardData, setCardData] = useState([]);
@@ -61,6 +63,13 @@ const AccountScreen = ({navigation}) => {
           fetchShinhanData()
         }
       })
+    http.post("notification", {title: "알림", content: "456"})
+    .then((res) => {
+      Alert.alert(res);
+    })
+    .catch((err) => {
+      Alert.alert(err);
+    })
   }
   const fetchShinhanData = async () => {
     const req = {
