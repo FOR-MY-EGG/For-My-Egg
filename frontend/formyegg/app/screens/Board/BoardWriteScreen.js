@@ -95,21 +95,15 @@ const BoardWriteScreen = ({navigation, route}) => {
         placeholder="내용을 작성해주세요."
       />
       <Text style={styles.text}>게시판 사진</Text>
-      <TouchableOpacity
-        style={{
-          // height: 60,
-          padding: 10,
-          borderRadius: 12,
-          color: 'black',
-          backgroundColor: '#F3F3F3',
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
+      <Button
+        icon="upload"
+        mode="contained"
+        borderRadius="5"
+        textColor="#343434"
+        buttonColor="#F3F3F3"
         onPress={() => onSelectImage()}>
-        <MaterialCommunityIcons name="upload" size={17} />
-        <Text style={styles.upload}>업로드 하기</Text>
-      </TouchableOpacity>
+        업로드 하기
+      </Button>
       <Button
         style={{marginTop: 50}}
         icon="check"

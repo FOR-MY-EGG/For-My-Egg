@@ -14,7 +14,11 @@ function BoardStack() {
         component={BoardTopTab}
         options={{headerShown: false}}
       />
-      <Stack.Screen name="Chat" component={ChatScreen} />
+      <Stack.Screen
+        name="Chat"
+        component={ChatScreen}
+        options={{title: '채팅'}}
+      />
       <Stack.Screen
         name="Write"
         component={BoardWriteScreen}
