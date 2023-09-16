@@ -1,15 +1,19 @@
 import {View} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Text} from 'react-native';
 import http from '../../utils/commonHttp';
 import {format} from 'date-fns';
+import { initChild } from '../../../reducers/childReducer';
 
 const AccountInfo = ({navigation}) => {
   const child = useSelector(state => state.child);
   const [memo, setMemo] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log("asd")
+    // dispatch(initChild());
     http
       .get('memo/' + child.childId)
       .then(res => {
@@ -18,7 +22,7 @@ const AccountInfo = ({navigation}) => {
       .catch(err => {
         console.log(err);
       });
-  });
+  }, []);
 
   return (
     <View style={{backgroundColor: 'white'}}>

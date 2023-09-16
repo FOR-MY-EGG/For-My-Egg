@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -24,30 +24,33 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import http from '../../utils/commonHttp';
 import {useFocusEffect} from '@react-navigation/native';
-import {initChild, setChild} from '../../../reducers/childReducer';
-import {red100} from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
+import { setChild} from '../../../reducers/childReducer';
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const memberId = useSelector(state => state.member.memberId);
   const [childs, setChilds] = useState([]);
   const child = useSelector(state => state.child);
-
+  console.log("rener+"+ JSON.stringify(child))
   const [visible, setVisible] = React.useState(false);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
 
-  const [checked, setChecked] = useState(0);
   const [tmpCheck, setTmpCheck] = useState(0);
 
   const selectChild = () => {
-    setChecked(tmpCheck);
-    dispatch(setChild(childs[tmpCheck]));
+    let tmpC = null;
+    for(let c of childs) {
+      if(c.childId == tmpCheck) {
+        tmpC = c;
+      }
+    }
+    dispatch(setChild(tmpC));
     hideModal();
   };
 
   const cancelChild = () => {
-    setTmpCheck(checked);
+    setTmpCheck(child.childId);
     hideModal();
   };
 
@@ -63,20 +66,30 @@ const HomeScreen = ({navigation}) => {
         .get(`member/all/${memberId}`)
         .then(res => {
           let children = res.data.children;
-          if (children.length > 0) {
-            setChecked(0);
-            setTmpCheck(0);
+          if (children.length > 0) { 
             setChilds(children);
-            dispatch(setChild(children[checked]));
+            if(child.childId == 0) {
+              dispatch(setChild(children[0]));
+              setTmpCheck(children[0].childId);
+            } 
           }
         })
         .catch(err => {});
-
-      return () => {
-        // dispatch(initChild())
-      };
     }, []),
   );
+
+  useEffect(() => {
+    if(childs.length > 0) {
+      let tmpC = null;
+      for(let c of childs) {
+        if(c.childId == child.childId) {
+          tmpC = c;
+        }
+      }
+      setTmpCheck(tmpC.childId);
+      dispatch(setChild(tmpC));
+    }
+  }, [childs])
   return (
     <>
       <SafeAreaView style={styles.container}>
@@ -108,11 +121,11 @@ const HomeScreen = ({navigation}) => {
                     style={{flex: 3}}
                     value={index}
                     color="yellowgreen"
-                    status={tmpCheck == index ? 'checked' : 'unchecked'}
-                    onPress={() => setTmpCheck(index)}
+                    status={tmpCheck == c.childId ? 'checked' : 'unchecked'}
+                    onPress={() => setTmpCheck(c.childId)}
                   />
                   <TouchableOpacity
-                    onPress={() => setTmpCheck(index)}
+                    onPress={() => setTmpCheck(c.childId)}
                     style={{
                       flex: 1,
                       // backgroundColor: 'red',
