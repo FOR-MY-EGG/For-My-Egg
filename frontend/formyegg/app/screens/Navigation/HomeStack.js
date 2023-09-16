@@ -7,6 +7,7 @@ import ChildRegistrationScreen from '../Mypage/ChildRegistrationScreen';
 import AlertScreen from '../Home/AlertScreen';
 import FamilyScreen from '../Mypage/FamilyScreen';
 import AccountInfo from '../Home/AccountInfo';
+import AccountScreen from '../Mypage/AccountScreen';
 import FinanceScreen from '../Information/FinanceScreen';
 import PolicyTopTab from './PolicyTopTab';
 
@@ -22,6 +23,7 @@ function HomeStack() {
           headerShown: false,
         }}
       />
+      <Stack.Screen name="Account" component={AccountScreen} />
       <Stack.Screen
         name="ChildRegist"
         component={ChildRegistrationScreen}

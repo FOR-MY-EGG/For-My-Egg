@@ -9,7 +9,8 @@ const MyPageScreen = ({navigation}) => {
   const options = [
     { id: 1, label: '아이 정보 관리', onPress: () => navigation.navigate('Child') },
     { id: 2, label: '가족 계정 연동', onPress: () => navigation.navigate('Family') },
-    { id: 3, label: '로그아웃', onPress: () => dispatch(setMember({
+    { id: 3, label: '계좌 연동', onPress: () => navigation.navigate('Account') },
+    { id: 4, label: '로그아웃', onPress: () => dispatch(setMember({
                     token: "",
                     groupId: 0,
                     memberId: 0,
@@ -41,6 +42,14 @@ const MyPageScreen = ({navigation}) => {
   );
 };
 
+const Item = ({ item }) => (
+  <TouchableOpacity onPress={() => navigation.navigate('ChildDetails', { childId: item.id })} style={styles.childItem}>
+    <View style={{marginLeft: 10}}>
+      <Egg name="egg" size={20} color="#343434"></Egg>
+    </View>
+    <Text style={styles.childName}>{item}</Text>
+  </TouchableOpacity>
+);
 const styles = StyleSheet.create({
   container: {
     flex: 1,
