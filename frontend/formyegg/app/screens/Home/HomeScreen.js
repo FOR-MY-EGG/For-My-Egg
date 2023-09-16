@@ -31,7 +31,7 @@ const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const memberId = useSelector(state => state.member.memberId);
   const [childs, setChilds] = useState([]);
-  const child = useSelector((state) => state.child);
+  const child = useSelector(state => state.child);
 
   const [visible, setVisible] = React.useState(false);
   const showModal = () => setVisible(true);
@@ -39,17 +39,17 @@ const HomeScreen = ({navigation}) => {
 
   const [checked, setChecked] = useState(0);
   const [tmpCheck, setTmpCheck] = useState(0);
-  
+
   const selectChild = () => {
     setChecked(tmpCheck);
     dispatch(setChild(childs[tmpCheck]));
     hideModal();
-  }
+  };
 
   const cancelChild = () => {
     setTmpCheck(checked);
     hideModal();
-  }
+  };
 
   const containerStyle = {
     backgroundColor: 'white',
@@ -67,14 +67,14 @@ const HomeScreen = ({navigation}) => {
             setChecked(0);
             setTmpCheck(0);
             setChilds(children);
-            dispatch(setChild(children[checked]))
+            dispatch(setChild(children[checked]));
           }
         })
         .catch(err => {});
 
-        return () => {
-          dispatch(initChild())
-        }
+      return () => {
+        // dispatch(initChild())
+      };
     }, []),
   );
   return (
@@ -87,7 +87,7 @@ const HomeScreen = ({navigation}) => {
             contentContainerStyle={containerStyle}>
             <Text style={{fontSize: 18, fontWeight: 'bold'}}>아이 선택</Text>
             <Text>아이를 선택해주세요.</Text>
-            
+
             <View
               style={{
                 borderBottomColor: 'gray',
@@ -95,43 +95,42 @@ const HomeScreen = ({navigation}) => {
                 marginVertical: 10,
               }}
             />
-            
+
             <View>
               {childs.map((c, index) => (
                 <View
-                key={index}
-                style={{
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}>
-                <RadioButton
-                  style={{flex: 3}}
-                  value={index}
-                  color="yellowgreen"
-                  status={tmpCheck == index ? 'checked' : 'unchecked'}
-                  onPress={() => setTmpCheck(index)}
-                />
-                <TouchableOpacity
-                  onPress={() => setTmpCheck(index)}
+                  key={index}
                   style={{
-                    flex: 1,
-                    // backgroundColor: 'red',
-                    alignSelf: 'center',
+                    flexDirection: 'row',
+                    alignItems: 'center',
                   }}>
-                  <Text
+                  <RadioButton
+                    style={{flex: 3}}
+                    value={index}
+                    color="yellowgreen"
+                    status={tmpCheck == index ? 'checked' : 'unchecked'}
+                    onPress={() => setTmpCheck(index)}
+                  />
+                  <TouchableOpacity
+                    onPress={() => setTmpCheck(index)}
                     style={{
-                      // flex: 1,
+                      flex: 1,
                       // backgroundColor: 'red',
-                      // alignSelf: 'center',
-                      textAlign: 'left',
+                      alignSelf: 'center',
                     }}>
+                    <Text
+                      style={{
+                        // flex: 1,
+                        // backgroundColor: 'red',
+                        // alignSelf: 'center',
+                        textAlign: 'left',
+                      }}>
                       {c.name}
-                  </Text>
-                </TouchableOpacity>
-                
-              </View>
+                    </Text>
+                  </TouchableOpacity>
+                </View>
               ))}
-{/*               
+              {/*               
               <View
                 style={{
                   flexDirection: 'row',
@@ -161,7 +160,7 @@ const HomeScreen = ({navigation}) => {
                 </TouchableOpacity>
               </View> */}
             </View>
-            
+
             <View
               style={{
                 flexDirection: 'row',
@@ -219,102 +218,100 @@ const HomeScreen = ({navigation}) => {
               </TouchableOpacity>
             </View>
           </View>
-          {childs.length > 0
-          ?
-          <TouchableOpacity
-            onPress={() => navigation.navigate('AccountInfo')}
-            style={{
-              height: 100,
-              backgroundColor: 'white',
-              borderRadius: 10,
-              marginBottom: 20,
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              elevation: 2,
-            }}>
-            <View
+          {childs.length > 0 ? (
+            <TouchableOpacity
+              onPress={() => navigation.navigate('AccountInfo')}
               style={{
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <Avatar.Icon
-                size={48}
-                icon="heart"
-                // color="yellow"
-                backgroundColor="#A2C6C3"
-              />
-            </View>
-            <View
-              style={{
-                flex: 3,
+                height: 100,
+                backgroundColor: 'white',
                 borderRadius: 10,
-                flexWrap: 'wrap',
+                marginBottom: 20,
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                elevation: 2,
               }}>
               <View
                 style={{
+                  flex: 1,
+                  alignItems: 'center',
                   justifyContent: 'center',
-                  alignSelf: 'center',
                 }}>
-                <Text style={{fontSize: 15, color: '#343434'}}>
-                    {child.accountNickname}
-                </Text>
+                <Avatar.Icon
+                  size={48}
+                  icon="heart"
+                  // color="yellow"
+                  backgroundColor="#A2C6C3"
+                />
               </View>
               <View
                 style={{
-                  justifyContent: 'center',
-                  // alignSelf: 'center',
+                  flex: 3,
+                  borderRadius: 10,
+                  flexWrap: 'wrap',
                 }}>
-                <Text
+                <View
                   style={{
-                    fontSize: 16,
-                    color: '#343434',
-                    fontWeight: 700,
-                    marginTop: 5,
+                    justifyContent: 'center',
+                    alignSelf: 'center',
                   }}>
-                  {child.accountBalance}원
-                </Text>
+                  <Text style={{fontSize: 15, color: '#343434'}}>
+                    {child.accountNickname}
+                  </Text>
+                </View>
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    // alignSelf: 'center',
+                  }}>
+                  <Text
+                    style={{
+                      fontSize: 16,
+                      color: '#343434',
+                      fontWeight: 700,
+                      marginTop: 5,
+                    }}>
+                    {child.accountBalance}원
+                  </Text>
+                </View>
               </View>
-            </View>
-          </TouchableOpacity>
-          : 
-          <TouchableOpacity
-            onPress={() => navigation.navigate('ChildRegist')}
-            style={{
-              height: 100,
-              backgroundColor: 'white',
-              borderRadius: 10,
-              marginBottom: 20,
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              elevation: 2,
-            }}>
-            <View
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              onPress={() => navigation.navigate('ChildRegist')}
               style={{
-                flex: 1,
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}>
-              <Avatar.Icon
-                size={48}
-                icon="heart"
-                // color="yellow"
-                backgroundColor="#A2C6C3"
-              />
-            </View>
-            <View
-              style={{
-                flex: 3,
+                height: 100,
+                backgroundColor: 'white',
                 borderRadius: 10,
-                flexWrap: 'wrap',
+                marginBottom: 20,
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                elevation: 2,
               }}>
-              <Text>
-                아이 등록하러 가기
-              </Text>
-            </View>
-          </TouchableOpacity>}
+              <View
+                style={{
+                  flex: 1,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Avatar.Icon
+                  size={48}
+                  icon="heart"
+                  // color="yellow"
+                  backgroundColor="#A2C6C3"
+                />
+              </View>
+              <View
+                style={{
+                  flex: 3,
+                  borderRadius: 10,
+                  flexWrap: 'wrap',
+                }}>
+                <Text>아이 등록하러 가기</Text>
+              </View>
+            </TouchableOpacity>
+          )}
           <View
             style={{
               // height: 100,
@@ -326,16 +323,15 @@ const HomeScreen = ({navigation}) => {
               elevation: 2,
               paddingHorizontal: 40,
             }}>
-              <View
-                style={{flex: 1, flexDirection: 'column', paddingVertical: 20}}>
-                {childs.length > 0 ?
+            <View
+              style={{flex: 1, flexDirection: 'column', paddingVertical: 20}}>
+              {childs.length > 0 ? (
                 <View
                   style={{
                     flex: 1,
                     flexDirection: 'row',
                   }}>
-                  
-                    <View
+                  <View
                     style={{
                       flex: 3,
                       flexDirection: 'column',
@@ -393,37 +389,38 @@ const HomeScreen = ({navigation}) => {
                         color: '#343434',
                         fontWeight: 700,
                       }}>
-                      D{parseInt(child.dday) < 0 ? "+" : "-"}{Math.abs(child.dday)}
+                      D{parseInt(child.dday) < 0 ? '+' : '-'}
+                      {Math.abs(child.dday)}
                       {/* 출산 예정일이거나 생일이다. */}
                     </Text>
                   </View>
                 </View>
-                :
+              ) : (
                 <View />
-                }
-                <View
+              )}
+              <View
+                style={{
+                  flex: 1,
+                  // alignContent: 'center',
+                  justifyContent: 'center',
+                  alignSelf: 'center',
+                  marginTop: 20,
+                  // borderRadius: 150,
+                }}>
+                <Image
                   style={{
-                    flex: 1,
-                    // alignContent: 'center',
+                    width: 300,
+                    height: 300,
+                    alignContent: 'center',
                     justifyContent: 'center',
-                    alignSelf: 'center',
-                    marginTop: 20,
-                    // borderRadius: 150,
-                  }}>
-                  <Image
-                    style={{
-                      width: 300,
-                      height: 300,
-                      alignContent: 'center',
-                      justifyContent: 'center',
-                      resizeMode: 'cover',
-                      overflow: 'hidden',
-                    }}
-                    source={{uri: 'https://picsum.photos/700'}}
-                  />
-                </View>
+                    resizeMode: 'cover',
+                    overflow: 'hidden',
+                  }}
+                  source={{uri: 'https://picsum.photos/700'}}
+                />
               </View>
             </View>
+          </View>
           <TouchableOpacity
             style={styles.policy}
             elevation={1}

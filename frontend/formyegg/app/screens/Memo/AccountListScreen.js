@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import {Avatar, Button} from 'react-native-paper';
 import {RadioButton} from 'react-native-paper';
-import { useSelector, useDispatch } from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {setAccount} from '../../../reducers/accountReducer';
 
 const AccountListScreen = ({navigation}) => {
@@ -10,26 +10,30 @@ const AccountListScreen = ({navigation}) => {
   const [checked, setChecked] = React.useState('first');
 
   const accountSave = () => {
-    if(checked == 'first'){
-      dispatch(setAccount({
-        title: "신한 주거래 S20통장",
-        number: "110-123-45687"
-      }))
-    }
-    else if(checked == 'second'){
-      dispatch(setAccount({
-        title: "쏠편한 입출금 통장",
-        number: "110-789-12483"
-      }))
-    }
-    else{
-      dispatch(setAccount({
-        title: "Hey Young(헤이영) 머니박스",
-        number: "110-593-67887"
-      }))
+    if (checked == 'first') {
+      dispatch(
+        setAccount({
+          title: '신한 주거래 S20통장',
+          number: '110-123-45687',
+        }),
+      );
+    } else if (checked == 'second') {
+      dispatch(
+        setAccount({
+          title: '쏠편한 입출금 통장',
+          number: '110-789-12483',
+        }),
+      );
+    } else {
+      dispatch(
+        setAccount({
+          title: 'Hey Young(헤이영) 머니박스',
+          number: '110-593-67887',
+        }),
+      );
     }
     navigation.goBack();
-  }
+  };
 
   return (
     <View

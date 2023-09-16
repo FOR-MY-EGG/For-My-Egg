@@ -6,7 +6,7 @@ import {Calendar} from 'react-native-calendars/src/index';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import http from '../../utils/commonHttp';
 import {Button} from 'react-native-paper';
-import { useFocusEffect } from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native';
 
 const MemoScreen = ({navigation}) => {
   const childId = useSelector(state => state.child.childId);
@@ -35,19 +35,20 @@ const MemoScreen = ({navigation}) => {
     updateTodayMemo(day);
   };
   useFocusEffect(
-  useCallback(() => {
-    http
-      .get('memo/' + childId)
-      .then(res => {
-        console.log(res.data);
-        for (let m of res.data) {
-          memo[m.day] = {marked: true};
-        }
-        console.log(memo);
-      })
-      .catch(err => {});
-    updateTodayMemo(format(new Date(), 'yyyy-MM-dd'));
-  }, []));
+    useCallback(() => {
+      http
+        .get('memo/' + childId)
+        .then(res => {
+          console.log(res.data);
+          for (let m of res.data) {
+            memo[m.day] = {marked: true};
+          }
+          console.log(memo);
+        })
+        .catch(err => {});
+      updateTodayMemo(format(new Date(), 'yyyy-MM-dd'));
+    }, []),
+  );
 
   const updateTodayMemo = now => {
     today.title = '';
@@ -108,7 +109,7 @@ const MemoScreen = ({navigation}) => {
             icon="check"
             mode="elevated"
             buttonColor="#FAE588"
-            textColor="#343434"
+            textColor="#626262"
             onPress={() => navigation.navigate('Write')}>
             오늘의 메모 작성하기
           </Button>
