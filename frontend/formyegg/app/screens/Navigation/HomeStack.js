@@ -22,7 +22,11 @@ function HomeStack() {
           headerShown: false,
         }}
       />
-      <Stack.Screen name="ChildRegist" component={ChildRegistrationScreen} />
+      <Stack.Screen
+        name="ChildRegist"
+        component={ChildRegistrationScreen}
+        options={{title: '아이 등록'}}
+      />
       <Stack.Screen
         name="Child"
         component={ChildScreen}
