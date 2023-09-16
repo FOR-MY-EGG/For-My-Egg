@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {Text, View, FlatList, TouchableOpacity, StyleSheet} from 'react-native';
 import http from '../../utils/commonHttp';
-import { Card } from 'galio-framework';
-import { Linking } from "react-native";
-const CardItem = ({ title, content }) => (
+import {Linking} from 'react-native';
+import {Button} from 'react-native-paper';
+
+const CardItem = ({title, content}) => (
   <View style={styles.cardItem}>
     <Text style={styles.cardItemTitle}>{title}</Text>
     <Text style={styles.cardItemContent}>{content}</Text>
@@ -14,10 +15,10 @@ const FinanceScreen = () => {
   const [selectedItem, setSelectedItem] = useState(null);
   const [typeIntroductions, setTypeIntroductions] = useState([]);
 
-  function link(){
-    Linking.openURL(selectedItem.link)
+  function link() {
+    Linking.openURL(selectedItem.link);
   }
-  
+
   useEffect(() => {
     Promise.all(
       [...Array(6)].map((_, index) => http.get(`finance/type/${index + 1}`)),
@@ -87,39 +88,46 @@ const FinanceScreen = () => {
     <View
       style={{
         flex: 1,
-        alignItems: 'center',
+        // alignItems: 'center',
+        marginHorizontal: 40,
       }}>
-      {selectedItem ? null:
-      <Text style={styles.header}>금융정책 추천</Text>}
       {selectedItem ? (
         <View>
+          <Button
+            textColor="#FFFFFF"
+            buttonColor="#A0A0A0"
+            icon="format-list-bulleted"
+            mode="contained"
+            onPress={handleBackPress}
+            style={styles.backButton}>
+            목록으로
+          </Button>
+
           <View styles={styles.cardContainer}>
             <Text style={styles.header}>{selectedItem.name}</Text>
           </View>
-          <Text>상품 안내</Text>
+          <Button
+            textColor="#F6F6F6"
+            buttonColor="#A3C9B8"
+            icon="link-variant"
+            mode="elevated"
+            onPress={link}
+            style={styles.linkButton}>
+            상품 상세 이동
+          </Button>
+          <Text style={styles.title}>상품 안내</Text>
           <View style={styles.detailsContainer}>
-              <Text >{selectedItem.intro}</Text>
+            <Text style={{fontSize: 15}}>{selectedItem.intro}</Text>
           </View>
-          <Text>대상</Text>
+          <Text style={styles.title}>대상</Text>
           <View style={styles.detailsContainer}>
-            <Text>{selectedItem.targetIntro}</Text>
+            <Text style={{fontSize: 15}}>{selectedItem.targetIntro}</Text>
           </View>
-          <Text >상품 분류</Text>
+          <Text style={styles.title}>상품 분류</Text>
           <View style={styles.detailsContainer}>
-            <Text>{getTypeName(selectedItem.type)}</Text>
+            <Text style={{fontSize: 15}}>{getTypeName(selectedItem.type)}</Text>
           </View>
-          <Text >상품 상세로 이동</Text>
-           <TouchableOpacity onPress={link} style={styles.linkButton} >
-                          <Text>링크 이동 </Text>
-          </TouchableOpacity>
-            <TouchableOpacity onPress={handleBackPress} style={styles.backButton}>
-                          <Text>뒤로 가기</Text>
-            </TouchableOpacity>
-        {/* <View style={styles.card}>
-          <Text style={styles.cardTypeText}>Link</Text>
-          <Text>{selectedItem.link}</Text>
-        </View> */}
-      </View>
+        </View>
       ) : (
         <FlatList
           data={financeData}
@@ -144,88 +152,72 @@ const FinanceScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  introText:{
-    fontSize:15,
+  introText: {
+    fontSize: 15,
     fontWeight: 'bold',
-    marginBottom:0,
-    paddingBottom:0
+    marginBottom: 0,
+    paddingBottom: 0,
   },
   header: {
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: 'bold',
-    marginVertical: 20,
+    marginTop: 25,
   },
-  
+
   cardContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: '100%',
+    // justifyContent: 'center',
+    // alignItems: 'center',
+    // width: '100%',
+    // marginHorizontal: 30,
     padding: 10,
-  },
-  card: {
-    backgroundColor: 'white',
-    padding: 10,
-    marginBottom: 20,
-    borderRadius: 5,
-    elevation: 2,
-    width: 300,
-    maxWidth: 400,
   },
   cardText: {
     textAlign: 'center',
   },
-  cardTypeText: {
-    fontWeight: 'bold',
-    marginBottom: 5,
-  },
   linkButton: {
-    marginTop: 5,
-    backgroundColor: 'lightblue',
-    padding: 15,
+    // marginTop: 20,
+    backgroundColor: '#A2C6C3',
     borderRadius: 5,
   },
-  
   detailsContainer: {
-    width: 300,
     backgroundColor: '#ffffff',
     padding: 20,
     borderRadius: 10,
-    marginTop: 5,
-    marginBottom:15,
-    alignItems: 'baseline',
   },
-  
   backButton: {
     marginTop: 20,
-    backgroundColor: '#007BFF',
-    padding: 10,
-    borderRadius: 5,
+    // padding: 10,
+    // borderRadius: 5,
     alignItems: 'center',
-    width: '50%',
+    width: '40%',
   },
-  
+  title: {
+    fontWeight: 'bold',
+    color: '#626262',
+    fontSize: 16,
+    marginBottom: 5,
+    marginTop: 10,
+  },
   card: {
     backgroundColor: '#ffffff',
     padding: 20,
     marginBottom: 20,
     borderRadius: 10,
     elevation: 2,
-    width: 300,
-    maxWidth: 400,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+    shadowOffset: {width: 0, height: 2},
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
   },
-  
+
   cardTypeText: {
     fontWeight: 'bold',
     marginBottom: 10,
     fontSize: 16,
     textAlign: 'center',
-    color: '#007BFF',
+    color: '#A3C9B8',
   },
-  
+
   cardText: {
     textAlign: 'center',
     fontSize: 14,
