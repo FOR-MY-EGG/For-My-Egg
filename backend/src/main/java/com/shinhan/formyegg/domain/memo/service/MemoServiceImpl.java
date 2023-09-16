@@ -46,7 +46,9 @@ public class MemoServiceImpl implements MemoService{
 
         System.out.println("hi");
         Optional<Invitation> invitation = invitationRepository.findInvitationByMemberId_MemberId(memberId);
-        String storedImageName = s3Uploader.upload(memoDto.getImageFile(), imagePath);
+        String storedImageName = null;
+        if(memoDto.getImageFile() != null)
+            storedImageName = s3Uploader.upload(memoDto.getImageFile(), imagePath);
 
         LocalDate today = LocalDate.now();
         Optional<Memo> memo = memoRepository.findMemoByCreateDate(today);

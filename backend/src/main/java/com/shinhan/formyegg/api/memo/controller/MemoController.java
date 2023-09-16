@@ -35,7 +35,7 @@ public class MemoController {
     private final MemoService memoService;
 
     @PostMapping
-    public ResponseEntity<MemoResDto> createMemo(Authentication authentication, @RequestPart(value = "memoReqDto", required = false) MemoReqDto memoReqDto, @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
+    public ResponseEntity<MemoResDto> createMemo(Authentication authentication, @RequestPart(value = "memoReqDto") MemoReqDto memoReqDto, @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
         System.out.println("hi");
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         Long memberId = Long.parseLong(userDetails.getUsername());
