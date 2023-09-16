@@ -2,11 +2,55 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {format} from 'date-fns';
 import {Text, View, StyleSheet, Image, ScrollView} from 'react-native';
 import {useSelector} from 'react-redux';
-import {Calendar} from 'react-native-calendars/src/index';
+import {Calendar, LocaleConfig} from 'react-native-calendars/src/index';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import http from '../../utils/commonHttp';
 import {Button} from 'react-native-paper';
 import {useFocusEffect} from '@react-navigation/native';
+
+LocaleConfig.locales['kr'] = {
+  monthNames: [
+    '1월',
+    '2월',
+    '3월',
+    '4월',
+    '5월',
+    '6월',
+    '7월',
+    '8월',
+    '9월',
+    '10월',
+    '11월',
+    '12월',
+  ],
+  monthNamesShort: [
+    '1월',
+    '2월',
+    '3월',
+    '4월',
+    '5월',
+    '6월',
+    '7월',
+    '8월',
+    '9월',
+    '10월',
+    '11월',
+    '12월',
+  ],
+  dayNames: [
+    '일요일',
+    '월요일',
+    '화요일',
+    '수요일',
+    '목요일',
+    '금요일',
+    '토요일',
+  ],
+  dayNamesShort: ['월', '화', '수', '목', '금', '토', '일'],
+  today: '오늘',
+};
+
+LocaleConfig.defaultLocale = 'kr';
 
 const MemoScreen = ({navigation}) => {
   const childId = useSelector(state => state.child.childId);
@@ -70,7 +114,9 @@ const MemoScreen = ({navigation}) => {
       <Calendar
         markedDates={markedSelectedDates}
         style={styles.calendar}
+        format
         monthFormat={'MMM, yyyy'}
+        locale={'ko'}
         theme={{
           selectedDayBackgroundColor: '#FCEFB4',
           dotColor: '#FFA200',
@@ -121,24 +167,40 @@ const MemoScreen = ({navigation}) => {
               backgroundColor: '#FAE588',
               margin: 20,
               marginTop: 30,
-              borderRadius: 12,
+              borderRadius: 10,
               opacity: 0.7,
-              padding: 15,
+              padding: 20,
             }}>
-            <Text
-              style={{
-                fontSize: 18,
-                fontWeight: 'bold',
-                color: 'black',
-                marginBottom: 10,
-              }}>
-              {today.title}({today.createDate})
-            </Text>
-            <View fillViewport="true">
-              <Image
-                source={{uri: today.image}}
-                style={{width: '100%', height: 300, marginBottom: 10}}
-              />
+            <View style={{flexDirection: 'row', marginBottom: 10}}>
+              <Text
+                style={{
+                  flex: 1,
+                  fontSize: 18,
+                  fontWeight: 'bold',
+                  color: '#434343',
+                }}>
+                {today.title}
+              </Text>
+              <Text
+                style={{
+                  flex: 1,
+                  fontSize: 14,
+                  fontWeight: 'bold',
+                  color: '#434343',
+                  textAlign: 'right',
+                }}>
+                {today.createDate}
+              </Text>
+            </View>
+            <View
+              fillViewport="true"
+              style={{backgroundColor: 'white', padding: 10, borderRadius: 10}}>
+              {today.image && (
+                <Image
+                  source={{uri: today.image}}
+                  style={{width: '100%', height: 300, marginBottom: 10}}
+                />
+              )}
               <Text style={{fontSize: 15, color: 'black'}}>
                 {today.content}
               </Text>
