@@ -31,7 +31,6 @@ const HomeScreen = ({navigation}) => {
   const memberId = useSelector(state => state.member.memberId);
   const [childs, setChilds] = useState([]);
   const child = useSelector(state => state.child);
-  console.log("rener+"+ JSON.stringify(child))
   const [visible, setVisible] = React.useState(false);
   const showModal = () => setVisible(true);
   const hideModal = () => setVisible(false);
@@ -66,7 +65,21 @@ const HomeScreen = ({navigation}) => {
         .get(`member/all/${memberId}`)
         .then(res => {
           let children = res.data.children;
+          console.log(children)
           if (children.length > 0) { 
+            for(let chi of children) {
+              let pChi = parseInt(chi.dday);
+              if(pChi >= 0) {
+                  if(Math.abs(pChi) > 180) chi.weeks = "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/eggs/egg1.GIF";
+                  else if(Math.abs(pChi) > 80) chi.weeks = "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/eggs/egg2.GIF";
+                  else chi.weeks = "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/eggs/egg3.GIF";
+              } else {
+                  if(Math.abs(pChi) < 80) chi.weeks = "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/eggs/egg3.GIF";
+                  else if(Math.abs(pChi) < 180) chi.weeks = "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/eggs/egg4.GIF";
+                  else chi.weeks = "https://formyegg-bucket.s3.ap-northeast-2.amazonaws.com/eggs/egg5.GIF";
+              }
+            }
+            console.log(children)
             setChilds(children);
             if(child.childId == 0) {
               dispatch(setChild(children[0]));
@@ -342,9 +355,9 @@ const HomeScreen = ({navigation}) => {
               elevation: 2,
               paddingHorizontal: 40,
             }}>
+            {childs.length > 0 ? (
             <View
               style={{flex: 1, flexDirection: 'column', paddingVertical: 20}}>
-              {childs.length > 0 ? (
                 <View
                   style={{
                     flex: 1,
@@ -414,9 +427,7 @@ const HomeScreen = ({navigation}) => {
                     </Text>
                   </View>
                 </View>
-              ) : (
                 <View />
-              )}
               <View
                 style={{
                   flex: 1,
@@ -433,12 +444,15 @@ const HomeScreen = ({navigation}) => {
                     alignContent: 'center',
                     justifyContent: 'center',
                     resizeMode: 'cover',
-                    overflow: 'hidden',
                   }}
-                  source={{uri: 'https://picsum.photos/700'}}
+                  // source={{uri: child.egg}}
+                  source = {{uri: child.weeks}}
                 />
+                {console.log(child)}
               </View>
-            </View>
+            </View> )
+            : <View />
+            }
           </View>
           <View style={{flexDirection: 'row'}}>
             <TouchableOpacity
