@@ -54,4 +54,9 @@ public class GroupServiceImpl implements GroupService {
         invitationRepository.save(Invitation.of(member.get(), group.get()));
         return GroupDto.from(group.get());
     }
+
+    public String getGroupCode(Long memberId){
+        Optional<Invitation> invitation = invitationRepository.findInvitationByMemberId_MemberId(memberId);
+        return invitation.get().getFamilyId().getUuid();
+    }
 }
