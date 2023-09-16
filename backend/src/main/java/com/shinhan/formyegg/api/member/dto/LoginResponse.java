@@ -24,6 +24,7 @@ public class LoginResponse {
                 .nickname(memberDto.getNickname())
                 .accessToken(token)
                 .isMember(memberDto.getIsMember())
+                .groupId(memberDto.getGroupId())
                 .build();
     }
 }

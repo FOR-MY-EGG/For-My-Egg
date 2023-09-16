@@ -11,7 +11,8 @@ const initialState = {
   name: "",
   weeks: 0,
 
-  checked: 0
+  checked: 0,
+  egg: ""
 };
 
 const childSlice = createSlice({
@@ -28,6 +29,7 @@ const childSlice = createSlice({
       state.dday = action.payload.dday;
       state.name = action.payload.name;
       state.weeks = action.payload.weeks;
+      state.egg = action.payload.egg;
       console.log("change---"+ JSON.stringify(action.payload))
       
     },
@@ -46,6 +48,9 @@ const childSlice = createSlice({
       state.weeks = 0,
 
       state.checked = 0
+    },
+    setEgg: (state, action) => {
+      state.egg = action.payload;
     }
   },
 });
