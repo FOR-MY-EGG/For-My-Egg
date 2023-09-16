@@ -34,6 +34,8 @@ public class Account {
         this.nickname = nickname;
     }
 
+    public void updateBalance(Long balance){this.balance = balance;}
+
     public static Account from(ChildCreateReq childCreateReq) {
         return Account.builder()
                 .balance(0L)
