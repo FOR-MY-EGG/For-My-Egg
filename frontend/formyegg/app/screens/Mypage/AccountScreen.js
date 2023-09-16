@@ -1,12 +1,14 @@
-import React, { useEffect, useState} from 'react';
+import React,{ useState,useCallback} from 'react';
 import {Text, View,  StyleSheet, TouchableOpacity, Alert, ScrollView, TextInput} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome'; 
 import { Avatar } from 'react-native-paper';
 import shinhanAPI from '../../utils/shinhanAPI';
+import {useFocusEffect } from '@react-navigation/native';
 const AccountScreen = ({navigation}) => {
   const [accountData, setAccountData] = useState('');
   const [cardData, setCardData] = useState([]);
   const [number, setNumber] = useState('');
+  const [name, setName] = useState('');
   const accountDataParcing = () =>{
     console.log(Object.keys(accountData))
     const cardData = [];
@@ -16,7 +18,7 @@ const AccountScreen = ({navigation}) => {
       const replay = accountData[replay_key] // 반복 횟수 
       const content =  accountData[part_key] // 조회 내역 
       for(let j = 0; j < replay; j++){
-        if(content[j].구분 == "예적금"){
+        if(content[j].구분 == "예적금" && content[j]?.계좌번호 == number){
           const search_type = "잔액(원화)"
           cardData.push({
             상품명: content[j]?.상품명,
@@ -40,34 +42,25 @@ const AccountScreen = ({navigation}) => {
       }
     }			
     await shinhanAPI.post("auth/1transfer", req)
-      .then(response => {
-        console.log(response)
+      .then((res) => {
+        console.log("1원이체 불림")
+        if(res.status == 200){
+          Alert.alert(
+            '해당 계좌로 1원이 이체되었습니다.',
+            '계좌를 확인해 주세요',
+            [
+              {
+                text: '닫기',
+                onPress: () => {
+                },
+                style: 'destructive',
+              },
+            ],
+        
+          );
+          fetchShinhanData()
+        }
       })
-  }
-  const sentAccountNumber = async (number) => {
-    setNumber(number);
-    console.log(number)
-    // 계좌 테이블 체크 후
-    // if (exist)
-    //
-    //else
-    
-    
-    await sendOneWon()
-    Alert.alert(
-      '해당 계좌로 1원이 이체되었습니다.',
-      '계좌를 확인해 주세요',
-      [
-        {
-          text: '닫기',
-          onPress: () => {
-          },
-          style: 'destructive',
-        },
-      ],
-   
-    );
-
   }
   const fetchShinhanData = async () => {
     const req = {
@@ -80,28 +73,42 @@ const AccountScreen = ({navigation}) => {
   }
     await shinhanAPI.post('account',req)
       .then(response => {setAccountData(response.data.dataBody)
+        console.log(accountData)
         accountDataParcing()
       })
       .catch(error => console.error('Error:', error))
       .then()
 
   };
-  useEffect(() => {
-  }, [cardData]); 
+  useFocusEffect(
+    useCallback(() => {
+  }, [setCardData])
+  )
 
    
   return (
       <ScrollView contentContainerStyle={styles.container}>
         <View style={{width: '85%'}}>
           <Text style={{fontSize: 18, marginBottom: 10, marginLeft: 10}}>
-            아이 정보를 입력해주세요.
+            이름
           </Text>
         </View>
           <TextInput
             backgroundColor={'white'}
             style={styles.textInput}
             onChangeText={(name) => setName(name)}
-            placeholder="아이의 이름을 적어주세요."
+            placeholder=""
+          />
+        <View style={{width: '85%'}}>
+          <Text style={{fontSize: 18, marginBottom: 10, marginLeft: 10}}>
+            계좌 번호
+          </Text>
+        </View>
+          <TextInput
+            backgroundColor={'white'}
+            style={styles.textInput}
+            onChangeText={(number) => setNumber(number)}
+            placeholder="계좌 정보를 입력해주세요"
           />
           <TouchableOpacity
               style={{ 
@@ -116,9 +123,9 @@ const AccountScreen = ({navigation}) => {
                 alignItems: 'center',
                 
               }}
-              onPress = {() => fetchShinhanData()}
+              onPress = {() => sendOneWon()}
           > 
-            <Text style={styles.upload}>계좌 조회</Text>
+            <Text style={styles.upload}>1원인증</Text>
           </TouchableOpacity>
             <View style={styles.cardContainer}>
               {cardData.map((card, index) => (
@@ -133,7 +140,6 @@ const AccountScreen = ({navigation}) => {
                     <View style={styles.iconContainer}>
                     <Icon name="chevron-right" size={16} color="#000" />
                   </View>
-                  
                 </View>
             </View>
           </TouchableOpacity>
@@ -185,6 +191,13 @@ const styles = StyleSheet.create({
   cardContainer: {
     marginTop: 20,
     width: '100%',
+  },
+  textInput: {
+    height: 60,
+    padding: 10,
+    borderRadius: 12,
+    color: '#343434',
+    marginBottom: 15,
   },
   card: {
     backgroundColor: '#FFF',

@@ -24,7 +24,6 @@ function HomeStack() {
         }}
       />
       <Stack.Screen name="Account" component={AccountScreen} />
-      <Stack.Screen name="ChildRegist" component={ChildRegistrationScreen} />
       <Stack.Screen
         name="ChildRegist"
         component={ChildRegistrationScreen}
