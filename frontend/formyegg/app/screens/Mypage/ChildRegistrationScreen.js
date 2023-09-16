@@ -9,7 +9,6 @@ import {
   TextInput,
   ScrollView,
 } from 'react-native';
-import Calendar from 'react-native-vector-icons/Entypo';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import shinhanAPI from '../../utils/shinhanAPI';
 import {Avatar} from 'react-native-paper';
@@ -124,7 +123,7 @@ const ChildRegistrationScreen = ({navigation}) => {
         backgroundColor={'white'}
         style={styles.textInput}
         onChangeText={name => setName(name)}
-        placeholder="아이의 이름을 적어주세요."
+        placeholder="아이의 이름(태명)을 적어주세요."
       />
       <View style={styles.inputContainer}>
         <>
@@ -141,14 +140,13 @@ const ChildRegistrationScreen = ({navigation}) => {
                 alignItems: 'center',
               }}
               onPress={() => setOpen(true)}>
-              <Calendar name="calendar" size={17} />
               <Text style={styles.upload}>
                 <MaterialCommunityIcons
                   name="calendar"
                   size={14}
                   color="#626262"
                 />
-                생일 선택하기
+                생일(출산 예정일) 선택하기
               </Text>
             </TouchableOpacity>
           ) : (

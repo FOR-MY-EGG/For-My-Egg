@@ -338,12 +338,6 @@ const HomeScreen = ({navigation}) => {
               </View>
             </TouchableOpacity>
           )}
-          <TouchableOpacity
-            style={styles.box}
-            elevation={1}
-            onPress={() => navigation.navigate('Information')}>
-            <Text>메모추가</Text>
-          </TouchableOpacity>
           <View
             style={{
               // height: 100,
