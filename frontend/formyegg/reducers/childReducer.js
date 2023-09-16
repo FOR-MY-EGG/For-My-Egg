@@ -7,7 +7,7 @@ const initialState = {
   accountNumber: "",
   birthDate: "",
   childId: 0,
-  dday: 89,
+  dday: 0,
   name: "",
   weeks: 0,
 
@@ -32,7 +32,20 @@ const childSlice = createSlice({
     setChecked: (state, action) => {
       state.checked = action.payload;
     },
+    initChild: (state) => {
+      state.accountBalance = 0,
+      state.accountId = 0,
+      state.accountNickname = "",
+      state.accountNumber = "",
+      state.birthDate = "",
+      state.childId = 0,
+      state.dday = 0,
+      state.name = "",
+      state.weeks = 0,
+
+      state.checked = 0
+    }
   },
 });
-export const { setChild, setChecked } = childSlice.actions;
+export const { setChild, setChecked, initChild } = childSlice.actions;
 export default childSlice.reducer;

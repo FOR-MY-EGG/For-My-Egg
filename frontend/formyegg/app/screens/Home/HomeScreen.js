@@ -24,7 +24,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import http from '../../utils/commonHttp';
 import {useFocusEffect} from '@react-navigation/native';
-import {setChild} from '../../../reducers/childReducer';
+import {initChild, setChild} from '../../../reducers/childReducer';
 import {red100} from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 
 const HomeScreen = ({navigation}) => {
@@ -71,6 +71,10 @@ const HomeScreen = ({navigation}) => {
           }
         })
         .catch(err => {});
+
+        return () => {
+          dispatch(initChild())
+        }
     }, []),
   );
   return (
@@ -215,6 +219,8 @@ const HomeScreen = ({navigation}) => {
               </TouchableOpacity>
             </View>
           </View>
+          {childs.length > 0
+          ?
           <TouchableOpacity
             onPress={() => navigation.navigate('AccountInfo')}
             style={{
@@ -272,6 +278,43 @@ const HomeScreen = ({navigation}) => {
               </View>
             </View>
           </TouchableOpacity>
+          : 
+          <TouchableOpacity
+            onPress={() => navigation.navigate('ChildRegist')}
+            style={{
+              height: 100,
+              backgroundColor: 'white',
+              borderRadius: 10,
+              marginBottom: 20,
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              elevation: 2,
+            }}>
+            <View
+              style={{
+                flex: 1,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Avatar.Icon
+                size={48}
+                icon="heart"
+                // color="yellow"
+                backgroundColor="#A2C6C3"
+              />
+            </View>
+            <View
+              style={{
+                flex: 3,
+                borderRadius: 10,
+                flexWrap: 'wrap',
+              }}>
+              <Text>
+                아이 등록하러 가기
+              </Text>
+            </View>
+          </TouchableOpacity>}
           <View
             style={{
               // height: 100,
@@ -283,100 +326,104 @@ const HomeScreen = ({navigation}) => {
               elevation: 2,
               paddingHorizontal: 40,
             }}>
-            <View
-              style={{flex: 1, flexDirection: 'column', paddingVertical: 20}}>
               <View
-                style={{
-                  flex: 1,
-                  flexDirection: 'row',
-                }}>
+                style={{flex: 1, flexDirection: 'column', paddingVertical: 20}}>
+                {childs.length > 0 ?
                 <View
                   style={{
-                    flex: 3,
-                    flexDirection: 'column',
-                    alignContent: 'center',
-                    justifyContent: 'center',
+                    flex: 1,
+                    flexDirection: 'row',
                   }}>
-                  <View>
-                    <Text
+                  
+                    <View
+                    style={{
+                      flex: 3,
+                      flexDirection: 'column',
+                      alignContent: 'center',
+                      justifyContent: 'center',
+                    }}>
+                    <View>
+                      <Text
+                        style={{
+                          textAlign: 'left',
+                          fontSize: 17,
+                          color: '#A3CFB8',
+                          fontWeight: 700,
+                        }}>
+                        {child.name}
+                      </Text>
+                    </View>
+                    <View
                       style={{
-                        textAlign: 'left',
-                        fontSize: 17,
-                        color: '#A3CFB8',
-                        fontWeight: 700,
+                        flexDirection: 'row',
+                        flex: 1,
+                        alignItems: 'center',
                       }}>
-                      {child.name}
-                    </Text>
+                      <Text
+                        style={{
+                          // flex: 1,
+                          fontSize: 14,
+                          textAlign: 'right',
+                        }}>
+                        {child.dday > 0 ? '출산 예정일' : '생일'}
+                      </Text>
+                      <Text
+                        style={{
+                          flex: 1,
+                          textAlign: 'left',
+                          fontSize: 15,
+                          color: '#343434',
+                          fontWeight: 700,
+                          marginHorizontal: 10,
+                        }}>
+                        {new String(child.birthDate).substring(0, 10)}
+                      </Text>
+                    </View>
                   </View>
                   <View
                     style={{
-                      flexDirection: 'row',
-                      flex: 1,
-                      alignItems: 'center',
+                      flex: 2,
+                      justifyContent: 'center',
+                      alignSelf: 'center',
                     }}>
                     <Text
                       style={{
-                        // flex: 1,
-                        fontSize: 14,
                         textAlign: 'right',
-                      }}>
-                      {child.dday > 0 ? '출산 예정일' : '생일'}
-                    </Text>
-                    <Text
-                      style={{
-                        flex: 1,
-                        textAlign: 'left',
-                        fontSize: 15,
+                        fontSize: 24,
                         color: '#343434',
                         fontWeight: 700,
-                        marginHorizontal: 10,
                       }}>
-                      {new String(child.birthDate).substring(0, 10)}
+                      D{parseInt(child.dday) < 0 ? "+" : "-"}{Math.abs(child.dday)}
+                      {/* 출산 예정일이거나 생일이다. */}
                     </Text>
                   </View>
                 </View>
+                :
+                <View />
+                }
                 <View
                   style={{
-                    flex: 2,
+                    flex: 1,
+                    // alignContent: 'center',
                     justifyContent: 'center',
                     alignSelf: 'center',
+                    marginTop: 20,
+                    // borderRadius: 150,
                   }}>
-                  <Text
+                  <Image
                     style={{
-                      textAlign: 'right',
-                      fontSize: 24,
-                      color: '#343434',
-                      fontWeight: 700,
-                    }}>
-                      {console.log(childs)}
-                    D{parseInt(child.dday) < 0 ? "+" : "-"}{Math.abs(child.dday)}
-                    {/* 출산 예정일이거나 생일이다. */}
-                  </Text>
+                      width: 300,
+                      height: 300,
+                      alignContent: 'center',
+                      justifyContent: 'center',
+                      resizeMode: 'cover',
+                      overflow: 'hidden',
+                    }}
+                    source={{uri: 'https://picsum.photos/700'}}
+                  />
                 </View>
               </View>
-              <View
-                style={{
-                  flex: 1,
-                  // alignContent: 'center',
-                  justifyContent: 'center',
-                  alignSelf: 'center',
-                  marginTop: 20,
-                  // borderRadius: 150,
-                }}>
-                <Image
-                  style={{
-                    width: 300,
-                    height: 300,
-                    alignContent: 'center',
-                    justifyContent: 'center',
-                    resizeMode: 'cover',
-                    overflow: 'hidden',
-                  }}
-                  source={{uri: 'https://picsum.photos/700'}}
-                />
-              </View>
             </View>
-          </View>
           <TouchableOpacity
             style={styles.policy}
             elevation={1}
