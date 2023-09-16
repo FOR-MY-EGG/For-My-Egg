@@ -56,8 +56,12 @@ const LoginScreen = ({navigation}) => {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: '#FFF9E8',
       }}>
-      <Text>FOR MY EGG</Text>
+      <Image
+        source={require('../../assets/images/splash.gif')}
+        style={{width: 400, height: 400, marginBottom: 30}}
+      />
       <Button
         title="Login"
         mode="contained"
