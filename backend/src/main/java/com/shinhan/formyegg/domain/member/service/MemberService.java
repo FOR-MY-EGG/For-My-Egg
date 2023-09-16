@@ -8,7 +8,6 @@ import com.shinhan.formyegg.domain.member.dto.MemberDto;
 
 public interface MemberService {
 
-	MemberDto getMemberByKakaoId(String kakaoId);
 
 	MemberDto getMemberByMemberId(Long memberId);
 
