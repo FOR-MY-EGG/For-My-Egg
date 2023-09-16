@@ -162,7 +162,8 @@ const MemoWriteScreen = ({navigation}) => {
         placeholder="내용을 작성해주세요."
       />
       <Text style={styles.text}>사진</Text>
-      <Button
+      { !imageFile.name ? (
+        <Button
         icon="upload"
         mode="contained"
         borderRadius="5"
@@ -170,7 +171,18 @@ const MemoWriteScreen = ({navigation}) => {
         buttonColor="#F3F3F3"
         onPress={() => onSelectImage()}>
         업로드 하기
-      </Button>
+        </Button>
+      ):(
+        <Button
+        icon="check"
+        mode="contained"
+        borderRadius="5"
+        textColor="#343434"
+        buttonColor="#F3F3F3"
+        onPress={() => onSelectImage()}>
+        업로드 완료
+        </Button>
+      )}
       <Button
         style={{marginVertical: 50}}
         icon="check"
