@@ -20,7 +20,13 @@ const ChatScreen = ({navigation, route}) => {
   const memberId = useSelector(state => state.member.memberId);
   const [text, setText] = useState('');
 
-  let socket = useMemo(() => new SockJs('http://10.0.2.2:8080/ws/chat'), []);
+  let socket = useMemo(
+    () =>
+      new SockJs(
+        'http://ec2-3-39-138-177.ap-northeast-2.compute.amazonaws.com:8080/ws/chat',
+      ),
+    [],
+  );
   let stompClient = useMemo(() => Stomp.over(socket), []);
 
   useFocusEffect(
