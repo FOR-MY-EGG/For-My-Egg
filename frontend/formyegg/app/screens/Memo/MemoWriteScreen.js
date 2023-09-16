@@ -44,19 +44,19 @@ const MemoWriteScreen = ({navigation}) => {
       type: 'application/json',
     });
     formData.append('image', imageFile);
-    http
-      .post('memo', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
-      .then(response => {
-        console.log(JSON.stringify(response));
-        console.log('memo upload success');
-        navigation.navigate('MemoMain');
-      })
+      http
+        .post('memo', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        })
+        .then(response => {
+          console.log(JSON.stringify(response));
+          console.log('memo upload success');
+          navigation.navigate('MemoMain');
+        })
       .catch(error => {});
-  };
+    };
 
   const onSelectImage = () => {
     launchImageLibrary(
