@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, FlatList } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Egg from 'react-native-vector-icons/FontAwesome6';
 import {useSelector} from 'react-redux';
 import http from '../../utils/commonHttp';
+import { useFocusEffect } from '@react-navigation/native';
 
 const ChildScreen = ({ navigation }) => {
   
@@ -14,6 +16,7 @@ const ChildScreen = ({ navigation }) => {
     http.get(`member/all/${memberId}`)
       .then(response => {
         if (response.data !== undefined && response.data.children !== undefined) {
+          console.log(response.data)
           const childNames = response.data.children.map(child => child.name);
           console.log(childNames)
           setChildList(childNames);
@@ -21,22 +24,26 @@ const ChildScreen = ({ navigation }) => {
         }
       })
       .catch((error) => {
-        console.error(error);
+        console.log(error)
       });
   };
 
-  useEffect(() => {
-    // 화면이 처음 렌더링될 때 아이 목록을 불러옴
+  useFocusEffect(useCallback(() => {
     const memberId = userInfo.memberId
     fetchChildList(memberId);
-  }, []);
+  }, [])
+  );
+
+    // 화면이 처음 렌더링될 때 아이 목록을 불러옴
   useEffect(() => {
     console.log(childList); // 여기서 childList를 확인
   }, [childList]); 
+
+
   const renderChildItem = ({ item }) => (
     <TouchableOpacity onPress={() => navigation.navigate('ChildDetails', { childId: item.id })} style={styles.childItem}>
-      <View style={styles.childIcon}>
-        <Icon name="child" size={30} color="#000" />
+      <View style={{marginLeft: 10}}>
+        <Egg name="egg" size={20} color="#343434"></Egg>
       </View>
       <Text style={styles.childName}>{item}</Text>
     </TouchableOpacity>
@@ -47,7 +54,7 @@ const ChildScreen = ({ navigation }) => {
     <View style={styles.container}>
       <FlatList
         data={childList}
-        keyExtractor={(item, index) => index.toString()} 
+        keyExtractor={(item, index) => index} 
         renderItem={renderChildItem}
       />
       <View style={styles.registerButtonContainer}>
@@ -90,8 +97,9 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
   },
   childName: {
+    width: "100%",
     marginLeft: 10,
-    fontSize: 20,
+    fontSize: 17,
   },
   registerButton: {
     flexDirection: 'row',

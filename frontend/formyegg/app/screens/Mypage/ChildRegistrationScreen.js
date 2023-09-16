@@ -1,12 +1,14 @@
 import React, { useState,useEffect } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, Modal, Button } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { View, TouchableOpacity, Text, StyleSheet, Modal, TouchableWithoutFeedback, TextInput, ScrollView} from 'react-native';
 import Calendar from 'react-native-vector-icons/Entypo';
 import Account from 'react-native-vector-icons/MaterialIcons';
 import shinhanAPI from '../../utils/shinhanAPI';
 import { Avatar } from 'react-native-paper';
 import DatePicker from 'react-native-date-picker'
 import {format} from 'date-fns';
+import {Button} from 'react-native-paper';
+import {useSelector} from 'react-redux';
+import http from '../../utils/commonHttp';
 
 const ChildRegistrationScreen = ({ navigation }) => {
   const [selectedDate, setSelectedDate] = useState(null);
@@ -15,7 +17,11 @@ const ChildRegistrationScreen = ({ navigation }) => {
   const [cardData, setCardData] = useState([]);
   const [date, setDate] = useState(new Date())
   const [inputDate, setInputDate] = useState('');
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
+  const [name, setName] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [number, setNumber] = useState('');
+  const {groupId} = useSelector(state => state.member);
 
   useEffect(() => {
       fetchShinhanData(); // API 호출 함수
@@ -43,6 +49,12 @@ const ChildRegistrationScreen = ({ navigation }) => {
     setCardData(cardData);
     console.log(cardData)
   }
+
+  const sentAccountNumber = (number) => {
+    setNumber(number);
+    handleModalClose();
+
+  }
   const fetchShinhanData = async () => {
     const req = {
       "dataHeader": {
@@ -60,26 +72,50 @@ const ChildRegistrationScreen = ({ navigation }) => {
       .catch(error => console.error('Error:', error))
       .then()
   };
+  const onSubmit = () =>{
+    const child = {
+      name: name,
+      birthDate: format(date, "yyyy-MM-dd"),
+      number: number,
+      nickname: nickname
+    };
+    http.post('child/'+groupId, child
+      ).then(response => {
+        console.log(JSON.stringify(response.data));
+        navigation.goBack();
+      })
+      .catch(error => {
+        alert('아이등록 실패');
+        console.log(error);
+      });
+  }
 
 
-  const toggleModal = () => {
-    console.log(4);
+  const toggleModal = () => { 
     fetchShinhanData();
     setModalVisible(!isModalVisible);
   };
 
   const handleRegister = () => {
-    console.log(5);
     toggleModal();
+  };
+  const handleModalClose = () => {
+    setModalVisible(false);
   };
 
   return (
-    <View style={styles.container}>
+    <ScrollView contentContainerStyle={styles.container}>
       <View style={{width: '85%'}}>
-        <Text style={{fontSize: 16, marginBottom: 10}}>
+        <Text style={{fontSize: 18, marginBottom: 10, marginLeft: 10}}>
           아이 정보를 입력해주세요.
         </Text>
       </View>
+        <TextInput
+          backgroundColor={'white'}
+          style={styles.textInput}
+          onChangeText={(name) => setName(name)}
+          placeholder="아이의 이름을 적어주세요."
+        />
       <View style={styles.inputContainer}>
         
             <>
@@ -133,6 +169,11 @@ const ChildRegistrationScreen = ({ navigation }) => {
             date={date}
             mode={"date"}
             textColor={"black"}
+            title={
+              "아이의 생일을 선택해주세요."
+            }
+            cancelText="취소" // 원하는 취소 버튼 텍스트로 변경
+            confirmText="확인" 
             onConfirm={(date) => {
 
               console.log(date);
@@ -147,28 +188,39 @@ const ChildRegistrationScreen = ({ navigation }) => {
       </>
       </View>
       <TouchableOpacity
-                style={{ 
-                  width: '85%',
-                  height: 60,
-                  borderRadius: 12,
-                  color: 'black',
-                  backgroundColor: 'white',
-                  justifyContent : 'center',
-                  alignItems: 'center',
-                  flexDirection : 'row'
-                }}
-                onPress={handleRegister}
-            > 
-            
-                <Account
-                  name="account-balance-wallet"
-                  size={17}
-                />
-              <Text style={styles.upload}>기록통장 등록하기</Text>
-            </TouchableOpacity>
+          style={{ 
+            width: '85%',
+            height: 60,
+            borderRadius: 12,
+            color: 'black',
+            backgroundColor: 'white',
+            justifyContent : 'center',
+            alignItems: 'center',
+            flexDirection : 'row'
+          }}
+          onPress={handleRegister}
+      > 
       
-      
-      {/* 통장 모달  */}
+          <Account
+            name="account-balance-wallet"
+            size={17}
+          />
+        <Text style={styles.upload}>기록통장 등록하기</Text>
+      </TouchableOpacity>
+        <TextInput
+          backgroundColor={'white'}
+          style={styles.textInput}
+          onChangeText={(nickname) => setNickname(nickname)}
+          placeholder="기록통장의 별명을 적어주세요."
+        />
+      <Button
+        style={{marginTop: 30, marginBottom: 160}}
+        icon="check"
+        mode="contained"
+        buttonColor="#A3C9B8"
+        onPress={() => onSubmit()}>
+        등록
+      </Button>
       <Modal
         animationType="slide"
         transparent={true}
@@ -177,39 +229,39 @@ const ChildRegistrationScreen = ({ navigation }) => {
           setModalVisible(!isModalVisible);
         }}
       >
+        <TouchableWithoutFeedback onPress={handleModalClose}>
         <View style={styles.modalContainer}>
           <View style={styles.modalContent}>
-            <TouchableOpacity
-              onPress={toggleModal}
-              style={styles.closeButton}
-            >
-              <Icon name="close" size={25} color="black" />
-            </TouchableOpacity>
+           
             
             <View style={styles.cardContainer}>
               
               {cardData.map((card, index) => (
-                
-                <View style={styles.card} key={index} >
+                <TouchableOpacity onPress={() => sentAccountNumber(card.계좌번호)} key={index}>
+                <View style={styles.card} >
                   <Avatar.Image style={{backgroundColor:'white'}}
               size={43} source={require('../../assets/images/shinhan_logo.png')} />
                   <Text>상품명: {card.상품명}</Text>
                   <Text>계좌번호: {card.계좌번호}</Text>
                   <Text>잔액: {card.잔액}</Text>
                 </View>
+                </TouchableOpacity>
               ))}
             </View>
+            
           </View>
         </View>
+        </TouchableWithoutFeedback>
       </Modal>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    marginTop: 30,
+    // justifyContent: 'center',
     paddingHorizontal: 16,
     alignItems: 'center'
   },
@@ -282,8 +334,22 @@ const styles = StyleSheet.create({
     color: 'black',
     textAlign: 'center',
     marginLeft: 5,
-  }
-
+    // width: "100%"
+  },
+  text : {
+    textAlign : 'left',
+    width:'85%',
+    paddingLeft : 10,
+    marginTop: 15
+  },
+  textInput: {
+    margin: 15,
+    width: '85%',
+    height: 60,
+    padding: 10,
+    borderRadius: 12,
+    color: '#343434'
+  },
 });
 
 export default ChildRegistrationScreen;
