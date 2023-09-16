@@ -1,14 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Text, View, Image} from 'react-native';
-import {useDispatch} from 'react-redux';
-import {setMember} from '../../../reducers/memberReducer';
+import {useDispatch, useSelector} from 'react-redux';
+import {setMember, setFcmToken} from '../../../reducers/memberReducer';
 import * as KakaoLogin from '@react-native-seoul/kakao-login';
 import axios from 'axios';
 import {Button} from 'react-native-paper';
+import messaging from '@react-native-firebase/messaging';
 
 const LoginScreen = ({navigation}) => {
   const dispatch = useDispatch();
-
+  const [token, setToken] = useState('');
+  
   const login = () => {
     KakaoLogin.login()
       .then(result => {
@@ -41,6 +43,13 @@ const LoginScreen = ({navigation}) => {
       })
         .then(response => {
           dispatch(setMember(response.data));
+          messaging().getToken()
+          .then((token) => {
+            console.log(token);
+            setToken(token);
+          })
+          dispatch(setFcmToken(token));
+          console.log('[FCM Token] ', token);
           if (response.data.isMember == 0) {
             navigation.navigate('Group');
           }

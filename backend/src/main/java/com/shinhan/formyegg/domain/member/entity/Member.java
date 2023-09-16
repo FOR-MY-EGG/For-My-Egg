@@ -29,6 +29,8 @@ public class Member extends BaseTimeEntity {
 	@Column(nullable = false)
 	private String kakaoToken;
 
+	private String deviceToken;
+
 	public static Member from(Long memberId){
 		return Member.builder()
 				.memberId(memberId)
@@ -40,6 +42,7 @@ public class Member extends BaseTimeEntity {
 				.nickname(memberDto.getNickname())
 				.kakaoId(memberDto.getKakaoId())
 				.kakaoToken(memberDto.getKakaoToken())
+				.deviceToken(memberDto.getDeviceToken())
 				.build();
 	}
 

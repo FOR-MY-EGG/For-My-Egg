@@ -13,6 +13,7 @@ public enum ErrorCode {
 	AUTHENTICATION_ENTRY_POINT(HttpStatus.BAD_REQUEST, "A-002", "잘못된 접근입니다."),
 	// 회원
 	NOT_EXIST_MEMBER(HttpStatus.BAD_REQUEST, "M-001", "존재하지 않는 회원입니다."),
+	NOT_EXIST_DEVICE_TOKEN(HttpStatus.BAD_REQUEST, "M-002", "사용자의 기기토큰이 존재하지 않습니다."),
 
 	// 아이/어린이
 	NOT_EXIST_KID(HttpStatus.BAD_REQUEST, "K-001", "아이가 존재하지 않습니다."),

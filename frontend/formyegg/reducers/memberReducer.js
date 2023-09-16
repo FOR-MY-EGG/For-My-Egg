@@ -6,6 +6,7 @@ const initialState = {
   memberId: 0,
   isMember: 0,
   nickname: "",
+  fcmToken: ""
 };
 
 const memberSlice = createSlice({
@@ -29,7 +30,10 @@ const memberSlice = createSlice({
       state.groupId = action.payload;
       state.isMember = 1;
     },
+    setFcmToken : (state, action) => {
+      state.fcmToken = action.payload;
+    }
   },
 });
-export const { setMember, setToken, setGroupId, setIsMember} = memberSlice.actions;
+export const { setMember, setToken, setGroupId, setIsMember, setFcmToken} = memberSlice.actions;
 export default memberSlice.reducer;

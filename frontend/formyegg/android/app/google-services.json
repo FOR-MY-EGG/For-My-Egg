@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "933158786210",
+    "project_id": "for-my-egg",
+    "storage_bucket": "for-my-egg.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:933158786210:android:664d3426c090bd69f633fb",
+        "android_client_info": {
+          "package_name": "com.formyegg"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyPNlu2MI_YUZBzqKFUPDJgxTTnTBygt4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

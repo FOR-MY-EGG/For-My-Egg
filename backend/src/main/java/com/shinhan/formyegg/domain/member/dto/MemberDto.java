@@ -15,6 +15,7 @@ public class MemberDto {
 	private String kakaoId;
 	private String kakaoToken;
     private int isMember;
+	private String deviceToken;
 
 	public static MemberDto from(Member member){
 		return MemberDto.builder()
@@ -22,6 +23,7 @@ public class MemberDto {
 				.nickname(member.getNickname())
 				.kakaoId(member.getKakaoId())
 				.kakaoToken(member.getKakaoToken())
+				.deviceToken(member.getDeviceToken())
 				.build();
 	}
 
@@ -39,6 +41,7 @@ public class MemberDto {
 				.kakaoId(member.getKakaoId())
 				.kakaoToken(member.getKakaoToken())
 				.nickname(member.getNickname())
+				.deviceToken(member.getDeviceToken())
 				.build();
 	}
 	public static MemberDto from(MemberNicknameRequest member){

@@ -42,7 +42,7 @@ const MemoWriteScreen = ({navigation}) => {
     formData.append('memoReqDto', JSON.stringify(memoReqDto), {
       type: 'application/json',
     });
-    formData.append('image', imageFile);
+    if (imageFile.name) formData.append('image', imageFile);
       http
         .post('memo', formData, {
           headers: {
