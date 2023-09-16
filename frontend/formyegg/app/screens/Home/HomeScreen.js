@@ -427,7 +427,6 @@ const HomeScreen = ({navigation}) => {
               </View>
             </View>
           </View>
-
           <View style={{flexDirection: 'row'}}>
             <TouchableOpacity
               style={styles.product}
