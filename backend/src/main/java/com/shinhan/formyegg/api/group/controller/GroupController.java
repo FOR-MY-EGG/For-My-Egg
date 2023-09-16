@@ -9,10 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/group")
@@ -33,5 +30,13 @@ public class GroupController {
         Long memberId = Long.parseLong(userDetails.getUsername());
         GroupDto group = groupService.invitateGroup(memberId, GroupDto.from(groupCreateReqDto));
         return ResponseEntity.status(HttpStatus.OK).body(GroupCreateResDto.from(group));
+    }
+
+    @GetMapping("/group-code")
+    public ResponseEntity<String> getGroupCode(Authentication authentication){
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        Long memberId = Long.parseLong(userDetails.getUsername());
+        String groupCode = groupService.getGroupCode(memberId);
+        return  ResponseEntity.status(HttpStatus.OK).body(groupCode);
     }
 }
