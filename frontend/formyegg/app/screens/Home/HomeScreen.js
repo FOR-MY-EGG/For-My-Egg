@@ -312,6 +312,12 @@ const HomeScreen = ({navigation}) => {
               </View>
             </TouchableOpacity>
           )}
+          <TouchableOpacity
+            style={styles.box}
+            elevation={1}
+            onPress={() => navigation.navigate('Information')}>
+            <Text>메모추가</Text>
+          </TouchableOpacity>
           <View
             style={{
               // height: 100,
@@ -421,19 +427,21 @@ const HomeScreen = ({navigation}) => {
               </View>
             </View>
           </View>
-          <TouchableOpacity
-            style={styles.policy}
-            elevation={1}
-            onPress={() => navigation.navigate('Information')}>
-            <Text>메모추가</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.policy}
-            elevation={1}
-            onPress={() => navigation.navigate('Information')}>
-            <Text>육아정책</Text>
-          </TouchableOpacity>
 
+          <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity
+              style={styles.product}
+              elevation={1}
+              onPress={() => navigation.navigate('product')}>
+              <Text>금융 상품</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.policy}
+              elevation={1}
+              onPress={() => navigation.navigate('policy')}>
+              <Text>육아정책</Text>
+            </TouchableOpacity>
+          </View>
           {/*
         <Button
           title="로그아웃"
@@ -470,6 +478,29 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 20,
   },
+  box: {
+    height: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    shadowRadius: 10,
+    borderRadius: 10,
+    marginBottom: 20,
+    elevation: 2,
+    flex: 1,
+  },
+  product: {
+    height: 100,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    shadowRadius: 10,
+    borderRadius: 10,
+    marginBottom: 20,
+    elevation: 2,
+    flex: 1,
+    marginRight: 10,
+  },
   policy: {
     height: 100,
     alignItems: 'center',
@@ -479,6 +510,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 20,
     elevation: 2,
+    flex: 1,
+    marginLeft: 10,
   },
   baby: {
     height: 450,

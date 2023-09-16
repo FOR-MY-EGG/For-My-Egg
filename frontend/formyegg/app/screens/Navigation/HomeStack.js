@@ -38,7 +38,8 @@ function HomeStack() {
         component={AccountInfo}
         options={{title: '기록 상세 내역 조회'}}
       />
-      <Stack.Screen name="Information" component={InformationScreen} />
+      <Stack.Screen name="product" component={InformationScreen} />
+      <Stack.Screen name="policy" component={InformationScreen} />
       <Stack.Screen name="Alert" component={AlertScreen} />
       <Stack.Screen
         name="Family"
