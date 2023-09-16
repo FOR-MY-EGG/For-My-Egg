@@ -84,7 +84,6 @@ const HomeScreen = ({navigation}) => {
     }
     await shinhanAPI.post("search/name",req)
   }			
-  }
   useFocusEffect(
     useCallback(() => {
       http
