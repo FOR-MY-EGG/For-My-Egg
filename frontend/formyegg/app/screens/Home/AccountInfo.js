@@ -7,49 +7,18 @@ import {format} from 'date-fns';
 
 const AccountInfo = ({navigation}) => {
   const child = useSelector(state => state.child);
-  const [memo, setMemo] = useState([
-    {
-      day: '2023-09-16',
-      holder: '민티 오늘 뒤집기 성공',
-      amount: 10000,
-      memoId: 1,
-    },
-    {
-      day: '2023-09-17',
-      holder: '민티야 오늘도 행복해라',
-      amount: 10000,
-      memoId: 1,
-    },
-    {
-      day: '2023-09-18',
-      holder: '민티야 내일도 행복해라',
-      amount: 10000,
-      memoId: 1,
-    },
-    {
-      day: '2023-09-19',
-      holder: '민티야 오늘도 즐거워라',
-      amount: 10000,
-      memoId: 1,
-    },
-    {
-      day: '2023-09-20',
-      holder: '민티야 쑥쑥 자라자',
-      amount: 10000,
-      memoId: 1,
-    },
-  ]);
+  const [memo, setMemo] = useState([]);
 
-  // useEffect(() => {
-  //   http
-  //     .get('memo/' + child.childId)
-  //     .then(res => {
-  //       setMemo(res.data);
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //     });
-  // });
+  useEffect(() => {
+    http
+      .get('memo/' + child.childId)
+      .then(res => {
+        setMemo(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  });
 
   return (
     <View style={{backgroundColor: 'white'}}>
