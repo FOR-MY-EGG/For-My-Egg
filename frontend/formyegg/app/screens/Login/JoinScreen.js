@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import axios from 'axios';
 import {setGroupId} from '../../../reducers/memberReducer';
 import {Button, TextInput} from 'react-native-paper';
+import http from '../../utils/commonHttp';
 
 const JoinScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -14,23 +14,12 @@ const JoinScreen = ({navigation}) => {
 
   const submitBtn = () => {
     setText(inputText);
-    axios({
-      method: 'post',
-      url: 'http://10.0.2.2:8080/api/group/invitation',
-      data: {
-        uuid: inputText,
-      },
-      headers: {
-        authorization: `Bearer ` + token,
-      },
-    })
-      .then(response => {
-        console.log(response.data.groupId);
-        dispatch(setGroupId(response.data.groupId));
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    http.post("group/invitation", {uuid: inputText})
+    .then(res => {
+      dispatch(setGroupId(res.data.groupId))
+    }).catch(err => {
+      console.log(err)
+    });
   };
 
   return (
@@ -43,15 +32,8 @@ const JoinScreen = ({navigation}) => {
       <Text style={{fontSize: 15, fontWeight: 'bold'}}>
         그룹 코드를 입력해주세요
       </Text>
-      {/* <TextInput
-        style={styles.textInput}
-        onChangeText={text => setInputText(text)}
-        placeholder="그룹 코드를 입력해주세요."
-      /> */}
       <TextInput
-        // label="그룹 코드"
         value={text}
-        // placeholder="그룹 코드를 입력해주세요."
         mode="outlined"
         outlineColor="transparent"
         selectionColor="#A3C9B8"
@@ -74,8 +56,6 @@ const JoinScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   textInput: {
-    // borderWidth: 1,
-    // borderColor: 'gray',
     marginBottom: 10,
     padding: 8,
   },

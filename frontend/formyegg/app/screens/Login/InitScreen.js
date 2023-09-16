@@ -1,29 +1,21 @@
 import React from 'react';
 import {Text, View, Image} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import axios from 'axios';
 import {setGroupId} from '../../../reducers/memberReducer';
 import {Button} from 'react-native-paper';
+import http from '../../utils/commonHttp';
 
 const InitScreen = ({navigation}) => {
   const dispatch = useDispatch();
   const {token} = useSelector(state => state.member);
 
   const createGroup = () => {
-    axios({
-      method: 'post',
-      url: 'http://10.0.2.2:8080/api/group',
-      headers: {
-        authorization: `Bearer ` + token,
-      },
+    http.post("group")
+    .then(res => {
+      dispatch(setGroupId(res.data.groupId))
+    }).catch(err =>{
+      console.log(err)
     })
-      .then(response => {
-        console.log(response.data);
-        dispatch(setGroupId(response.data.groupId));
-      })
-      .catch(error => {
-        console.log(error);
-      });
   };
 
   return (
