@@ -4,6 +4,7 @@ import com.shinhan.formyegg.api.memo.dto.MemoReqDto;
 import com.shinhan.formyegg.api.memo.dto.MemoResDto;
 import com.shinhan.formyegg.api.memo.dto.MemoTodayResDto;
 import com.shinhan.formyegg.domain.board.entity.Board;
+import com.shinhan.formyegg.domain.child.entity.Child;
 import com.shinhan.formyegg.domain.memo.dto.MemoDto;
 import com.shinhan.formyegg.domain.memo.entity.Memo;
 import com.shinhan.formyegg.domain.memo.repository.MemoRepository;
@@ -35,10 +36,9 @@ public class MemoController {
 
     @PostMapping
     public ResponseEntity<MemoResDto> createMemo(Authentication authentication, @RequestPart(value = "memoReqDto", required = false) MemoReqDto memoReqDto, @RequestPart(value = "image", required = false) MultipartFile image) throws IOException {
+        System.out.println("hi");
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         Long memberId = Long.parseLong(userDetails.getUsername());
-        System.out.println(memoReqDto);
-        System.out.println(image);
         MemoDto memoDto = memoService.createMemo(memberId, MemoDto.of(memoReqDto, image));
         return ResponseEntity.status(HttpStatus.OK).body(MemoResDto.from(memoDto));
     }

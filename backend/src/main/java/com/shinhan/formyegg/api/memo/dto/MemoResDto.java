@@ -12,11 +12,15 @@ import java.time.LocalDateTime;
 public class MemoResDto {
     private Long memoId;
     private LocalDate day;
+    private String holder;
+    private int amount;
 
     public static MemoResDto from(MemoDto memoDto){
         return MemoResDto.builder()
                 .memoId(memoDto.getMemoId())
                 .day(memoDto.getCreateDate())
+                .holder(memoDto.getHolder())
+                .amount(memoDto.getAmount())
                 .build();
     }
 }
